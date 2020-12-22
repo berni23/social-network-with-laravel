@@ -181,6 +181,11 @@ body {
 }
 
 .container-welcome {
-  height: 100vh !important;
+  height: 80vh !important;
+  width: 150vh !important;
+}
+
+.login-container {
+  background-color: #33b8da;
 }
 
