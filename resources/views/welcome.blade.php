@@ -8,7 +8,8 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ mix('css/home.css') }}">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{ mix('js/welcome.js') }}" defer></script>
 
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -16,8 +17,8 @@
 
 <body class="font-mono bg-white">
     <!-- Container -->
-    <div class=" h-800 container mx-auto my-auto">
-        <div class=" container-welcome h-500 flex justify-center px-6 my-12">
+    <div id="welcome-wrapper" class="tilt-in-top-1 h-800 container mx-auto my-auto">
+        <div class="container-welcome h-500 flex justify-center px-6 my-12">
             <!-- Row -->
             <div class="w-full xl:w-3/4 lg:w-11/12 flex">
                 <!-- Col -->
@@ -36,11 +37,11 @@
                                 </a>
                             @else
                                 <a href="{{ route('login') }}"
-                                    class="mx-auto border border-blue-400 bg-blue-400 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline">
+                                    class="mx-auto border text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red focus:outline-none focus:shadow-outline">
                                     Login</a>
                                 @if (Route::has('register'))
                                     <a href="{{ route('register') }}"
-                                        class="mx-auto border border-blue-400 bg-blue-400 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline">
+                                        class="mx-auto text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red focus:outline-none focus:shadow-outline">
                                         Register</a>
                                 @endif
                             @endauth

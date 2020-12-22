@@ -19,6 +19,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/home.scss', 'public/css')
     .webpackConfig(require('./webpack.config'));
 
-// mix.sass('resources/sass/style.scss', 'public/css');
-
 mix.js('resources/js/newPost.js', 'public/js')
+mix.js('resources/js/welcome.js', 'public/js')
