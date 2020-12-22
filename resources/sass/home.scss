@@ -53,17 +53,6 @@ body {
             }
         }
 
-        // .image1 {
-        //     width: 100%;
-        //     height: 800px;
-        //     @include bgCover("/images/Ngc346_HubbleSchmidt_960.jpg");
-        // }
-
-        // .image2 {
-        //     width: 100%;
-        //     height: 800px;
-        //     @include bgCover("/images/spacex_astronauts.jpg");
-        // }
 
         .footer {
             min-height: 50px;
@@ -124,4 +113,18 @@ body {
     width: 25px;
     height: 25px;
     border-radius: 50%;
+}
+
+
+
+#btn-new-post {
+
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 100px;
+    bottom: 100px;
+    border-radius: 50%;
+    background-color: $accent-color;
+
 }
