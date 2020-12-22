@@ -1,4 +1,55 @@
+@import 'variables';
+@import 'layout';
+
+// fonts
+
+//mixins
+
+
+@mixin theme($light-theme:true) {
+    @if $light-theme {
+        background-color: lighten($bg-color, 100%); // invert the color
+        color: darken($text-color, 100%);
+    }
+
+    @else {
+        background-color: darken($bg-color, 100%);
+        color: lighten($text-color, 100%);
+    }
+}
+
+@mixin bodyStyle {
+    font-weight: weight(regular);
+    // font-family: 'sans-serif';
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+@mixin mobile {
+    @media(max-width:$mobile-width) {
+        @content;
+    }
+}
+
+
+@mixin bgCover($bg-image) {
+    background-image: url($bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
 // functions
 @function weight($weight-name) {
     @return map-get($font-weights, $weight-name);
+}
+
+// styles
+a {
+    text-decoration: none;
+    outline: none;
 }

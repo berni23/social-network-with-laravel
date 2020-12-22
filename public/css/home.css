@@ -2,12 +2,185 @@
 
 /* font weights */
 
-body {
-  background-color: #fafafa !important;
-  color: #FFA500 !important;
+.container {
+  zoom: 1;
 }
+
+.container:before,
+.container:after {
+  content: "";
+  display: table;
+}
+
+.container:after {
+  clear: both;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+.container {
+  zoom: 1;
+}
+
+.container:before,
+.container:after {
+  content: "";
+  display: table;
+}
+
+.container:after {
+  clear: both;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+/* colors */
+
+/* font weights */
 
 .welcome-buttons-wrapper {
   display: flex;
+}
+
+body {
+  font-weight: 400;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fafafa;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.main .post {
+  margin: 40px 0;
+  background-color: white;
+  border: 2px solid #dbdbdb;
+  width: 700px;
+}
+
+.main .post a {
+  color: #00376B;
+}
+
+.main .post .header {
+  height: 50px;
+}
+
+.main .post .header .wrapper {
+  display: flex;
+  margin: 10px;
+  font-weight: 700;
+}
+
+.main .post .header .wrapper .post-profile1,
+.main .post .header .wrapper .post-profile2 {
+  margin-right: 5px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-image: url("/images/nasa-logo.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main .post .header .wrapper .post-profile2 {
+  background-image: url("/images/spacex-icon.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main .post .header .wrapper .name-profile {
+  margin-top: 5px;
+}
+
+.main .post .image1 {
+  width: 100%;
+  height: 800px;
+  background-image: url("/images/Ngc346_HubbleSchmidt_960.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main .post .image2 {
+  width: 100%;
+  height: 800px;
+  background-image: url("/images/spacex_astronauts.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main .post .footer {
+  min-height: 50px;
+  background-color: white;
+  margin: 15px 20px;
+}
+
+.main .post .footer .post-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.main .post .footer .post-options .main-options * {
+  margin-right: 10px;
+}
+
+.main .post .footer .liked-by {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.main .post .footer .liked-by .profile-pic {
+  margin-right: 10px;
+}
+
+.main .post .footer .liked-by .iconify {
+  width: 25px;
+  height: 25px;
+}
+
+.main .post .comment {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main .post .comment .like {
+  width: 15px;
+  height: 15px;
+  margin: auto 0;
+}
+
+.main .post .posted {
+  color: #8e8e8e;
+}
+
+.profile-pic {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
 }
 
