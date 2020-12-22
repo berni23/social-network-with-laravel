@@ -16,7 +16,6 @@ mix.js('resources/js/app.js', 'public/js')
         require('postcss-import'),
         require('tailwindcss'),
     ])
-    .sass('resources/sass/style.scss', 'public/css')
     .sass('resources/sass/home.scss', 'public/css')
     .webpackConfig(require('./webpack.config'));
 
