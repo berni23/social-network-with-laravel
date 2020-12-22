@@ -7,6 +7,7 @@
     <title>Laravel</title>
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/home.css') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -25,7 +26,7 @@
                     <img class="mx-auto my-20" src="/images/icon2.png">
 
                     @if (Route::has('login'))
-                        <div class="welcome-buttons-wrapper container mx-auto">
+                        <div class="welcome-buttons-wrapper container mx-auto lg:block ">
                             @auth
                                 <a href="{{ url('/dashboard') }}"
                                     class="mx-auto border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">

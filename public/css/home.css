@@ -83,6 +83,16 @@ body {
 
 .main .post .header {
   height: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.main .post .header .post-edit-options {
+  margin-top: 15px;
+  min-height: 20px;
+  min-width: 30px;
+  margin-right: 20px;
+  display: flex;
 }
 
 .main .post .header .wrapper {
@@ -91,33 +101,25 @@ body {
   font-weight: 700;
 }
 
-.main .post .header .wrapper .post-profile1,
-.main .post .header .wrapper .post-profile2 {
-  margin-right: 5px;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-image: url("/images/nasa-logo.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.main .post .header .wrapper .post-profile2 {
-  background-image: url("/images/spacex-icon.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 .main .post .header .wrapper .name-profile {
   margin-top: 5px;
+  margin-left: 10px;
 }
 
 .main .post .footer {
   min-height: 50px;
   background-color: white;
   margin: 15px 20px;
+}
+
+.main .post .footer .edit-post-form {
+  color: black;
+}
+
+.main .post .footer .edit-post-form textarea {
+  border: 1px solid #dbdbdb;
+  outline-style: none;
+  resize: none;
 }
 
 .main .post .footer .post-options {
@@ -168,15 +170,5 @@ body {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-}
-
-#btn-new-post {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  right: 100px;
-  bottom: 100px;
-  border-radius: 50%;
-  background-color: #FFA500;
 }
 

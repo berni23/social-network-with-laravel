@@ -12,7 +12,6 @@ body {
     background-color: $bg-color;
 }
 
-
 .main {
     @include flexCenter(column);
 
@@ -28,27 +27,40 @@ body {
 
         .header {
             height: 50px;
+            display: flex;
+            justify-content: space-between;
+
+            .post-edit-options {
+                margin-top: 15px;
+                min-height: 20px;
+                min-width: 30px;
+
+                margin-right: 20px;
+                display: flex;
+            }
+
 
             .wrapper {
                 display: flex;
                 margin: 10px;
                 font-weight: weight(bold);
 
-                .post-profile1 {
-                    margin-right: 5px;
-                    width: 35px;
-                    height: 35px;
-                    border-radius: 50%;
-                    @include bgCover("/images/nasa-logo.png");
-                }
+                // .post-profile1 {
+                //     margin-right: 5px;
+                //     width: 35px;
+                //     height: 35px;
+                //     border-radius: 50%;
+                //     @include bgCover("/images/nasa-logo.png");
+                // }
 
-                .post-profile2 {
-                    @extend .post-profile1;
-                    @include bgCover("/images/spacex-icon.jpg");
-                }
+                // .post-profile2 {
+                //     @extend .post-profile1;
+                //     @include bgCover("/images/spacex-icon.jpg");
+                // }
 
                 .name-profile {
                     margin-top: 5px;
+                    margin-left: 10px;
                 }
             }
         }
@@ -59,13 +71,27 @@ body {
             background-color: white;
             margin: 15px 20px;
 
+
+            .edit-post-form {
+
+                color: black;
+
+                textarea {
+
+                    border: 1px solid #dbdbdb;
+                    outline-style: none;
+                    resize: none;
+
+                }
+
+            }
+
             .post-options {
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 10px;
 
                 .main-options {
-
                     display: flex;
                 }
 
@@ -92,6 +118,9 @@ body {
             }
         }
 
+
+
+
         .comment {
             display: flex;
             justify-content: space-between;
@@ -113,18 +142,4 @@ body {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-}
-
-
-
-#btn-new-post {
-
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    right: 100px;
-    bottom: 100px;
-    border-radius: 50%;
-    background-color: $accent-color;
-
 }
