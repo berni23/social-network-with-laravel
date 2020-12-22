@@ -1,6 +1,4 @@
 <x-app-layout>
-
-
     <section class="main">
         <div class="post">
             <div class="header">
@@ -17,14 +15,19 @@
 
             </div>
             {{-- <div class="image1"></div> --}}
-            {{-- <img src="/images/new_image.png"> --}}
+            <img src="/images/new_image.png">
             <div class="footer">
 
                 <div class="post-description">
 
-                    <form class="edit-post-form">
+                    <form class="edit-post-form" method="POST" action="posts/create">
                         <textarea rows="4" cols="70" name="description"
                             placeholder="What are you thinking about?"></textarea>
+                        <button type="submit"
+                            class="h-8 px-5  text-blue-100 transition-colors duration-150 bg-blue-400 rounded-lg focus:shadow-outline hover:bg-blue-100">Post</button>
+
+                        <button
+                            class="h-8 px-5 text-gray-100 transition-colors duration-150 bg-gray-400 rounded-lg focus:shadow-outline hover:bg-gray-100">Cancel</button>
                     </form>
 
                 </div>
