@@ -147,10 +147,10 @@
             </div>
 
             @if ($_SERVER['REQUEST_URI'] != '/newPost')
-
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('newPost') }}" :active="request()->routeIs('newPost')">
-                        <img class="w-8" src="images/new_post_icon.png">
+                        <img class="w-8" src=@php if($_SERVER['REQUEST_URI']=='/user/profile' )echo"
+                            ../images/new_post_icon.png"; else echo "images/new_post_icon.png" ;@endphp>
                     </x-jet-nav-link>
                 </div>
 

@@ -3,9 +3,7 @@
 @import 'variables';
 
 
-.welcome-buttons-wrapper {
-    display: flex;
-}
+
 
 body {
     @include bodyStyle();
@@ -138,8 +136,31 @@ body {
     }
 }
 
+
+#uploadFile {
+
+    position: absolute;
+    top: -200px;
+
+
+}
+
 .profile-pic {
     width: 25px;
     height: 25px;
     border-radius: 50%;
+}
+
+
+.welcome-buttons-wrapper {
+
+    display: flex;
+    margin: 0 auto;
+    width: 250px;
+    align-items: space-between;
+}
+
+.container-welcome {
+
+    height: 100vh !important;
 }

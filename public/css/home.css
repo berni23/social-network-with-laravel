@@ -49,10 +49,6 @@ html {
 
 /* font weights */
 
-.welcome-buttons-wrapper {
-  display: flex;
-}
-
 body {
   font-weight: 400;
   overflow-y: auto;
@@ -166,9 +162,25 @@ body {
   color: #8e8e8e;
 }
 
+#uploadFile {
+  position: absolute;
+  top: -200px;
+}
+
 .profile-pic {
   width: 25px;
   height: 25px;
   border-radius: 50%;
+}
+
+.welcome-buttons-wrapper {
+  display: flex;
+  margin: 0 auto;
+  width: 250px;
+  align-items: space-between;
+}
+
+.container-welcome {
+  height: 100vh !important;
 }
 

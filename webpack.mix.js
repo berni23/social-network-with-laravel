@@ -20,3 +20,5 @@ mix.js('resources/js/app.js', 'public/js')
     .webpackConfig(require('./webpack.config'));
 
 // mix.sass('resources/sass/style.scss', 'public/css');
+
+mix.js('resources/js/newPost.js', 'public/js')

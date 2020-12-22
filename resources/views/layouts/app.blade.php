@@ -18,14 +18,23 @@
     @livewireStyles
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
+
+    @section('head')
+    @show()
+
 </head>
 
 <body class="font-sans antialiased">
+
+
     <div class="min-h-screen bg-gray-100">
         @livewire('navigation-dropdown')
         <!-- Page Content -->
         <main class="main">
-            {{ $slot }}
+            {{-- {{ $slot }} --}}
+
+            @section('main')
+            @show()
         </main>
     </div>
 
