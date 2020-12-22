@@ -114,24 +114,6 @@ body {
   margin-top: 5px;
 }
 
-.main .post .image1 {
-  width: 100%;
-  height: 800px;
-  background-image: url("/images/Ngc346_HubbleSchmidt_960.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.main .post .image2 {
-  width: 100%;
-  height: 800px;
-  background-image: url("/images/spacex_astronauts.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 .main .post .footer {
   min-height: 50px;
   background-color: white;
@@ -142,6 +124,10 @@ body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.main .post .footer .post-options .main-options {
+  display: flex;
 }
 
 .main .post .footer .post-options .main-options * {

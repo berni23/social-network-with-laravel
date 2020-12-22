@@ -23,7 +23,9 @@
                     </span>
                 </div>
             </div>
-            <div class="image1"></div>
+            {{-- <div class="image1"></div> --}}
+
+            <img src="/images/Ngc346_HubbleSchmidt_960.jpg">
             <div class="footer">
                 <div class="post-options">
                     <div class="main-options">
@@ -141,7 +143,10 @@
                     </span>
                 </div>
             </div>
-            <div class="image2"></div>
+            {{-- <div class="image2"></div> --}}
+
+            <img src="/images/spacex_astronauts.jpg">
+
             <div class="footer">
                 <div class="post-options">
                     <div class="main-options">
