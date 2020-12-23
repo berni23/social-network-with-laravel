@@ -21,8 +21,6 @@
                         {{ __('Profile') }}
                     </x-jet-nav-link>
                 </div>
-
-
             </div>
 
             @if ($_SERVER['REQUEST_URI'] != '/newPost')
@@ -154,11 +152,24 @@
                     </x-jet-nav-link>
                 </div>
 
+                <div class="dropdown" style="float:right;">
+                    <button onclick="toggleNotifications()" class="notification dropbtn">
+                        <span> <i class="fa fa-bell"></i></span>
+                        <span class="badge">3</span>
+                    </button>
+                    <div id="notifications-list" class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
+                </div>
 
-                <button class="notification">
-                    <span> <i class="fa fa-bell"></i></span>
-                    <span class="badge">3</span>
-                </button>
+                <script>
+                    function toggleNotifications() {
+                        document.getElementById('notifications-list').classList.toggle('block');
+                    }
+
+                </script>
 
             @endif
 
