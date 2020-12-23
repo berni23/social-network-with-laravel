@@ -104,7 +104,7 @@ $('#welcome-wrapper').fadeIn(1000);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/luis/Desktop/master fullstack/laravel/social-network-with-laravel/resources/js/welcome.js */"./resources/js/welcome.js");
+module.exports = __webpack_require__(/*! /home/berni/Assembler/projects/social-network-with-laravel/resources/js/welcome.js */"./resources/js/welcome.js");
 
 
 /***/ })

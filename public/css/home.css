@@ -262,6 +262,11 @@ body {
   display: block;
 }
 
+#postedImage {
+  width: 100px;
+  height: auto;
+}
+
 /** ANIMATIONS **/
 
 .tilt-in-top-1 {

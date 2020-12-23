@@ -112,16 +112,27 @@ postImgBtn.onchange = function (event) {
     body: formData
   }).then(function (data) {
     return data.json();
-  }).then(function (data) {
-    console.log(data);
-    postImg.src = "https://imgur.com/".concat(data.data.id);
+  }).then(function () {
+    return document.getElementById('image_path').src = data.data.link;
   });
 };
 
 imgBtn.addEventListener('click', function () {
-  console.log('hol');
   postImgBtn.click();
 });
+var imgSlider = document.getElementById("visible-img-id"); // input = e.currentTarget
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      imgSlider.src = e.target.result;
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
 
 /***/ }),
 
