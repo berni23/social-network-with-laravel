@@ -148,7 +148,11 @@ body {
 
 .container-welcome {
     height: 80vh !important;
+
     width: 150vh !important;
+    position: relative;
+    right: 200px;
+
 }
 
 .login-container {
@@ -226,9 +230,6 @@ body {
     display: block;
 }
 
-// .dropdown:hover .dropbtn {
-//     background-color: #3e8e41;
-// }
 
 
 #postedImage {

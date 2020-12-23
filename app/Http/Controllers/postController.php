@@ -23,10 +23,6 @@ class postController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     public function new()
     {
@@ -44,6 +40,7 @@ class postController extends Controller
 
         $post = new Post;
         $post->description = $request->description;
+        $post->user_id = auth()->user()->id;
         if ($request->image) $post->image = $request->image;
 
         $post->save();

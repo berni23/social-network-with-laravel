@@ -29,10 +29,11 @@
                     @if (Route::has('login'))
                         <div class="welcome-buttons-wrapper container mx-auto">
                             @auth
-                                <a id="welcome-dashboard" href="{{ url('/dashboard') }}"
+                                <a id="welcome-dashboard" href="{{ url('/home') }}"
                                     class="mx-auto border border-blue-400 bg-blue-400 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline">
-                                    Dashboard
+                                    Home
                                 </a>
+
                             @else
                                 <a href="{{ route('login') }}"
                                     class="mx-auto border text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red focus:outline-none focus:shadow-outline">
