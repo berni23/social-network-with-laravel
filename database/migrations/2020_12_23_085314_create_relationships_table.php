@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 class CreateRelationshipsTable extends Migration
 {
     /**
@@ -34,10 +35,10 @@ class CreateRelationshipsTable extends Migration
         Schema::create('relationships', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->int('user_one_id')->foreignId()->references('id')->on('users');
-            $table->int('user_two_id')->foreignId()->references('id')->on('users');
-            $table->tinyint('status');
-            $table->int('action_user_id');
+            $table->foreignId('user_one_id')->references('id')->on('users');
+            $table->foreignId('user_two_id')->references('id')->on('users');
+            $table->unsignedTinyInteger('status');
+            $table->integer('action_user_id');
         });
     }
     /**
