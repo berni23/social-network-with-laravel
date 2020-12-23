@@ -96,6 +96,9 @@
 var imgBtn = document.getElementById("add-image-post");
 var postImgBtn = document.getElementById("uploadFile");
 var postImg = document.getElementById('postedImage');
+imgBtn.addEventListener('click', function () {
+  return postImgBtn.click();
+});
 
 postImgBtn.onchange = function (event) {
   var item = event.target.files[0];
@@ -116,23 +119,6 @@ postImgBtn.onchange = function (event) {
     return document.getElementById('image_path').src = data.data.link;
   });
 };
-
-imgBtn.addEventListener('click', function () {
-  postImgBtn.click();
-});
-var imgSlider = document.getElementById("visible-img-id"); // input = e.currentTarget
-
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      imgSlider.src = e.target.result;
-    };
-
-    reader.readAsDataURL(input.files[0]);
-  }
-}
 
 /***/ }),
 

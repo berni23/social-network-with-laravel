@@ -26,7 +26,6 @@ class CreateRelationshipsTable extends Migration
 
         /*
 
-
          Action user id -> id of the user who has performed the most recent status field update
          eg : user 1 sending request to user 2 -> action user id will be 1
 

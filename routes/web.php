@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\postController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,16 +21,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/profile', function () {
-    return view('profile');
-})->name('profile');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
+    return view('home');
+})->name('home');
 
-
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/newPost', function () {
-    return view('newPost');
-})->name('newPost');
+Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postController::class, 'show'])->name('newPost');
+Route::middleware(['auth:sanctum', 'verified'])->get('/profile', [userController::class, 'show'])->name('profile');
+Route::middleware(['auth:sanctum', 'verified'])->post('/posts/post', [postController::class, 'store']);
