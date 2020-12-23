@@ -35,14 +35,13 @@
         </div>
     </div>
     <script defer>
-        let imgSlider = document.getElementById("visible-img-id");
         // input = e.currentTarget
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    imgSlider.src = e.target.result;
-                };
+                    document.getElementById("visible-img-id").src = e.target.result;
+                }
                 reader.readAsDataURL(input.files[0]);
             }
         }
