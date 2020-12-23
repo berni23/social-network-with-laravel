@@ -15,7 +15,6 @@
                 <img id="add-image-post" class="h-5" src="images/new_image.png">
             </div>
         </div>
-        {{-- <div class="image1"></div> --}}
 
         <label class="btn btn-sm btn-danger" id="formUpload" type="submit">
             <input type="file" name="userfile" id="uploadFile" />
