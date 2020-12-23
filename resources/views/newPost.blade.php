@@ -18,7 +18,7 @@
         {{-- <div class="image1"></div> --}}
 
         <label class="btn btn-sm btn-danger" id="formUpload" type="submit">
-            <input type="file" name="userfile" id="uploadFile" />
+            <input type="file" name="image_path" id="uploadFile" />
 
         </label>
         <img id="postedImage" src="/images/new_image.png">
@@ -31,7 +31,6 @@
                     <button
                         class="h-8 px-5 text-gray-100 transition-colors duration-150 bg-gray-400 rounded-lg focus:shadow-outline hover:bg-gray-100">Cancel</button>
                 </form>
-
             </div>
         </div>
     </div>

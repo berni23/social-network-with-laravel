@@ -154,7 +154,14 @@
                     </x-jet-nav-link>
                 </div>
 
+
+                <button class="notification">
+                    <span> <i class="fa fa-bell"></i></span>
+                    <span class="badge">3</span>
+                </button>
+
             @endif
+
         </div>
     </div>
 

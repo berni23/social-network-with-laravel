@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/profile', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/profile', function () {
     return view('profile');
 })->name('profile');
 
