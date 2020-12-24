@@ -1,6 +1,5 @@
 @extends ('layouts/app')
 @section('head')
-    <script src="{{ mix('js/newPost.js') }}" defer></script>
 @endsection
 @section('main')
     <div class="post">
@@ -22,7 +21,6 @@
         <div class="footer">
             <div class="post-description">
                 <form class="edit-post-form" method="POST" action="/posts/create">
-
                     @csrf
                     <input type="text" class="hidden" id="image_path" name="image">
                     <textarea rows="4" cols="70" name="description" placeholder="What are you thinking about?"></textarea>
@@ -36,11 +34,15 @@
     </div>
     <script defer>
         // input = e.currentTarget
+        document.getElementById("add-image-post").addEventListener('click', () => document.getElementById("uploadFile")
+            .click());
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById("visible-img-id").src = e.target.result;
+                    document.getElementById("image-path").src = e.target.result;
                 }
                 reader.readAsDataURL(input.files[0]);
             }
