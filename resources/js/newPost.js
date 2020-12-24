@@ -4,8 +4,6 @@ document.getElementById("add-image-post").addEventListener('click', () => postIm
 
 
 
-
-
 // postImgBtn.onchange = function (event) {
 //     var item = event.target.files[0];
 //     console.log(event.target.files);

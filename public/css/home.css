@@ -264,9 +264,8 @@ body {
   display: block;
 }
 
-#postedImage {
-  width: 100px;
-  height: auto;
+.error {
+  color: red;
 }
 
 /** ANIMATIONS **/
