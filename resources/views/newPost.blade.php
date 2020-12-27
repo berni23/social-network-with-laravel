@@ -1,6 +1,4 @@
 @extends ('layouts/app')
-@section('head')
-@endsection
 @section('main')
     <div class="post">
         <div class="header">
@@ -57,14 +55,13 @@
                 var size = input.files[0].size;
                 console.log('image size:', size);
                 if (size > 500000) {
-                    imgError.innerHTML = 'Image size is ' + size / 1000 + ' KB, the maximum size is 500KB';
+                    imgError.innerHTML = 'Image size is ' + size / 1000 + ' KB, the maximum size is 500KB <br>';
 
                 } else {
-
                     var reader = new FileReader();
                     reader.onload = function(e) {
                         document.getElementById("visible-img-id").src = e.target.result;
-                        document.getElementById("image-path").src = e.target.result;
+                        document.getElementById("image-path").value = e.target.result;
                     }
                     reader.readAsDataURL(input.files[0]);
                 }

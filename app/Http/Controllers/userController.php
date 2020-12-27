@@ -9,7 +9,6 @@ class userController extends Controller
 
     public function show()
     {
-
         return view('profile');
     }
 }

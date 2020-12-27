@@ -38,13 +38,20 @@ class postController extends Controller
     public function store(Request $request)
     {
 
+        echo json_encode($request);
         $post = new Post;
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
-        if ($request->image) $post->image = $request->image;
+
+
+        $post->image = $request->image;
+
+        echo $request->image;
+
 
         $post->save();
-        echo 'post saved';
+
+        echo "post saved";
     }
 
     /**
