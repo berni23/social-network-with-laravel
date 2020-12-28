@@ -26,12 +26,9 @@
             <p id="img-error-js" class="error">
             </p>
             <div class="post-description">
-                <form class="edit-post-form" method="POST" action="/posts/create">
-
-                    <label class="btn btn-sm btn-danger hidden" id="formUpload">
-                        <input type="file" id="uploadFile" name="image" onchange="readURL(this)" />
-                    </label>
+                <form class="edit-post-form" method="POST" action="/posts/create" enctype="multipart/form-data">
                     @csrf
+                    <input type="file" id="uploadFile" name="image" onchange="readURL(this)" />
                     <textarea rows="4" cols="70" name="description" placeholder="What are you thinking about?"></textarea>
                     @if ($errors->has('description'))
                         <div class="error">

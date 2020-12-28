@@ -1,10 +1,23 @@
 @extends ('layouts.app')
 @section('main')
 
+    <div class="info-window hidden"></div>
 
-    {{ $posts }}
-    {{--
-    @foreach ($posts as $post)
+
+    @if (Session::has('message'))
+        <span class="hidden" id='messageHidden'
+            data-status={{ Session::get('status') }}>{{ Session::get('message') }}</span>
+    @endif
+
+
+
+
+
+
+
+
+    {{-- @foreach ($posts as $post)
+
 
         <div class="post">
             <div class="header">
@@ -47,7 +60,8 @@
                 <div class="liked-by">
                     <img class="profile-pic" src="assets/images/bernat.jpg">
                     <!-- <span class="iconify" data-icon="gg:profile" data-inline="false"></span> -->
-                    <span> Liked by <b>brny23</b> and <b>100,000 others</b></span></span>
+                    <span> Liked by <b>brny23</b> and <b>100,000 others</b></span>
+                    </span>
                 </div>
 
                 <div class="post-description">
@@ -123,14 +137,6 @@
 
 
 
-
-
-
-
-
-
-
-
     <div class="post">
         <div class="header">
             <div class="wrapper">
@@ -140,8 +146,6 @@
                 </span>
             </div>
         </div>
-        {{-- <div class="image1"></div> --}}
-
 
         <img src="/images/Ngc346_HubbleSchmidt_960.jpg">
         <div class="footer">

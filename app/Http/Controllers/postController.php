@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\UploadedFile;
+
+use Doctrine\DBAL\Query\QueryException;
 
 class postController extends Controller
 {
@@ -53,20 +56,24 @@ class postController extends Controller
         $post = new Post;
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
-        if ($request->hasFile('image'))
-            $post->image  = Storage::putFile('posts', $request->file('image'));
+        if ($request->hasFile('image')) {
 
+            $post->image = $request->file('image')->store('postImages');
+        }
 
-        echo json_encode($request->image);
-        //return redirect('/home');
+        try {
+            $post->save();
+        } catch (QueryException $ex) {
+            return redirect()->back()->with('message', 'Failed to update data!');
+        }
+        return redirect()->route('home')
+            ->with('message', 'post successfully created')
+            ->with('status', 200);
     }
     private function validatePost(Request $request)
     {
-
         return Validator::make($request->all(), [
-            'image' => 'max:507',
-
-            //mimes:jpeg,png|
+            'image' => 'mimes:jpeg,png,jpg|max:507|nullable',
         ]);
     }
 

@@ -39,7 +39,7 @@ class userController extends Controller
         }
         $postsToSee = arrayTools::merge($userPosts, $friendsPosts);
 
-        echo json_encode($postsToSee);
-        //return usort($postsToSee, array('arrayTools', 'newFirst'));
+        // echo json_encode($postsToSee);
+        return usort($postsToSee, array('arrayTools', 'newFirst'));
     }
 }

@@ -21,9 +21,47 @@ html {
   width: 100%;
 }
 
+/*** MIXINS ***/
+
+/*** FUNCTIONS ***/
+
+/*** UTILS ***/
+
 a {
   text-decoration: none;
   outline: none;
+}
+
+.info-window {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  padding: 15px;
+  font-size: 20px;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  box-shadow: 0 0 5px black;
+  transform: scale(1.1);
+  z-index: 100000;
+  opacity: 0;
+  transition: visibility 0s linear 0.25s, opacity 0.25s linear 0s, transform 0.25s;
+}
+
+.show-info {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline !important;
+  transform: scale(1);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+  z-index: 1000;
+}
+
+.success {
+  background-color: #90EE90 !important;
+}
+
+.error {
+  background-color: #ffcccb !important;
 }
 
 .container {
