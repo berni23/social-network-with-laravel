@@ -22,10 +22,7 @@ Route::get('/', function () {
 });
 
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
-    return view('home');
-})->name('home');
-
+Route::middleware(['auth:sanctum', 'verified'])->get('/home', [userController::class, 'home'])->name('home');
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postController::class, 'new'])->name('newPost');
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile', [userController::class, 'show'])->name('profile');
 Route::middleware(['auth:sanctum', 'verified'])->post('/posts/create', [postController::class, 'store']);

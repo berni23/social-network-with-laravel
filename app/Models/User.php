@@ -10,6 +10,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Post;
+use arrayTools;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -58,4 +61,37 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public function relationships()
+    {
+        $rel1 = $this->hasMany(relationship::class, 'user_one_id')->get();
+        $rel2 = $this->hasMany(relationship::class, 'user_two_id')->get();
+        return  arrayTools::merge($rel1, $rel2);
+    }
+    public function RelationshipsByStatus(int $status)
+    {
+        $rels = $this->relationships();
+        $relsByStatus = [];
+        foreach ($rels as $rel) {
+            if ($rel['status'] == $status) array_push($relsByStatus, $rel);
+        }
+        return $relsByStatus;
+    }
+
+    public function friendsId()
+    {
+        $userId = $this->getKey();
+        $accepted = $this->RelationshipsByStatus(1);
+        $idList = [];
+        foreach ($accepted as $rel) {
+            if ($rel['user_one_id'] == $userId) array_push($idList, $rel['user_one_id']);
+            else  array_push($idList, $rel['user_two_id']);
+        }
+        return $idList;
+    }
 }

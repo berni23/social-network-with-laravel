@@ -37,30 +37,28 @@ class postController extends Controller
      */
     public function store(Request $request)
     {
-
-        echo json_encode($request);
         $post = new Post;
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
-
-
-        $post->image = $request->image;
-
-        echo $request->image;
-
-
+        if ($request->image) $post->image = $request->image;
         $post->save();
 
-        echo "post saved";
+        //TODO: validation
+        redirect('/home');
+
+        // ->withErrors($validation)
+        // ->withInput();
     }
 
+
+
+
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
+     * Display the  resources.
+
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
     }
 
