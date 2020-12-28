@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+
 class postController extends Controller
 {
     /**
@@ -37,19 +42,33 @@ class postController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validation = $this->validatePost($request);
+        if ($validation->fails()) {
+            return redirect('/posts/new')
+                ->withErrors($validation)
+                ->withInput();
+        }
+
         $post = new Post;
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
-        if ($request->image) $post->image = $request->image;
-        $post->save();
+        if ($request->hasFile('image'))
+            $post->image  = Storage::putFile('posts', $request->file('image'));
 
-        //TODO: validation
-        redirect('/home');
 
-        // ->withErrors($validation)
-        // ->withInput();
+        echo json_encode($request->image);
+        //return redirect('/home');
     }
+    private function validatePost(Request $request)
+    {
 
+        return Validator::make($request->all(), [
+            'image' => 'max:507',
+
+            //mimes:jpeg,png|
+        ]);
+    }
 
 
 

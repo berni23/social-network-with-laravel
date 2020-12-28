@@ -19,7 +19,7 @@ class userController extends Controller
     public function home()
     {
         $posts = $this->postsToSee();
-        //return view('home', compact('posts'));
+        return view('home', compact('posts'));
     }
 
     private function postsById(int $id)

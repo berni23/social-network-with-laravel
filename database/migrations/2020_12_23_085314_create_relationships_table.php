@@ -36,6 +36,7 @@ class CreateRelationshipsTable extends Migration
             $table->timestamps();
             $table->foreignId('user_one_id')->references('id')->on('users');
             $table->foreignId('user_two_id')->references('id')->on('users');
+            $table->unique(['user_one_id', 'user_two_id']);
             $table->unsignedTinyInteger('status');
             $table->integer('action_user_id');
         });

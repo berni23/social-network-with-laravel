@@ -14,7 +14,7 @@ class ChangeImageSize extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->longtext('image', 670000)->nullable()->change();
+            $table->string('image', 200)->nullable()->change();
         });
     }
 

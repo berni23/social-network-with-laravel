@@ -12,9 +12,9 @@
                 <img id="add-image-post" class="h-5" src="/images/new_image.png">
             </div>
         </div>
-        <label class="btn btn-sm btn-danger" id="formUpload">
+        {{-- <label class="btn btn-sm btn-danger" id="formUpload">
             <input type="file" id="uploadFile" onchange="readURL(this)" />
-        </label>
+        </label> --}}
         <img id="visible-img-id">
         @if ($errors->has('image'))
             <div class="error">
@@ -27,8 +27,11 @@
             </p>
             <div class="post-description">
                 <form class="edit-post-form" method="POST" action="/posts/create">
+
+                    <label class="btn btn-sm btn-danger hidden" id="formUpload">
+                        <input type="file" id="uploadFile" name="image" onchange="readURL(this)" />
+                    </label>
                     @csrf
-                    <input type="text" class="hidden" id="image-path" name="image">
                     <textarea rows="4" cols="70" name="description" placeholder="What are you thinking about?"></textarea>
                     @if ($errors->has('description'))
                         <div class="error">
@@ -61,7 +64,7 @@
                     var reader = new FileReader();
                     reader.onload = function(e) {
                         document.getElementById("visible-img-id").src = e.target.result;
-                        document.getElementById("image-path").value = e.target.result;
+                        //document.getElementById("image-path").value = e.target.result;
                     }
                     reader.readAsDataURL(input.files[0]);
                 }
