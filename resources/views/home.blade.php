@@ -1,17 +1,6 @@
 @extends ('layouts.app')
 @section('main')
 
-    <div class="info-window hidden"></div>
-
-
-    @if (Session::has('message'))
-        <span class="hidden" id='messageHidden'
-            data-status={{ Session::get('status') }}>{{ Session::get('message') }}</span>
-    @endif
-
-
-
-
 
 
 

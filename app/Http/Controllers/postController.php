@@ -64,7 +64,10 @@ class postController extends Controller
         try {
             $post->save();
         } catch (QueryException $ex) {
-            return redirect()->back()->with('message', 'Failed to update data!');
+            return redirect()->back()
+
+                ->with('message', 'failed to update data')
+                ->with('status', 200);
         }
         return redirect()->route('home')
             ->with('message', 'post successfully created')

@@ -26,13 +26,18 @@
 
 <body class="font-sans antialiased">
 
+    <div class="info-window hidden"></div>
+
+    @if (Session::has('message'))
+        <span class="hidden" id='messageHidden'
+            data-status={{ Session::get('status') }}>{{ Session::get('message') }}</span>
+    @endif
 
     <div class="min-h-screen bg-gray-100">
         @livewire('navigation-dropdown')
         <!-- Page Content -->
-        <main class="main">
-            {{-- {{ $slot }} --}}
 
+        <main class="main">
             @section('main')
             @show()
         </main>
