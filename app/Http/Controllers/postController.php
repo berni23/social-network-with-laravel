@@ -47,8 +47,6 @@ class postController extends Controller
 
     static function timeElapsed($timestamp)
     {
-
-
         $d1 = new DateTime($timestamp);
         $d2 = new DateTime();
 
