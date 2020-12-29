@@ -140,10 +140,18 @@ body {
   margin-left: 10px;
 }
 
+.main .post .image-post {
+  margin: 0 auto;
+}
+
 .main .post .footer {
   min-height: 50px;
   background-color: white;
   margin: 15px 20px;
+}
+
+.main .post .footer .post-description {
+  margin: 20px 0;
 }
 
 .main .post .footer .edit-post-form {
@@ -208,6 +216,7 @@ body {
 .profile-pic {
   width: 25px;
   height: 25px;
+  margin-top: 3px;
   border-radius: 50%;
 }
 

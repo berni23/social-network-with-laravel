@@ -4,18 +4,25 @@
         <div class="post">
             <div class="header">
                 <div class="wrapper">
+                    @if (isset(App\Models\User::find($post->user_id)->profile_photo_path))
+                        <img class="profile-pic"
+                            src="{{ asset('/storage/' . App\Models\User::find($post->user_id)->profile_photo_path) }}">
+                    @endif
                     <span class="name-profile">
                         {{ App\Models\User::find($post->user_id)->name }}
                     </span>
                 </div>
             </div>
             @if (isset($post->image))
-                {{-- <img src="{{ asset('/storage/' . $post->image) }}">
-                --}}
-
-                <img src=" {{ asset('/storage/' . str_replace('/public', '', $post->image)) }}">
+                <img class="image-post" src=" {{ asset('/storage/' . $post->image) }}">
             @endif
+
             <div class="footer">
+                <div class="post-description">
+                    <p>
+                        {{ $post->description }}
+                    </p>
+                </div>
                 <div class="post-options">
                     <div class="main-options">
 
@@ -44,22 +51,15 @@
                     </div>
                 </div>
                 <div class="liked-by">
-                    <img class="profile-pic" src="/images/bernat.jpg">
-                    <!-- <span class="iconify" data-icon="gg:profile" data-inline="false"></span> -->
                     <span><b>{{ $post->likes }} likes</b></span>
                     </span>
                 </div>
-                <div class="post-description">
-                    <p>
-                        {{ $post->description }}
-                    </p>
-                </div>
+
                 <div class="comments">
                     @foreach (App\Models\Post::find($post->id)->comments as $comment)
                         <div class="comment">
                             <p class="comment-content">
                                 <b>{{ App\Models\Comment::find($comment->id)->user->name }}</b>
-
                                 <span>{{ $comment->content }}</span>
                             </p>
                             <svg class="like" aria-label="Like" fill="#262626" height="24" viewBox="0 0 48 48" width="24">
@@ -72,7 +72,8 @@
 
                 </div>
                 <span class="posted">
-                    4 DAYS AGO
+
+                    {{ App\Http\Controllers\postController::timeElapsed($post->created_at) }}
                 </span>
             </div>
         </div>
@@ -86,7 +87,7 @@
                 </span>
             </div>
         </div>
-        <img src="/images/Ngc346_HubbleSchmidt_960.jpg">
+        <img class="image-post" src="/images/Ngc346_HubbleSchmidt_960.jpg">
         <div class="footer">
             <div class="post-options">
                 <div class="main-options">

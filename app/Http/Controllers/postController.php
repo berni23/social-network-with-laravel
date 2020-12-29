@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
-
+use DateTime;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -43,9 +43,25 @@ class postController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+
+    static function timeElapsed($timestamp)
     {
 
+
+        $d1 = new DateTime($timestamp);
+        $d2 = new DateTime();
+
+        $interval = $d1->diff($d2);
+        $totalDiff = abs(time() - strtotime($timestamp)); // diff in seconds
+
+        if ($totalDiff < 60) return "seconds ago";
+        if ($totalDiff >= 60 && $totalDiff < 3600) return $interval->i . " minutes ago";
+        if ($totalDiff >= 3600 && $totalDiff < 86400) return $interval->h . " hours ago";
+        if ($totalDiff >= 86400) return $interval->d . " days ago";
+    }
+    public function store(Request $request)
+    {
         $validation = $this->validatePost($request);
         if ($validation->fails()) {
             return redirect('/posts/new')
@@ -59,7 +75,6 @@ class postController extends Controller
         if ($request->hasFile('image')) {
 
             $path  =  $request->file('image')->store('public/post-photos');
-
             $post->image  = str_replace('public/', '', $path);
         }
 
@@ -67,7 +82,6 @@ class postController extends Controller
             $post->save();
         } catch (QueryException $ex) {
             return redirect()->back()
-
                 ->with('message', 'failed to update data')
                 ->with('status', 200);
         }
@@ -82,8 +96,6 @@ class postController extends Controller
             'description' => 'required'
         ]);
     }
-
-
 
     /**
      * Display the  resources.

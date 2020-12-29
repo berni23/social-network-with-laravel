@@ -44,13 +44,27 @@ body {
                     margin-top: 5px;
                     margin-left: 10px;
                 }
+
+
             }
+        }
+
+        .image-post {
+
+            margin: 0 auto;
         }
 
         .footer {
             min-height: 50px;
             background-color: white;
             margin: 15px 20px;
+
+
+            .post-description {
+
+
+                margin: 20px 0;
+            }
 
             .edit-post-form {
                 color: black;
@@ -126,6 +140,7 @@ body {
 .profile-pic {
     width: 25px;
     height: 25px;
+    margin-top: 3px;
     border-radius: 50%;
 }
 
