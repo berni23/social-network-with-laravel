@@ -1,23 +1,20 @@
 @extends ('layouts.app')
 @section('main')
-
-
-
-
-
-    {{-- @foreach ($posts as $post)
-
-
+    @foreach ($posts as $post)
         <div class="post">
             <div class="header">
                 <div class="wrapper">
-                    <div class="post-profile1"></div>
                     <span class="name-profile">
-
+                        {{ App\Models\User::find($post->user_id)->name }}
                     </span>
                 </div>
             </div>
-            <img src="/images/Ngc346_HubbleSchmidt_960.jpg">
+            @if (isset($post->image))
+                {{-- <img src="{{ asset('/storage/' . $post->image) }}">
+                --}}
+
+                <img src=" {{ asset('/storage/' . str_replace('/public', '', $post->image)) }}">
+            @endif
             <div class="footer">
                 <div class="post-options">
                     <div class="main-options">
@@ -39,7 +36,7 @@
                         </svg>
                     </div>
                     <div class="save">
-                        <svg aria-label="Save" class="_8-yf5 " fill="#262626" height="24" viewBox="0 0 48 48" width="24">
+                        <svg aria-label="Save" fill="#262626" height="24" viewBox="0 0 48 48" width="24">
                             <path
                                 d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 29 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1zM24 26c.8 0 1.6.3 2.2.9l15.8 16V3H6v39.9l15.8-16c.6-.6 1.4-.9 2.2-.9z">
                             </path>
@@ -47,85 +44,39 @@
                     </div>
                 </div>
                 <div class="liked-by">
-                    <img class="profile-pic" src="assets/images/bernat.jpg">
+                    <img class="profile-pic" src="/images/bernat.jpg">
                     <!-- <span class="iconify" data-icon="gg:profile" data-inline="false"></span> -->
-                    <span> Liked by <b>brny23</b> and <b>100,000 others</b></span>
+                    <span><b>{{ $post->likes }} likes</b></span>
                     </span>
                 </div>
-
                 <div class="post-description">
-                    <p> <b>Astronomy picture</b>
-                        NGC 346: Star Forming Cluster in the SMC
-                        <br>
-                        Image Credit & License: NASA, ESA, Hubble; Processing: Judy Schmidt
-                        <br>
-                        <br>
-                        <a class="notranslate" href="https://www.nasa.gov/" tabindex=" 0">@nasa</a>
-                        <a class="notranslate" href="https://www.esa.int/" tabindex="0">@europeanspaceagency</a>
-                        <a class="notranslate" href="https://www.nasa.gov/mission_pages/hubble/main/index.html"
-                            tabindex="0">@nasahubble</a>
-                        <br>
-                        <br>
-                        Are stars still forming in the Milky Way's satellite galaxies? Found
-                        among the Small Magellanic Cloud's (SMC's) clusters and nebulas, NGC 346 is a star forming
-                        region about 200 light-years across, pictured here in the center of a Hubble Space Telescope
-                        image. A satellite galaxy of the Milky Way, the Small Magellanic Cloud (SMC) is a wonder of the
-                        southern sky, a mere 210,000 light-years distant in the constellation of the Toucan (Tucana).
-                        Exploring NGC 346, astronomers have identified a population of embryonic stars strung along the
-                        dark, intersecting dust lanes visible here on the right. Still collapsing within their natal
-                        clouds, the stellar infants' light is reddened by the intervening dust. Toward the top of the
-                        frame is another star cluster with intrinsically older and redder stars. A small, irregular
-                        galaxy, the SMC itself represents a type of galaxy more common in the early Universe. These
-                        small galaxies, though, are thought to be building blocks for the larger galaxies present today.
-                        <br>
-                        <br>
-                        <a href="#">#apod</a>
-                        <a href="#">#nasa</a>
-                        <a href="#">#space</a>
-                        <a href="#">#esa </a>
-                        <a href="#">#science</a>
-                        <a href="#">#hubbletelescope</a>
-                        <a href="#">#astronomy</a>
-                        <a href="#">#galaxy </a>
-                        <a href="#">#hubble</a>
+                    <p>
+                        {{ $post->description }}
                     </p>
                 </div>
                 <div class="comments">
-                    <div class="comment">
-                        <p class="comment-content">
-                            <b>brny23</b> Awesome!!
-                        </p>
-                        <svg class="like" aria-label="Like" class="_8-yf5 " fill="#262626" height="24" viewBox="0 0 48 48"
-                            width="24">
-                            <path
-                                d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z">
-                            </path>
-                        </svg>
-                    </div>
-                    <div class="comment">
-                        <p class="comment-content">
-                            <b>Alex</b> 210,000 light years ? Mind blowing!
-                            <span class="iconify" data-icon="twemoji:exploding-head" data-inline="false"></span>
-                            <span class="iconify" data-icon="twemoji:exploding-head" data-inline="false"></span>
-                        </p>
-                        <svg class="like" aria-label="Like" class="_8-yf5 " fill="#262626" height="24" viewBox="0 0 48 48"
-                            width="24">
-                            <path
-                                d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z">
-                            </path>
-                        </svg>
-                    </div>
+                    @foreach (App\Models\Post::find($post->id)->comments as $comment)
+                        <div class="comment">
+                            <p class="comment-content">
+                                <b>{{ App\Models\Comment::find($comment->id)->user->name }}</b>
+
+                                <span>{{ $comment->content }}</span>
+                            </p>
+                            <svg class="like" aria-label="Like" fill="#262626" height="24" viewBox="0 0 48 48" width="24">
+                                <path
+                                    d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z">
+                                </path>
+                            </svg>
+                        </div>
+                    @endforeach
+
                 </div>
                 <span class="posted">
                     4 DAYS AGO
                 </span>
             </div>
         </div>
-
-    @endforeach --}}
-
-
-
+    @endforeach
     <div class="post">
         <div class="header">
             <div class="wrapper">
@@ -135,7 +86,6 @@
                 </span>
             </div>
         </div>
-
         <img src="/images/Ngc346_HubbleSchmidt_960.jpg">
         <div class="footer">
             <div class="post-options">
@@ -170,7 +120,6 @@
                 <!-- <span class="iconify" data-icon="gg:profile" data-inline="false"></span> -->
                 <span> Liked by <b>brny23</b> and <b>100,000 others</b></span></span>
             </div>
-
             <div class="post-description">
                 <p> <b>Astronomy picture</b>
                     NGC 346: Star Forming Cluster in the SMC
@@ -184,18 +133,16 @@
                         tabindex="0">@nasahubble</a>
                     <br>
                     <br>
-                    Are stars still forming in the Milky Way's satellite galaxies? Found
-                    among the Small Magellanic Cloud's (SMC's) clusters and nebulas, NGC 346 is a star forming
-                    region about 200 light-years across, pictured here in the center of a Hubble Space Telescope
-                    image. A satellite galaxy of the Milky Way, the Small Magellanic Cloud (SMC) is a wonder of the
-                    southern sky, a mere 210,000 light-years distant in the constellation of the Toucan (Tucana).
-                    Exploring NGC 346, astronomers have identified a population of embryonic stars strung along the
-                    dark, intersecting dust lanes visible here on the right. Still collapsing within their natal
-                    clouds, the stellar infants' light is reddened by the intervening dust. Toward the top of the
-                    frame is another star cluster with intrinsically older and redder stars. A small, irregular
-                    galaxy, the SMC itself represents a type of galaxy more common in the early Universe. These
-                    small galaxies, though, are thought to be building blocks for the larger galaxies present today.
-                    <br>
+                    Are stars still forming in the Milky Way' s satellite galaxies? Found among the Small Magellanic
+                    Cloud's (SMC's) clusters and nebulas, NGC 346 is a star forming region about 200 light-years across,
+                    pictured here in the center of a Hubble Space Telescope image. A satellite galaxy of the Milky Way, the
+                    Small Magellanic Cloud (SMC) is a wonder of the southern sky, a mere 210,000 light-years distant in the
+                    constellation of the Toucan (Tucana). Exploring NGC 346, astronomers have identified a population of
+                    embryonic stars strung along the dark, intersecting dust lanes visible here on the right. Still
+                    collapsing within their natal clouds, the stellar infants' light is reddened by the intervening dust.
+                    Toward the top of the frame is another star cluster with intrinsically older and redder stars. A small,
+                    irregular galaxy, the SMC itself represents a type of galaxy more common in the early Universe. These
+                    small galaxies, though, are thought to be building blocks for the larger galaxies present today. <br>
                     <br>
                     <a href="#">#apod</a>
                     <a href="#">#nasa</a>

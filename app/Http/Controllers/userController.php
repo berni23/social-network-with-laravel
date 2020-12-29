@@ -40,6 +40,12 @@ class userController extends Controller
         $postsToSee = arrayTools::merge($userPosts, $friendsPosts);
 
         // echo json_encode($postsToSee);
-        return usort($postsToSee, array('arrayTools', 'newFirst'));
+        //return usort($postsToSee, array('arrayTools', 'newFirst'));
+
+        // TODO: Fix post sorting by creation date
+
+        // TODO: Only load the x first posts, dinamical upload as the user scrolls
+
+        return $postsToSee;
     }
 }

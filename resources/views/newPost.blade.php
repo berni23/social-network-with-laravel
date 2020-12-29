@@ -12,9 +12,6 @@
                 <img id="add-image-post" class="h-5" src="/images/new_image.png">
             </div>
         </div>
-        {{-- <label class="btn btn-sm btn-danger" id="formUpload">
-            <input type="file" id="uploadFile" onchange="readURL(this)" />
-        </label> --}}
         <img id="visible-img-id">
         @if ($errors->has('image'))
             <div class="error">

@@ -58,7 +58,9 @@ class postController extends Controller
         $post->user_id = auth()->user()->id;
         if ($request->hasFile('image')) {
 
-            $post->image = $request->file('image')->store('postImages');
+            $path  =  $request->file('image')->store('public/post-photos');
+
+            $post->image  = str_replace('public/', '', $path);
         }
 
         try {
@@ -77,6 +79,7 @@ class postController extends Controller
     {
         return Validator::make($request->all(), [
             'image' => 'mimes:jpeg,png,jpg|max:507|nullable',
+            'description' => 'required'
         ]);
     }
 
