@@ -3,10 +3,23 @@
 @import 'variables';
 
 
+nav {
+    position: sticky;
+    top: 0;
+}
+
+.modal {
+    transition: opacity 0.25s ease;
+}
+
+body.modal-active {
+    overflow-x: hidden;
+    overflow-y: visible !important;
+}
+
 body {
     @include bodyStyle();
     background-color: $bg-color;
-
 }
 
 .main {
@@ -44,13 +57,10 @@ body {
                     margin-top: 5px;
                     margin-left: 10px;
                 }
-
-
             }
         }
 
         .image-post {
-
             margin: 0 auto;
         }
 
@@ -61,8 +71,6 @@ body {
 
 
             .post-description {
-
-
                 margin: 20px 0;
             }
 
@@ -70,13 +78,11 @@ body {
                 color: black;
 
                 textarea {
-
                     border: 1px solid #dbdbdb;
                     outline-style: none;
                     resize: none;
 
                 }
-
             }
 
             .post-options {
@@ -96,7 +102,6 @@ body {
 
             .liked-by {
                 .profile-pic {
-
                     margin-right: 10px;
                 }
 
@@ -130,11 +135,8 @@ body {
 
 
 #uploadFile {
-
     position: absolute;
     top: -200px;
-
-
 }
 
 .profile-pic {
@@ -204,6 +206,18 @@ body {
 }
 
 
+
+/* comments */
+
+
+.input-comment {
+
+
+    padding: 10px;
+    margin-top: 10px;
+    outline-style: none;
+}
+
 /* Dropdown */
 
 .dropbtn {
@@ -237,29 +251,21 @@ body {
     display: block;
 }
 
-
-
 .block {
     display: block;
 }
 
 
 .error {
-
-
     color: red;
 }
 
-
-
 /** ANIMATIONS **/
-
 
 .tilt-in-top-1 {
     -webkit-animation: tilt-in-top-1 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: tilt-in-top-1 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
-
 
 @-webkit-keyframes tilt-in-top-1 {
     0% {

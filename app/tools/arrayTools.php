@@ -20,6 +20,6 @@ class arrayTools
     static function newFirst($p1, $p2)
     {
         if ($p1->created_at == $p2->created_at) return 0;
-        return ($p1->created_at > $p2->created_at) ? 1 : -1;
+        return ($p1->created_at > $p2->created_at) ? -1 : 1;
     }
 }

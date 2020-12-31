@@ -87,6 +87,21 @@ html {
 
 /* font weights */
 
+nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.modal {
+  transition: opacity 0.25s ease;
+}
+
+body.modal-active {
+  overflow-x: hidden;
+  overflow-y: visible !important;
+}
+
 body {
   font-weight: 400;
   overflow-y: auto;
@@ -273,6 +288,14 @@ body {
   border-radius: 50%;
   background: red;
   color: white;
+}
+
+/* comments */
+
+.input-comment {
+  padding: 10px;
+  margin-top: 10px;
+  outline-style: none;
 }
 
 /* Dropdown */
