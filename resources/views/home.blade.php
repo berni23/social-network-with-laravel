@@ -1,4 +1,9 @@
 @extends ('layouts.app')
+
+@section('head')
+    <script src="{{ mix('js/home.js') }}" defer></script>
+@endsection
+
 @section('main')
 
     {{-- @php echo json_encode($posts); @endphp --}}
@@ -33,8 +38,9 @@
                                 d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z">
                             </path>
                         </svg>
-                        <svg aria-label="Comment" fill="#262626" height="24" viewBox="0 0 48 48" width="24">
-                            <path clip-rule="evenodd"
+                        <svg class="modal-open" data-post="{{ $post->id }}" aria-label="Comment" fill="#262626" height="24"
+                            viewBox="0 0 48 48" width="24">
+                            <path class="modal-open" data-post="{{ $post->id }}" clip-rule="evenodd"
                                 d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z"
                                 fill-rule="evenodd"></path>
                         </svg>
@@ -117,7 +123,6 @@
             </div>
             <div class="liked-by">
                 <img class="profile-pic" src="assets/images/bernat.jpg">
-                <!-- <span class="iconify" data-icon="gg:profile" data-inline="false"></span> -->
                 <span> Liked by <b>brny23</b> and <b>100,000 others</b></span></span>
             </div>
             <div class="post-description">
@@ -196,9 +201,7 @@
             </div>
         </div>
         {{-- <div class="image2"></div> --}}
-
         <img src="/images/spacex_astronauts.jpg">
-
         <div class="footer">
             <div class="post-options">
                 <div class="main-options">
@@ -218,7 +221,6 @@
                         </path>
                     </svg>
                 </div>
-
                 <div class="save">
                     <svg aria-label="Save" fill="#262626" height="24" viewBox="0 0 48 48" width="24">
                         <path
@@ -230,7 +232,6 @@
             <div class="liked-by">
                 <span> 300,102 likes</span>
             </div>
-
             <div class="post-description">
                 <p> <b>spaceX</b>
                     Ready to launch !!!
@@ -243,96 +244,30 @@
                 </p>
             </div>
             <div class="comments">
-
             </div>
             <span class="posted">
                 16 DAYS AGO
             </span>
         </div>
     </div>
-
-
-    <button
-        class="modal-open bg-transparent border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-indigo-500 font-bold py-2 px-4 rounded-full">Open
-        Modal</button>
-
     <!--Modal-->
-    <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+    <div id="modal-comment"
+        class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
         <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-
         <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-
-            <div
-                class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
-                <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                    viewBox="0 0 18 18">
-                    <path
-                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                    </path>
-                </svg>
-                <span class="text-sm">(Esc)</span>
-            </div>
-
-            <!-- Add margin if you want to see some of the overlay behind the modal-->
-            <div class="modal-content py-4 text-left px-6">
-
-                <!--Body-->
-                <textarea rows="4" cols="40" class="input-comment resize-none border rounded-md "
+            <form method="POST" action="/comments/create" class="modal-content py-4 text-left px-6">
+                @csrf
+                <textarea name="content" rows="4" cols="40" class="input-comment resize-none border rounded-md "
                     placeholder="Comment.."></textarea>
-
-                <!--Footer-->
+                <input id="post-id" name="post_id" type="text" class="hidden">
                 <div class="flex justify-end pt-2">
-                    <button
-                        class="px-4 bg-transparent p-3 focus:outline-none rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Post</button>
-                    <button
-                        class="px-4 bg-transparent p-3 focus:outline-none  rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Close</button>
+                    <input type="submit" id="comment-send"
+                        class="modal-close px-4 bg-transparent p-3 focus:outline-none rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"
+                        value="Post">
+                    <button id="comment-close"
+                        class="modal-close px-4 bg-transparent p-3 focus:outline-none  rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Close</button>
                 </div>
-
-            </div>
+            </form>
         </div>
     </div>
-
-    <script>
-        var openmodal = document.querySelectorAll('.modal-open')
-        for (var i = 0; i < openmodal.length; i++) {
-            openmodal[i].addEventListener('click', function(event) {
-                event.preventDefault()
-                toggleModal()
-            })
-        }
-
-        const overlay = document.querySelector('.modal-overlay')
-        overlay.addEventListener('click', toggleModal)
-
-        var closemodal = document.querySelectorAll('.modal-close')
-        for (var i = 0; i < closemodal.length; i++) {
-            closemodal[i].addEventListener('click', toggleModal)
-        }
-
-        document.onkeydown = function(evt) {
-            evt = evt || window.event
-            var isEscape = false
-            if ("key" in evt) {
-                isEscape = (evt.key === "Escape" || evt.key === "Esc")
-            } else {
-                isEscape = (evt.keyCode === 27)
-            }
-            if (isEscape && document.body.classList.contains('modal-active')) {
-                toggleModal()
-            }
-        };
-
-
-        function toggleModal() {
-            const body = document.querySelector('body')
-            const modal = document.querySelector('.modal')
-            modal.classList.toggle('opacity-0')
-            modal.classList.toggle('pointer-events-none')
-            body.classList.toggle('modal-active')
-        }
-
-    </script>
-
-
-
 @endsection

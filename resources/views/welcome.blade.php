@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ mix('css/home.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="{{ mix('js/welcome.js') }}" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
@@ -33,7 +32,6 @@
                                     class="mx-auto border border-blue-400 bg-blue-400 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline">
                                     Home
                                 </a>
-
                             @else
                                 <a href="{{ route('login') }}"
                                     class="mx-auto border text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red focus:outline-none focus:shadow-outline">
@@ -50,6 +48,11 @@
             </div>
         </div>
     </div>
+    <script>
+        $('#welcome-wrapper').fadeIn(1000);
+
+    </script>
+
 </body>
 
 

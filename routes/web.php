@@ -3,8 +3,7 @@
 use App\Http\Controllers\postController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
-
-
+use App\Http\Controllers\commentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +19,8 @@ use App\Http\Controllers\userController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', [userController::class, 'home'])->name('home');
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postController::class, 'new'])->name('newPost');
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile', [userController::class, 'show'])->name('profile');
 Route::middleware(['auth:sanctum', 'verified'])->post('/posts/create', [postController::class, 'store']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/comments/create', [commentController::class, 'store'])->name('newComment');

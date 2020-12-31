@@ -86,25 +86,52 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/welcome.js":
-/*!*********************************!*\
-  !*** ./resources/js/welcome.js ***!
-  \*********************************/
+/***/ "./resources/js/home.js":
+/*!******************************!*\
+  !*** ./resources/js/home.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/home/berni/Assembler/projects/social-network-with-laravel/resources/js/welcome.js'");
+var postId = document.getElementById('post-id');
+var body = document.querySelector('body');
+var modal = document.querySelector('.modal');
+document.querySelector('main').addEventListener('click', function (event) {
+  var list = event.target.classList;
+
+  if (list.contains('modal-open')) {
+    event.preventDefault();
+    toggleModal();
+    postId.value = event.target.getAttribute('data-post');
+  } else if (event.target.id == "comment-close") {
+    event.preventDefault();
+    toggleModal();
+  } else if (list.contains('modal-close') || list.contains('modal-overlay')) {}
+});
+
+document.onkeydown = function (evt) {
+  evt = evt || window.event;
+  var isEscape = false;
+  if ("key" in evt) isEscape = evt.key === "Escape" || evt.key === "Esc";else isEscape = evt.keyCode === 27;
+  if (isEscape && document.body.classList.contains('modal-active')) toggleModal();
+};
+
+function toggleModal() {
+  modal.classList.toggle('opacity-0');
+  modal.classList.toggle('pointer-events-none');
+  body.classList.toggle('modal-active');
+}
 
 /***/ }),
 
 /***/ 2:
-/*!***************************************!*\
-  !*** multi ./resources/js/welcome.js ***!
-  \***************************************/
+/*!************************************!*\
+  !*** multi ./resources/js/home.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/berni/Assembler/projects/social-network-with-laravel/resources/js/welcome.js */"./resources/js/welcome.js");
+module.exports = __webpack_require__(/*! /home/berni/Assembler/projects/social-network-with-laravel/resources/js/home.js */"./resources/js/home.js");
 
 
 /***/ })
