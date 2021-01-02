@@ -155,6 +155,13 @@ body {
   margin-left: 10px;
 }
 
+.main .post .header .post-edit-menu {
+  margin: 10px;
+  padding: 7px;
+  cursor: pointer !important;
+  color: #8e8e8e;
+}
+
 .main .post .image-post {
   margin: 0 auto;
 }
@@ -210,6 +217,7 @@ body {
 
 .main .post .comment {
   display: flex;
+  margin-top: 10px;
   justify-content: space-between;
 }
 
@@ -221,6 +229,9 @@ body {
 
 .main .post .posted {
   color: #8e8e8e;
+  padding-bottom: 10px;
+  position: relative;
+  top: 10px;
 }
 
 #uploadFile {

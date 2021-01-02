@@ -11,7 +11,9 @@ document.querySelector('main').addEventListener('click', function (event) {
     } else if (event.target.id == "comment-close") {
         event.preventDefault();
         toggleModal();
-    } else if (list.contains('modal-close') || list.contains('modal-overlay')) {}
+    } else if (list.contains('post-edit-menu')) {
+        event.target.querySelector('.dropdown-content').classList.toggle('block');
+    }
 
 });
 

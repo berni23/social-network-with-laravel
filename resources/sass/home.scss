@@ -58,6 +58,15 @@ body {
                     margin-left: 10px;
                 }
             }
+
+            .post-edit-menu {
+                margin: 10px;
+                padding: 7px;
+                cursor: pointer !important;
+                color: #8e8e8e;
+
+
+            }
         }
 
         .image-post {
@@ -118,6 +127,7 @@ body {
 
         .comment {
             display: flex;
+            margin-top: 10px;
             justify-content: space-between;
 
             .like {
@@ -129,6 +139,11 @@ body {
 
         .posted {
             color: #8e8e8e;
+            padding-bottom: 10px;
+            position: relative;
+            top: 10px;
+
+
         }
     }
 }
