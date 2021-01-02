@@ -18,12 +18,16 @@
                         {{ App\Models\User::find($post->user_id)->name }}
                     </span>
                 </div>
-                <i class="dropdown fa fa-ellipsis-v post-edit-menu">
-                    <div class="dropdown-content">
-                        <a href="posts/edit/{{ $post->id }}">Edit</a>
-                        <a class="modal-open-deletePost">Delete</a>
-                    </div>
-                </i>
+
+                @if (auth()->user->id == App\Models\User::find($post->user_id))
+                    <i class="dropdown fa fa-ellipsis-v post-edit-menu">
+                        <div class="dropdown-content">
+                            <a href="posts/edit/{{ $post->id }}">Edit</a>
+                            <a class="modal-open-deletePost">Delete</a>
+                        </div>
+                    </i>
+                @endif
+
             </div>
             @if (isset($post->image))
                 <img class="image-post" src=" {{ asset('/storage/' . $post->image) }}">
@@ -132,7 +136,7 @@
 
                 <div class="flex justify-center pt-2justify">
                     <input type="submit" id="delete-confirm"
-                        class="modal-close px-4 bg-red p-3 focus:outline-none rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"
+                        class="modal-close px-4 bg-red-400 p-3 focus:outline-none rounded-lg text-white-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"
                         value="delete">
                     <button id="delete-close"
                         class="modal-close px-4 bg-transparent p-3 focus:outline-none  rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Cancel</button>

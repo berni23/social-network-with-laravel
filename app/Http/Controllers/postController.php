@@ -142,5 +142,15 @@ class postController extends Controller
      */
     public function destroy($id)
     {
+        try {
+            Post::find($id)->delete();
+        } catch (QueryException $ex) {
+            return redirect()->back()
+                ->with('message', 'failed to delete')
+                ->with('status', 400);
+        }
+        return redirect('/home')
+            ->with('message', 'post deleted')
+            ->with('status', 200);
     }
 }
