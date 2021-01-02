@@ -21313,7 +21313,7 @@ if (messageHidden) {
 
 function message(msg) {
   var tag = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  if (tag == 200) tag = 'success';else if (tag == 400) tag = 'error';
+  if (tag == 200) tag = 'success';else if (tag == 400) tag = 'failure';
   var infoWindow = document.querySelector(".info-window");
   if (tag) infoWindow.classList.add(tag);
   infoWindow.textContent = msg;

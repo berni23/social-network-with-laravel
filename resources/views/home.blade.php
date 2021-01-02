@@ -18,13 +18,11 @@
                         {{ App\Models\User::find($post->user_id)->name }}
                     </span>
                 </div>
-                <i class="dropdown fa fa-ellipsis-v post-edit-menu " data-post={{ $post->id }}>
-
+                <i class="dropdown fa fa-ellipsis-v post-edit-menu">
                     <div class="dropdown-content">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a href="posts/edit/{{ $post->id }}">Edit</a>
+                        <a href=" #">Delete</a>
                     </div>
-
                 </i>
             </div>
             @if (isset($post->image))

@@ -8,8 +8,6 @@ use arrayTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-
-
 class userController extends Controller
 {
 

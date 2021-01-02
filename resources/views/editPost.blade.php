@@ -12,25 +12,21 @@
                 <img id="add-image-post" class="h-5" src="/images/new_image.png">
             </div>
         </div>
-        <img id="visible-img-id" class="image-post" @if (isset($editPost->image)) src="
-        {{ asset('/storage/' . $editPost->image) }}"@endif>
-
+        <img id="visible-img-id">
         @if ($errors->has('image'))
             <div class="error">
                 {{ $errors->first('image') }}
             </div>
+
         @endif
         <div class="footer">
             <p id="img-error-js" class="error">
             </p>
             <div class="post-description">
-                <form class="inline edit-post-form" method="POST" @if (isset($editPost))
-                action="/posts/update/{{ $editPost->id }}" @else action = "/posts/create" @endif
-                    enctype="multipart/form-data">
+                <form class="edit-post-form" method="POST" action="/posts/create" enctype="multipart/form-data">
                     @csrf
                     <input type="file" id="uploadFile" name="image" onchange="readURL(this)" />
-                    <textarea rows="4" cols="70" name="description"
-                        placeholder="What are you thinking about?">@if (isset($editPost)) {{ $editPost->description }} @endif</textarea>
+                    <textarea rows="4" cols="70" name="description" placeholder="What are you thinking about?"></textarea>
                     @if ($errors->has('description'))
                         <div class="error">
                             {{ $errors->first('description') }}
@@ -38,10 +34,8 @@
                     @endif
                     <button type="submit"
                         class="h-8 px-5  text-blue-100 transition-colors duration-150 bg-blue-400 rounded-lg focus:shadow-outline hover:bg-blue-100">Post</button>
-                </form>
-                <form method="GET" class="inline" action="/home">
                     <button
-                        class="h-8 px-5 text-gray-100 transition-colors duration-150 bg-gray-400 rounded-lg focus:shadow-outline hover:bg-gray-100">Cancel</a>
+                        class="h-8 px-5 text-gray-100 transition-colors duration-150 bg-gray-400 rounded-lg focus:shadow-outline hover:bg-gray-100">Cancel</button>
                 </form>
             </div>
         </div>

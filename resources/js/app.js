@@ -15,7 +15,7 @@ if (messageHidden) {
 
 function message(msg, tag = false) {
     if (tag == 200) tag = 'success';
-    else if (tag == 400) tag = 'error';
+    else if (tag == 400) tag = 'failure';
     var infoWindow = document.querySelector(".info-window");
     if (tag) infoWindow.classList.add(tag);
     infoWindow.textContent = msg;
