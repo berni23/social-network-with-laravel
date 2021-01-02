@@ -62,8 +62,6 @@ class postController extends Controller
         }
         return $this->savePost($post);
     }
-
-
     private function validatePost(Request $request)
     {
         return Validator::make($request->all(), [
