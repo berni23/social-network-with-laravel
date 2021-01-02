@@ -41,7 +41,6 @@
         </div>
     </div>
     <script defer>
-        // input = e.currentTarget
         document.getElementById("add-image-post").addEventListener('click', () => document.getElementById("uploadFile")
             .click());
 

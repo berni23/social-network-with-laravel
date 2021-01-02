@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Post;
 use arrayTools;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 
 class userController extends Controller
@@ -22,10 +24,10 @@ class userController extends Controller
         return view('home', compact('posts'));
     }
 
+
     private function postsById(int $id)
     {
         return  User::find($id)->posts;
-        //->sortByDesc('created_at');
     }
 
     public function postsToSee()
@@ -40,8 +42,6 @@ class userController extends Controller
         $postsToSee = arrayTools::merge($userPosts, $friendsPosts);
         usort($postsToSee, array('arrayTools', 'newFirst'));
         return $postsToSee;
-
-        // TODO: Fix post sorting by creation date
 
         // TODO: Only load the x first posts, dinamical upload as the user scrolls
     }

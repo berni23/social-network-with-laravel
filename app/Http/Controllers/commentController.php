@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+use Doctrine\DBAL\Query\QueryException;
 
 class commentController extends Controller
 {
@@ -35,15 +38,34 @@ class commentController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = $this->validateComment($request);
+        if ($validation->fails()) {
+            return redirect('/home')
+                ->with('post_id', $request->post_id)
+                ->withErrors($validation);
+        } else {
+            $comment = new Comment;
+            $comment->post_id = $request->post_id;
+            $comment->content = $request->content;
+            $comment->user_id = auth()->user()->id;
 
-        $comment = new Comment;
-        $comment->post_id = $request->post_id;
-        $comment->content = $request->content;
-        $comment->user_id = auth()->user()->id;
+            try {
+                $comment->save();
+            } catch (QueryException $ex) {
+                return redirect()->back()
+                    ->with('message', 'failed to update data')
+                    ->with('status', 400);
+            }
+            return redirect()->back()->with('message', 'comment added')->with('status', 200);
+        }
+    }
 
-        // validate
-        $comment->save();
-        return redirect()->back()->with('message', 'comment added')->with('status', 200);
+    private function validateComment(Request $request)
+    {
+        return Validator::make($request->all(), [
+            'content' => 'required',
+
+        ]);
     }
 
     /**

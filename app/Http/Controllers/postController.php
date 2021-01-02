@@ -71,7 +71,6 @@ class postController extends Controller
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
         if ($request->hasFile('image')) {
-
             $path  =  $request->file('image')->store('public/post-photos');
             $post->image  = str_replace('public/', '', $path);
         }
@@ -81,7 +80,7 @@ class postController extends Controller
         } catch (QueryException $ex) {
             return redirect()->back()
                 ->with('message', 'failed to update data')
-                ->with('status', 200);
+                ->with('status', 400);
         }
         return redirect()->route('home')
             ->with('message', 'post successfully created')
