@@ -16,6 +16,8 @@ use App\Http\Controllers\commentController;
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,6 +26,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/profile', [userController
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postController::class, 'new'])->name('newPost');
 Route::middleware(['auth:sanctum', 'verified'])->post('/posts/create', [postController::class, 'store']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/edit/{id}', [postController::class, 'edit']);
-Route::middleware(['auth:sanctum', 'verified'])->post('/posts/update/{id}', [postController::class, 'update']);
-Route::middleware(['auth:sanctum', 'verified'])->post('/posts/delete/{id}', [postController::class, 'destroy']);
+
+// user.confirm.post -> middleware for checking that indeed, the user trying to delete is the post owner
+
+Route::middleware(['auth:sanctum', 'verified', 'user.confirm.post'])->post('/posts/update/{id}', [postController::class, 'update']);
+Route::middleware(['auth:sanctum', 'verified', 'user.confirm.post'])->post('/posts/delete/{id}', [postController::class, 'destroy']);
 Route::middleware(['auth:sanctum', 'verified'])->post('/comments/create', [commentController::class, 'store'])->name('newComment');
