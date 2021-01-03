@@ -10,19 +10,25 @@ use Illuminate\Support\Facades\Session;
 
 class userController extends Controller
 {
-
     public function show()
     {
         return view('profile');
     }
+    public function paginatePosts(Request $request)
+    {
+        // offset starts at 0
+        // limit start at 1
+        // if the end is reached, the slice returns the elements until the last one
+
+        $posts = array_slice($this->postsToSee(), $request->offset, $request->limit);
+        if (empty($posts)) return '0';
+        return view('postPopulate', compact('posts'));
+    }
 
     public function home()
     {
-        $posts = $this->postsToSee();
-        return view('home', compact('posts'));
+        return view('home');
     }
-
-
     private function postsById(int $id)
     {
         return  User::find($id)->posts;

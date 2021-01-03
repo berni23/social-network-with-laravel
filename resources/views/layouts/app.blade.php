@@ -43,9 +43,12 @@
         </main>
     </div>
 
+    @section('modals')
+    @show()
     @stack('modals')
 
     @livewireScripts
+
 </body>
 
 </html>
