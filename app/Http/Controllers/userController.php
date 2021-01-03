@@ -14,14 +14,26 @@ class userController extends Controller
     {
         return view('profile');
     }
-    public function paginatePosts(Request $request)
+    public function paginatePosts($offset, $limit)
     {
         // offset starts at 0
         // limit start at 1
         // if the end is reached, the slice returns the elements until the last one
 
-        $posts = array_slice($this->postsToSee(), $request->offset, $request->limit);
+
+        $posts =  $this->postsToSee();
+
+        if (count($posts) < ($offset + $limit)) {
+
+            $posts = array_slice($posts, $offset);
+            //  echo 'limit, left with' . count($posts);
+        } else $posts = array_slice($posts, $offset, $limit);
+
+        //$posts = array_slice($this->postsToSee());
+
+        //$offset, $limit
         if (empty($posts)) return '0';
+
         return view('postPopulate', compact('posts'));
     }
 

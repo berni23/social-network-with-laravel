@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', [userController::class, 'home'])->name('home');
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile', [userController::class, 'show'])->name('profile');
-Route::post('/posts/page/', [userController::class, 'paginatePosts']);
+Route::get('/posts/page/{offset}/{limit}', [userController::class, 'paginatePosts']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postController::class, 'new'])->name('newPost');
 

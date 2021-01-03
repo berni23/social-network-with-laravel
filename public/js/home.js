@@ -916,34 +916,29 @@ function getPosts(_x, _x2) {
 }
 
 function _getPosts() {
-  _getPosts = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_offset, _limit) {
-    var data, res;
+  _getPosts = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(offset, limit) {
+    var res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            data = {
-              offset: _offset,
-              limit: _limit
-            };
-            _context.next = 3;
-            return fetch('/posts/page/', {
+            _context.next = 2;
+            return fetch("/posts/page/".concat(offset, "/").concat(limit), {
               headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               },
-              method: 'POST',
-              body: JSON.stringify(data)
+              method: 'GET'
             });
 
-          case 3:
+          case 2:
             res = _context.sent;
-            _context.next = 6;
+            _context.next = 5;
             return res.text();
 
-          case 6:
+          case 5:
             return _context.abrupt("return", _context.sent);
 
-          case 7:
+          case 6:
           case "end":
             return _context.stop();
         }
@@ -956,30 +951,24 @@ function _getPosts() {
 var last_known_scroll_position = 0;
 var ticking = false;
 var page = 0;
-var limit = 5;
+var limit = 4;
 nextPage();
 
 function nextPage() {
-  page++;
   getPosts(limit * page, limit).then(function (postView) {
-    if (postView == '0') document.removeEventListener("scroll");else {
-      console.log(postView);
+    console.log(postView);
+
+    if (postView == 0) {
+      console.log('eventlistener removed');
+      document.removeEventListener('scroll', scrollBottom);
+    } else {
       main.insertAdjacentHTML('beforeend', postView);
+      page++;
     }
   });
 }
 
-document.addEventListener('scroll', function () {
-  last_known_scroll_position = window.scrollY;
-
-  if (!ticking) {
-    window.requestAnimationFrame(function () {
-      ticking = false;
-      if (last_known_scroll_position > document.documentElement.scrollHeight - 100) nextPage();
-    });
-    ticking = true;
-  }
-}); // close-modal
+document.addEventListener('scroll', scrollBottom); // close-modal
 // document.onkeydown =
 //     function (evt) {
 //         evt = evt || window.event;
@@ -988,6 +977,28 @@ document.addEventListener('scroll', function () {
 //         else isEscape = (evt.keyCode === 27)
 //         if (isEscape && document.body.classList.contains('modal-active')) toggleModal()
 //     };
+
+var scrollActive = true;
+
+function scrollBottom() {
+  last_known_scroll_position = $(window).scrollTop() + $(window).height();
+  var docHeight = $(document).height();
+
+  if (!ticking && scrollActive) {
+    window.requestAnimationFrame(function () {
+      ticking = false; // console.log(last_known_scroll_position, docHeight - 50);
+
+      if (last_known_scroll_position > docHeight - 50) {
+        nextPage();
+        scrollActive = false;
+        setTimeout(function () {
+          return scrollActive = true;
+        }, 500);
+      }
+    });
+    ticking = true;
+  }
+}
 
 /***/ }),
 

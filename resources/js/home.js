@@ -36,51 +36,38 @@ function toggleModal(modal) {
     body.classList.toggle('modal-active')
 }
 
-async function getPosts(_offset, _limit) {
+async function getPosts(offset, limit) {
 
-    var data = {
-        offset: _offset,
-        limit: _limit
-    }
-    const res = await fetch('/posts/page/', {
+    const res = await fetch(`/posts/page/${offset}/${limit}`, {
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
-        method: 'POST',
-        body: JSON.stringify(data)
+        method: 'GET'
     });
     return await res.text();
 }
 
-
 let last_known_scroll_position = 0;
 let ticking = false;
 let page = 0;
-const limit = 5;
+const limit = 4;
 nextPage();
 
 function nextPage() {
-
-    page++;
     getPosts(limit * page, limit).then(function (postView) {
-        if (postView == '0') document.removeEventListener("scroll");
-        else {
+        console.log(postView);
+        if (postView == 0) {
+            console.log('eventlistener removed');
+            document.removeEventListener('scroll', scrollBottom);
+        } else {
 
-            console.log(postView);
             main.insertAdjacentHTML('beforeend', postView);
+            page++;
         }
     })
 }
-document.addEventListener('scroll', function () {
-    last_known_scroll_position = window.scrollY;
-    if (!ticking) {
-        window.requestAnimationFrame(function () {
-            ticking = false;
-            if (last_known_scroll_position > document.documentElement.scrollHeight - 100) nextPage();
-        });
-        ticking = true;
-    }
-});
+
+document.addEventListener('scroll', scrollBottom);
 
 // close-modal
 // document.onkeydown =
@@ -91,3 +78,24 @@ document.addEventListener('scroll', function () {
 //         else isEscape = (evt.keyCode === 27)
 //         if (isEscape && document.body.classList.contains('modal-active')) toggleModal()
 //     };
+
+
+var scrollActive = true;
+
+function scrollBottom() {
+
+    last_known_scroll_position = $(window).scrollTop() + $(window).height();
+    var docHeight = $(document).height();
+    if (!ticking && scrollActive) {
+        window.requestAnimationFrame(function () {
+            ticking = false;
+            // console.log(last_known_scroll_position, docHeight - 50);
+            if (last_known_scroll_position > docHeight - 50) {
+                nextPage();
+                scrollActive = false;
+                setTimeout(() => scrollActive = true, 500);
+            }
+        });
+        ticking = true;
+    }
+}
