@@ -19,7 +19,6 @@
                         </div>
                     </i>
                 @endif
-
             </div>
             @if (isset($post->image))
                 <img class="image-post" src=" {{ asset('/storage/' . $post->image) }}">

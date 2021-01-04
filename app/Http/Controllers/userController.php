@@ -21,7 +21,7 @@ class userController extends Controller
         // if the end is reached, the slice returns the elements until the last one
 
 
-        $posts =  $this->postsToSee();
+        $posts =  $this->postsToSee(); // todos los posts
 
         if (count($posts) < ($offset + $limit)) {
 
@@ -58,7 +58,5 @@ class userController extends Controller
         $postsToSee = arrayTools::merge($userPosts, $friendsPosts);
         usort($postsToSee, array('arrayTools', 'newFirst'));
         return $postsToSee;
-
-        // TODO: Only load the x first posts, dinamical upload as the user scrolls
     }
 }

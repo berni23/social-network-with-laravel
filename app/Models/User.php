@@ -86,11 +86,11 @@ class User extends Authenticatable
     public function friendsId()
     {
         $userId = $this->getKey();
-        $accepted = $this->RelationshipsByStatus(1);
+        $accepted = $this->RelationshipsByStatus(1); // relations with an accepted status
         $idList = [];
         foreach ($accepted as $rel) {
-            if ($rel['user_one_id'] == $userId) array_push($idList, $rel['user_one_id']);
-            else  array_push($idList, $rel['user_two_id']);
+            if ($rel['user_one_id'] == $userId) array_push($idList, $rel['user_two_id']);
+            else  array_push($idList, $rel['user_one_id']);
         }
         return $idList;
     }

@@ -57,7 +57,8 @@ class postController extends Controller
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
         if ($request->hasFile('image')) {
-            $path  =  $request->file('image')->store('public/post-photos');
+            $path =  $request->file('image')->store('public/post-photos');
+
             $post->image  = str_replace('public/', '', $path);
         }
         return $this->savePost($post);
