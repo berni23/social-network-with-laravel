@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use DateTime;
@@ -58,7 +59,6 @@ class postController extends Controller
         $post->user_id = auth()->user()->id;
         if ($request->hasFile('image')) {
             $path =  $request->file('image')->store('public/post-photos');
-
             $post->image  = str_replace('public/', '', $path);
         }
         return $this->savePost($post);
@@ -144,7 +144,12 @@ class postController extends Controller
     public function destroy($id)
     {
         try {
-            Post::find($id)->delete();
+            $post = Post::find($id);
+            $comments = $post->comments;
+            foreach ($comments as $comment) {
+                Comment::find($comment->id)->delete();
+            }
+            $post->delete();
         } catch (QueryException $ex) {
             return redirect()->back()
                 ->with('message', 'failed to delete')
