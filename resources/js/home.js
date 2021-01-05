@@ -4,9 +4,6 @@ var main = document.querySelector('main');
 var modalComment = document.getElementById('modal-comment');
 var modalDelete = document.getElementById('modal-delete');
 var formDelete = document.getElementById('form-delete');
-// var editMenu = document.querySelector('.post-edit-menu');
-
-// the only eventlistener in home
 
 document.querySelector('main').addEventListener('click', function (event) {
     var list = event.target.classList;
@@ -43,7 +40,6 @@ function toggleModal(modal) {
 }
 
 async function getPosts(offset, limit) {
-
     const res = await fetch(`/posts/page/${offset}/${limit}`, {
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -66,7 +62,6 @@ function nextPage() {
             console.log('eventlistener removed');
             document.removeEventListener('scroll', scrollBottom);
         } else {
-
             main.insertAdjacentHTML('beforeend', postView);
             page++;
         }
@@ -75,11 +70,9 @@ function nextPage() {
 
 document.addEventListener('scroll', scrollBottom);
 
-
 var scrollActive = true;
 
 function scrollBottom() {
-
     last_known_scroll_position = $(window).scrollTop() + $(window).height();
     var docHeight = $(document).height();
     if (!ticking && scrollActive) {

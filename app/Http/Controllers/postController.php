@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
-use Doctrine\DBAL\Query\QueryException;
+use Illuminate\Database\QueryException;
 
 class postController extends Controller
 {

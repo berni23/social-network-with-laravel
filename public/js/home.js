@@ -879,9 +879,7 @@ var body = document.querySelector('body');
 var main = document.querySelector('main');
 var modalComment = document.getElementById('modal-comment');
 var modalDelete = document.getElementById('modal-delete');
-var formDelete = document.getElementById('form-delete'); // var editMenu = document.querySelector('.post-edit-menu');
-// the only eventlistener in home
-
+var formDelete = document.getElementById('form-delete');
 document.querySelector('main').addEventListener('click', function (event) {
   var list = event.target.classList;
 
