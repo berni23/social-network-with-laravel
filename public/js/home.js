@@ -894,6 +894,19 @@ document.querySelector('main').addEventListener('click', function (event) {
     event.target.closest('.post-edit-menu').click();
     postId = event.target.closest('.post').getAttribute('data-post');
     formDelete.action = "posts/delete/".concat(postId);
+  } else if (event.target.closest('.likeComment')) {
+    var like = event.target.closest('.likeComment');
+    like.children[0].classList.toggle('hidden');
+    like.children[1].classList.toggle('hidden');
+    sendLike('comment', like.closest('.comment').getAttribute('data-comment'));
+  } else if (event.target.closest('.likePost')) {
+    var like = event.target.closest('.likePost');
+    like.children[0].classList.toggle('hidden');
+    like.children[1].classList.toggle('hidden');
+    console.log(like.closest('.post').getAttribute('data-post'));
+    sendLike('post', like.closest('.post').getAttribute('data-post')).then(function (data) {
+      return console.log(data);
+    });
   }
 });
 document.getElementById('delete-close').addEventListener('click', function (event) {
@@ -904,6 +917,7 @@ document.getElementById('comment-close').addEventListener('click', function (eve
   event.preventDefault();
   toggleModal(modalComment);
 });
+document.addEventListener('scroll', scrollBottom);
 
 function toggleModal(modal) {
   modal.classList.toggle('opacity-0');
@@ -911,22 +925,22 @@ function toggleModal(modal) {
   body.classList.toggle('modal-active');
 }
 
-function getPosts(_x, _x2) {
-  return _getPosts.apply(this, arguments);
+function sendLike(_x, _x2) {
+  return _sendLike.apply(this, arguments);
 }
 
-function _getPosts() {
-  _getPosts = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(offset, limit) {
+function _sendLike() {
+  _sendLike = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(likeable, id) {
     var res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return fetch("/posts/page/".concat(offset, "/").concat(limit), {
-              headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-              },
+            return fetch("/likes/".concat(likeable, "/").concat(id), {
+              /*headers: {
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+              },*/
               method: 'GET'
             });
 
@@ -945,6 +959,43 @@ function _getPosts() {
       }
     }, _callee);
   }));
+  return _sendLike.apply(this, arguments);
+}
+
+function getPosts(_x3, _x4) {
+  return _getPosts.apply(this, arguments);
+}
+
+function _getPosts() {
+  _getPosts = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(offset, limit) {
+    var res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return fetch("/posts/page/".concat(offset, "/").concat(limit), {
+              headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+              },
+              method: 'GET'
+            });
+
+          case 2:
+            res = _context2.sent;
+            _context2.next = 5;
+            return res.text();
+
+          case 5:
+            return _context2.abrupt("return", _context2.sent);
+
+          case 6:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
   return _getPosts.apply(this, arguments);
 }
 
@@ -956,8 +1007,7 @@ nextPage();
 
 function nextPage() {
   getPosts(limit * page, limit).then(function (postView) {
-    console.log(postView);
-
+    //console.log(postView);
     if (postView == 0) {
       console.log('eventlistener removed');
       document.removeEventListener('scroll', scrollBottom);
@@ -968,7 +1018,6 @@ function nextPage() {
   });
 }
 
-document.addEventListener('scroll', scrollBottom);
 var scrollActive = true;
 
 function scrollBottom() {

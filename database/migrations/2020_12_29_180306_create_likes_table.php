@@ -16,9 +16,11 @@ class CreateLikesTable extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('likeable_id')->references('id')->on('comments', 'posts');
+            $table->integer('likeable_id');
             $table->string('likeable_type'); // App\Models\Post or App\Models\Comment
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->unique(['likeable_id', 'likeable_type', 'user_id']);
+            $table->boolean('like')->default(0);
         });
     }
 

@@ -48,18 +48,9 @@ class commentController extends Controller
             $comment->post_id = $request->post_id;
             $comment->content = $request->content;
             $comment->user_id = auth()->user()->id;
-
-            try {
-                $comment->save();
-            } catch (QueryException $ex) {
-                return redirect()->back()
-                    ->with('message', 'failed to update data')
-                    ->with('status', 400);
-            }
-            return redirect()->back()->with('message', 'comment added')->with('status', 200);
+            return $comment->saveComment();
         }
     }
-
     private function validateComment(Request $request)
     {
         return Validator::make($request->all(), [

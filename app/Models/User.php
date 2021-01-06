@@ -69,8 +69,8 @@ class User extends Authenticatable
 
     public function relationships()
     {
-        $rel1 = $this->hasMany(relationship::class, 'user_one_id')->get();
-        $rel2 = $this->hasMany(relationship::class, 'user_two_id')->get();
+        $rel1 = $this->hasMany(Relationship::class, 'user_one_id')->get();
+        $rel2 = $this->hasMany(Relationship::class, 'user_two_id')->get();
         return  arrayTools::merge($rel1, $rel2);
     }
     public function RelationshipsByStatus(int $status)

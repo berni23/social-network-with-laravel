@@ -235,19 +235,13 @@ body {
   margin-right: 10px;
 }
 
-.main .post .footer .liked-by {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 10px;
+.main .post .footer .post-options .likePost,
+.main .post .footer .post-options .likeComment {
+  margin: 0 !important;
 }
 
-.main .post .footer .liked-by .profile-pic {
-  margin-right: 10px;
-}
-
-.main .post .footer .liked-by .iconify {
-  width: 25px;
-  height: 25px;
+.main .post .footer .post-options .like {
+  margin: 0 !important;
 }
 
 .main .post .comment {

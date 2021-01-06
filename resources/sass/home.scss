@@ -102,20 +102,15 @@ body {
                     margin-right: 10px;
 
                 }
-            }
 
-            .liked-by {
-                .profile-pic {
-                    margin-right: 10px;
+                .likePost,
+                .likeComment {
+
+                    margin: 0 !important;
                 }
 
-                display: flex;
-                justify-content: flex-start;
-                margin-bottom: 10px;
-
-                .iconify {
-                    width: 25px;
-                    height: 25px;
+                .like {
+                    margin: 0 !important;
                 }
             }
         }
@@ -141,7 +136,6 @@ body {
         }
     }
 }
-
 
 button {
     outline: none !important;
@@ -199,9 +193,7 @@ button {
     display: none;
 }
 
-
 /** notifications **/
-
 
 .notification {
     color: black;
@@ -225,11 +217,7 @@ button {
 }
 
 /* comments */
-
-
 .input-comment {
-
-
     padding: 10px;
     margin-top: 10px;
     outline-style: none;
@@ -263,7 +251,6 @@ button {
 
 .dropdown-content a {
     color: black;
-
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -272,7 +259,6 @@ button {
 .block {
     display: block;
 }
-
 
 .error {
     color: red;

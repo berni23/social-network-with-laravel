@@ -18,9 +18,19 @@ document.querySelector('main').addEventListener('click', function (event) {
         event.target.closest('.post-edit-menu').click();
         postId = event.target.closest('.post').getAttribute('data-post');
         formDelete.action = `posts/delete/${postId}`;
+    } else if (event.target.closest('.likeComment')) {
+        var like = event.target.closest('.likeComment')
+        like.children[0].classList.toggle('hidden');
+        like.children[1].classList.toggle('hidden');
+        sendLike('comment', like.closest('.comment').getAttribute('data-comment'))
+    } else if (event.target.closest('.likePost')) {
+        var like = event.target.closest('.likePost')
+        like.children[0].classList.toggle('hidden');
+        like.children[1].classList.toggle('hidden');
+        console.log(like.closest('.post').getAttribute('data-post'));
+        sendLike('post', like.closest('.post').getAttribute('data-post')).then((data) => console.log(data));
     }
 });
-
 
 document.getElementById('delete-close').addEventListener('click', function (event) {
     event.preventDefault();
@@ -32,12 +42,25 @@ document.getElementById('comment-close').addEventListener('click', function (eve
     toggleModal(modalComment);
 })
 
+document.addEventListener('scroll', scrollBottom);
 
 function toggleModal(modal) {
     modal.classList.toggle('opacity-0')
     modal.classList.toggle('pointer-events-none')
     body.classList.toggle('modal-active')
 }
+
+
+async function sendLike(likeable, id) {
+    const res = await fetch(`/likes/${likeable}/${id}`, {
+        /*headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },*/
+        method: 'GET'
+    });
+    return await res.text(); // view('postPopulate',compact('posts'))
+}
+
 
 async function getPosts(offset, limit) {
     const res = await fetch(`/posts/page/${offset}/${limit}`, {
@@ -57,7 +80,7 @@ nextPage();
 
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
-        console.log(postView);
+        //console.log(postView);
         if (postView == 0) {
             console.log('eventlistener removed');
             document.removeEventListener('scroll', scrollBottom);
@@ -67,8 +90,6 @@ function nextPage() {
         }
     })
 }
-
-document.addEventListener('scroll', scrollBottom);
 
 var scrollActive = true;
 
@@ -88,6 +109,10 @@ function scrollBottom() {
         ticking = true;
     }
 }
+
+
+
+
 
 // close-modal
 // document.onkeydown =

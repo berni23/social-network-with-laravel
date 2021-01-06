@@ -61,7 +61,7 @@ class postController extends Controller
             $path =  $request->file('image')->store('public/post-photos');
             $post->image  = str_replace('public/', '', $path);
         }
-        return $this->savePost($post);
+        return $post->savePost('/home');
     }
     private function validatePost(Request $request)
     {
@@ -97,17 +97,6 @@ class postController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*
-         cases :
-         1 - there was an image before update
-              1.1 image not changed
-              1.2 image changed
-
-        2 - there was no image
-            2.1 image changed
-            2.2 image not changed
-            */
-
         $validation =  $this->validatePost($request);
         if ($validation->fails()) {
             return redirect('/posts/edit/' . $id)
@@ -120,20 +109,7 @@ class postController extends Controller
             $path  =  $request->file('image')->store('public/post-photos');
             $post->image  = str_replace('public/', '', $path);
         }
-        return $this->savePost($post);
-    }
-    function savePost(Post $post)
-    {
-        try {
-            $post->save();
-        } catch (QueryException $ex) {
-            return redirect()->back()
-                ->with('message', 'failed to post')
-                ->with('status', 400);
-        }
-        return redirect('/home')
-            ->with('message', 'post successfully added')
-            ->with('status', 200);
+        return $post->savePost('/home');
     }
 
     /**
