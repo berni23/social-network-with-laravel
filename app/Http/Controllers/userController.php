@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use arrayTools;
+use Illuminate\Support\Facades\Auth;
 
 class userController extends Controller
 {
     public function show()
     {
-        return view('profile');
+        $user = User::find(auth()->user()->id);
+        $user->numFriends = $user->numFriends();
+        $user->numPosts = $user->numPosts();
+        return view('profile', compact('user'));
     }
     public function paginatePosts($offset, $limit)
     {

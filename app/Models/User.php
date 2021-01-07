@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,10 +25,16 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    protected $attributes = [
+
+        'description' => 'Hey there! I\'m using Weshare :)',
+    ];
     protected $fillable = [
         'name',
         'email',
         'password',
+        'description'
     ];
 
     /**
@@ -46,7 +51,6 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast to native types.
-     *
      * @var array
      */
     protected $casts = [
@@ -64,7 +68,12 @@ class User extends Authenticatable
 
     public function posts()
     {
+
         return $this->hasMany(Post::class, 'user_id');
+    }
+    public function numPosts()
+    {
+        return count($this->posts()->get());
     }
 
     public function relationships()
@@ -93,5 +102,10 @@ class User extends Authenticatable
             else  array_push($idList, $rel['user_one_id']);
         }
         return $idList;
+    }
+
+    public function numFriends()
+    {
+        return count($this->friendsId());
     }
 }

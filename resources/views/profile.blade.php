@@ -3,39 +3,45 @@
     <div class="insta-clone">
         <!--body start-->
         <!--profile data-->
+
         <div class="bg-gray-100 h-auto px-48">
             <div class="flex md:flex-row-reverse flex-wrap">
                 <div class="w-full md:w-3/4 p-4 text-center">
                     <div class="text-left pl-4 pt-3">
-                        <span class="text-base text-gray-700 text-2xl mr-2">{{ auth()->user()->name }}</span>
+                        <span class="text-base text-gray-700 text-2xl mr-2">{{ $user->name }}</span>
                     </div>
                     <div class="text-left pl-4 pt-3">
+
                         <span class="text-base font-semibold text-gray-700 mr-2">
-                            <b>220</b> posts
+
+                             @if(!$user->numPosts)  No Posts yet
+                             @else  <b>{{$user->numPosts}}</b> posts
+                             @endif
+
                         </span>
                         <span class="text-base font-semibold text-gray-700 mr-2">
-                            <b>114</b> followers
+                              @if(!$user->numFriends) No friends yet
+                              @else  <b>{{$user->numFriends}}</b> friends
+                              @endif
                         </span>
-                        <span class="text-base font-semibold text-gray-700">
-                            <b>200</b> following
-                        </span>
+
                     </div>
 
                     <div class="text-left pl-4 pt-3">
-                        <span class="text-lg font-bold text-gray-700 mr-2">{{ auth()->user()->name }}</span>
+                        <span class="text-lg font-bold text-gray-700 mr-2">About me</span>
                     </div>
 
                     <div class="text-left pl-4 pt-3">
+                        <p class="text-base font-medium text-gray-700 mr-2">{{$user->description}}</p>
                         <p class="text-base font-medium text-blue-700 mr-2">#graphicsdesigner #traveller #reader #blogger
                             #digitalmarketer</p>
-                        <p class="text-base font-medium text-gray-700 mr-2">https://www.behance.net/hiravesona7855</p>
                     </div>
                 </div>
 
                 <div class="w-full md:w-1/4 p-4 text-center">
                     <div class="w-full relative md:w-3/4 text-center mt-8">
                         <button class="flex rounded-full" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                            <img class="h-40 w-40 rounded-full" src="storage/{{ auth()->user()->profile_photo_path }}" />
+                            <img class="h-40 w-40 rounded-full" src="{{ $user->profile_photo_url }}" />
                         </button>
                     </div>
                 </div>
