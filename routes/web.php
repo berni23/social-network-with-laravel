@@ -30,7 +30,10 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/posts/create', [postCont
 
 // user.confirm.post -> middleware for checking that indeed, the user trying to update/delete is the post owner
 
+// user.confirm.comment -> middleware for checking that indeed, the post being commented belongs to a friend or the user .
+
 Route::middleware(['auth:sanctum', 'verified', 'user.confirm.post'])->post('/posts/update/{id}', [postController::class, 'update']);
 Route::middleware(['auth:sanctum', 'verified', 'user.confirm.post'])->post('/posts/delete/{id}', [postController::class, 'destroy']);
-Route::middleware(['auth:sanctum', 'verified'])->post('/comments/create', [commentController::class, 'store'])->name('newComment');
+Route::middleware(['auth:sanctum', 'verified','user.confirm.comment'])->post('/comments/create', [commentController::class, 'store'])->name('newComment');
 Route::middleware(['auth:sanctum', 'verified'])->get('/likes/{likeable}/{id}', [likeController::class, 'toggleLike']);
+

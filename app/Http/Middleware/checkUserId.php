@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 
+// check if the user modifying the post is indeed a post owner
 class checkUserId
 {
     /**
      * Handle an incoming request.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
