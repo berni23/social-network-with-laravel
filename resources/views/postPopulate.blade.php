@@ -33,9 +33,6 @@
                         <div class="likePost">
                             @php
                             $query = App\Models\Like::queryLike($post->id,'App\\Models\\Post');
-                            // $keys = get_object_vars($query);
-
-                            // echo json_encode($keys);
                             @endphp
                            @if(isset($query)&& $query->like)  @include('unlike')
 
@@ -74,12 +71,14 @@
                                 <b>{{ App\Models\Comment::find($comment->id)->user->name }}</b>
                                 <span>{{ $comment->content }}</span>
                             </p>
-                            {{-- <div class="likeComment">
-                                 @if(App\Models\Like::queryLike($post->id,'App/Models/Post') && $query->like)
-                                 @include('like')
-                                 @else @include('unlike')
-                           @endif
-                            </div> --}}
+                             <div class="likeComment">
+                                @php
+                                $query = App\Models\Like::queryLike($comment->id,'App\\Models\\Comment');
+                                @endphp
+                                @if(isset($query)&& $query->like)  @include('unlike')
+                                @else  @include('like')
+                                @endif
+                            </div>
                         </div>
                     @endforeach
                 </div>

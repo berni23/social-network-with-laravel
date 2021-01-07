@@ -898,7 +898,9 @@ document.querySelector('main').addEventListener('click', function (event) {
     var like = event.target.closest('.likeComment');
     like.children[0].classList.toggle('hidden');
     like.children[1].classList.toggle('hidden');
-    sendLike('comment', like.closest('.comment').getAttribute('data-comment'));
+    sendLike('comment', like.closest('.comment').getAttribute('data-comment')).then(function (data) {
+      return console.log(data);
+    });
   } else if (event.target.closest('.likePost')) {
     var like = event.target.closest('.likePost');
     like.children[0].classList.toggle('hidden');
