@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use arrayTools;
-use Illuminate\Support\Facades\Auth;
 
 class userController extends Controller
 {
@@ -15,12 +14,26 @@ class userController extends Controller
         $user->numPosts = $user->numPosts();
         return view('profile', compact('user'));
     }
-    public function paginatePosts($offset, $limit)
+    public function paginatePosts($group = "all", $offset, $limit)
     {
         // offset starts at 0
         // limit start at 1
         // if the end is reached, the slice returns the elements until the last one
-        $posts =  $this->postsToSee();
+
+        $posts = "";
+        switch ($group) {
+
+            case 'all':
+                $posts =  $this->postsToSee();
+                break;
+            case 'user';
+                $posts = arrayTools::objectToArray(User::find(auth()->user()->id)->posts()->orderBy('created_at', 'DESC')->get());
+                break;
+            default:
+                $posts = arrayTools::objectToArray(User::find($group)->posts()->orderBy('created_at', 'DESC')->get());
+                break;
+        }
+
         if (count($posts) < ($offset + $limit)) $posts = array_slice($posts, $offset);
         else $posts = array_slice($posts, $offset, $limit);
         if (empty($posts)) return '0';

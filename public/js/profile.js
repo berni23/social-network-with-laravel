@@ -81,30 +81,30 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/home.js":
-/*!******************************!*\
-  !*** ./resources/js/home.js ***!
-  \******************************/
+/***/ "./resources/js/profile.js":
+/*!*********************************!*\
+  !*** ./resources/js/profile.js ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/home/berni/Assembler/projects/social-network-with-laravel/resources/js/home.js'");
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/home/berni/Assembler/projects/social-network-with-laravel/resources/js/profile.js'");
 
 /***/ }),
 
-/***/ 2:
-/*!************************************!*\
-  !*** multi ./resources/js/home.js ***!
-  \************************************/
+/***/ 3:
+/*!***************************************!*\
+  !*** multi ./resources/js/profile.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/berni/Assembler/projects/social-network-with-laravel/resources/js/home.js */"./resources/js/home.js");
+module.exports = __webpack_require__(/*! /home/berni/Assembler/projects/social-network-with-laravel/resources/js/profile.js */"./resources/js/profile.js");
 
 
 /***/ })

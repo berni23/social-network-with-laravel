@@ -1,8 +1,10 @@
 @extends('layouts/app')
+
+@section('head')
+
+    <script src="{{ mix('js/post.js') }}" defer></script>
+
 @section('main')
-    <div class="insta-clone">
-        <!--body start-->
-        <!--profile data-->
 
         <div class="bg-gray-100 h-auto px-48">
             <div class="flex md:flex-row-reverse flex-wrap">
@@ -41,7 +43,7 @@
                 <div class="w-full md:w-1/4 p-4 text-center">
                     <div class="w-full relative md:w-3/4 text-center mt-8">
                         <button class="flex rounded-full" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                            <img class="h-40 w-40 rounded-full" src="{{ $user->profile_photo_url }}" />
+                            <img class="rounded-full profile_photo_url" src="{{ $user->profile_photo_url }}" />
                         </button>
                     </div>
                 </div>
@@ -49,61 +51,13 @@
 
             <!--status show icon-->
 
-            <div class="inline-flex ml-36 mt-16">
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <div
-                        class="relative shadow-xl mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-                        <img class="object-cover w-full h-full"
-                            src="https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80" />
-                    </div>
-                    <h1 class="pt-16 text-base font-semibold text-gray-900">Fun</h1>
-                </div>
-
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <div
-                        class="relative shadow-xl mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-                        <img class="object-cover w-full h-full"
-                            src="https://images.unsplash.com/photo-1456415333674-42b11b9f5b7b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80" />
-                    </div>
-                    <h1 class="pt-16 text-base font-semibold text-gray-900">Travel</h1>
-                </div>
-
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <div
-                        class="relative shadow-xl mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-                        <img class="object-cover w-full h-full"
-                            src="https://images.unsplash.com/photo-1494972308805-463bc619d34e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80" />
-                    </div>
-                    <h1 class="pt-16 text-base font-semibold text-gray-900">Food</h1>
-                </div>
-
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <div
-                        class="relative shadow-xl mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-                        <img class="object-cover w-full h-full"
-                            src="https://images.unsplash.com/photo-1516834474-48c0abc2a902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80" />
-                    </div>
-                    <h1 class="pt-16 text-base font-semibold text-gray-900">Sketch</h1>
-                </div>
-
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <div
-                        class="relative shadow-xl mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-                        <img class="object-cover w-full h-full"
-                            src="https://images.unsplash.com/photo-1444021465936-c6ca81d39b84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" />
-                    </div>
-                    <h1 class="pt-16 text-base font-semibold text-gray-900">My Work</h1>
-                </div>
-            </div>
-
-            <hr class="border-gray-500 mt-6" />
-            <hr class="border-gray-500 w-20 border-t-1 ml-64 border-gray-800" />
+            <hr class="border-gray-500 mt-12" />
 
             <!--post icon and title-->
             <div class="flex flex-row mt-4 justify-center mr-16">
                 <div class="flex text-gray-700 text-center py-2 m-2 pr-5">
                     <div class="flex inline-flex">
-                        <button
+                        <button id="userPosts"
                             class="border-transparent text-gray-800 rounded-full hover:text-blue-600 focus:outline-none focus:text-gray-600"
                             aria-label="Notifications">
                             <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -117,7 +71,6 @@
                         <h3 class="text-sm font-bold text-gray-800 mr-2">POSTS</h3>
                     </div>
                 </div>
-
                 <div class="flex text-gray-700 text-center py-2 m-2 pr-5">
                     <div class="flex inline-flex">
                         <button
@@ -168,79 +121,15 @@
                     </div>
                 </div>
             </div>
-
-            <!--post images-->
-
-            <div class="flex flex-col pt-4">
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-                    <img class="w-1/2"
-                        src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" />
-                </div>
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat id numquam dolore consectetur
-                        tempore labore impedit odit architecto, sunt ducimus consequuntur vel? Mollitia explicabo,
-                        doloremque eum laborum quos vero tenetur.
-                    </p>
-                </div>
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat id numquam dolore consectetur
-                        tempore labore impedit odit architecto, sunt ducimus consequuntur vel? Mollitia explicabo,
-                        doloremque eum laborum quos vero tenetur.
-                    </p>
-                </div>
-            </div>
-
-            <div class="flex flex-col pt-4">
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat id numquam dolore consectetur
-                        tempore labore impedit odit architecto, sunt ducimus consequuntur vel? Mollitia explicabo,
-                        doloremque eum laborum quos vero tenetur.
-                    </p>
-                </div>
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat id numquam dolore consectetur
-                        tempore labore impedit odit architecto, sunt ducimus consequuntur vel? Mollitia explicabo,
-                        doloremque eum laborum quos vero tenetur.
-                    </p>
-                </div>
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat id numquam dolore consectetur
-                        tempore labore impedit odit architecto, sunt ducimus consequuntur vel? Mollitia explicabo,
-                        doloremque eum laborum quos vero tenetur.
-                    </p>
-                </div>
-            </div>
-
-            <div class="flex flex-col pt-4">
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat id numquam dolore consectetur
-                        tempore labore impedit odit architecto, sunt ducimus consequuntur vel? Mollitia explicabo,
-                        doloremque eum laborum quos vero tenetur.
-                    </p>
-                </div>
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat id numquam dolore consectetur
-                        tempore labore impedit odit architecto, sunt ducimus consequuntur vel? Mollitia explicabo,
-                        doloremque eum laborum quos vero tenetur.
-                    </p>
-                </div>
-                <div class="flex-1 text-center px-4 py-2 m-2">
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat id numquam dolore consectetur
-                        tempore labore impedit odit architecto, sunt ducimus consequuntur vel? Mollitia explicabo,
-                        doloremque eum laborum quos vero tenetur.
-                    </p>
-                </div>
-            </div>
         </div>
-    </div>
+
+@endsection
+
+@section('modals')
+    <!--Modal create comment-->
+     @include('components.modalComment')
+    <!-- Modal Confirm delete -->
+     @include('components.modalDelete')
+     <div class = "hidden" id="group" data-group="user"></div>
 
 @endsection

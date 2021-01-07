@@ -20,4 +20,4 @@ mix.js('resources/js/app.js', 'public/js')
     .webpackConfig(require('./webpack.config'));
 
 mix.js('resources/js/newPost.js', 'public/js')
-mix.js('resources/js/home.js', 'public/js')
+mix.js('resources/js/post.js', 'public/js')

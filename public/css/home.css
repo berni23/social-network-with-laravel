@@ -125,6 +125,11 @@ html {
   }
 }
 
+.profile_photo_url {
+  width: 150px;
+  height: auto;
+}
+
 nav {
   position: -webkit-sticky;
   position: sticky;

@@ -3,6 +3,16 @@
 
 class arrayTools
 {
+    static function objectToArray($object)
+    {
+        $array = [];
+        //  $keys = get_object_vars($object);
+        foreach ($object as $elem) {
+            array_push($array, $elem);
+        }
+        return $array;
+    }
+
     static function  merge($rel1, $rel2)
     {
         $rels = [];

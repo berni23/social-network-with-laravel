@@ -34,8 +34,8 @@
                             @php
                             $query = App\Models\Like::queryLike($post->id,'App\\Models\\Post');
                             @endphp
-                            @if (isset($query) && $query->like) @include('unlike')
-                            @else @include('like')
+                            @if (isset($query) && $query->like) @include('components/unlike')
+                            @else @include('components/like')
                             @endif
                         </div>
                         <svg class="modal-open-comment" aria-label="Comment" fill="#262626" height="24"
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="liked-by">
-                    <span><b>{{ $post->likes }}likes</b></span>
+                    <span><b>{{ $post->likes }}</b> likes</span>
                     </span>
                 </div>
                 <div class="comments">
@@ -73,8 +73,8 @@
                                 @php
                                 $query = App\Models\Like::queryLike($comment->id,'App\\Models\\Comment');
                                 @endphp
-                                @if (isset($query) && $query->like) @include('unlike')
-                                @else @include('like')
+                                @if (isset($query) && $query->like) @include('components/unlike')
+                                @else @include('components/like')
                                 @endif
                             </div>
                         </div>

@@ -4,6 +4,17 @@ var main = document.querySelector('main');
 var modalComment = document.getElementById('modal-comment');
 var modalDelete = document.getElementById('modal-delete');
 var formDelete = document.getElementById('form-delete');
+var groupElem = document.getElementById('group');
+var group = 'all';
+if (groupElem) group = groupElem.getAttribute('data-group');
+
+let last_known_scroll_position = 0;
+let ticking = false;
+let page = 0;
+let scrollActive = true;
+const limit = 4;
+
+nextPage();
 
 document.querySelector('main').addEventListener('click', function (event) {
     var list = event.target.classList;
@@ -63,7 +74,7 @@ async function sendLike(likeable, id) {
 
 
 async function getPosts(offset, limit) {
-    const res = await fetch(`/posts/page/${offset}/${limit}`, {
+    const res = await fetch(`/posts/${group}/${offset}/${limit}`, {
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
@@ -72,15 +83,11 @@ async function getPosts(offset, limit) {
     return await res.text(); // view('postPopulate',compact('posts'))
 }
 
-let last_known_scroll_position = 0;
-let ticking = false;
-let page = 0;
-const limit = 4;
-nextPage();
 
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
-        //console.log(postView);
+
+        console.log(postView);
         if (postView == 0) {
             console.log('eventlistener removed');
             document.removeEventListener('scroll', scrollBottom);
@@ -90,8 +97,6 @@ function nextPage() {
         }
     })
 }
-
-var scrollActive = true;
 
 function scrollBottom() {
     last_known_scroll_position = $(window).scrollTop() + $(window).height();
@@ -109,17 +114,3 @@ function scrollBottom() {
         ticking = true;
     }
 }
-
-
-
-
-
-// close-modal
-// document.onkeydown =
-//     function (evt) {
-//         evt = evt || window.event;
-//         var isEscape = false
-//         if ("key" in evt) isEscape = (evt.key === "Escape" || evt.key === "Esc")
-//         else isEscape = (evt.keyCode === 27)
-//         if (isEscape && document.body.classList.contains('modal-active')) toggleModal()
-//     };

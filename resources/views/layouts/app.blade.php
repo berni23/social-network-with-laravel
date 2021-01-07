@@ -8,7 +8,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Styles -->
 
@@ -25,9 +24,7 @@
 </head>
 
 <body class="font-sans antialiased">
-
     <div class="info-window hidden"></div>
-
     @if (Session::has('message'))
         <span class="hidden" id='messageHidden'
             data-status={{ Session::get('status') }}>{{ Session::get('message') }}</span>
@@ -46,7 +43,6 @@
     @section('modals')
     @show()
     @stack('modals')
-
     @livewireScripts
 
 </body>
