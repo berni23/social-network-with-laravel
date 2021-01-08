@@ -13,13 +13,12 @@ class Like extends Model
     {
         return $this->morphTo();
     }
-
     static function queryLike($id, $type)
     {
         return  DB::table('likes')
-            ->where('user_id','=', auth()->user()->id)
-            ->where('likeable_id','=', $id)
-             ->where('likeable_type','=' ,$type)
+            ->where('user_id', '=', auth()->user()->id)
+            ->where('likeable_id', '=', $id)
+            ->where('likeable_type', '=', $type)
             ->get()->first();
     }
 }

@@ -7,7 +7,7 @@
 
 nav {
     position: sticky;
-    z-index: 2;
+    z-index: 10;
     top: 0;
 }
 
@@ -238,6 +238,7 @@ button {
 .dropdown {
     position: relative;
     display: inline-block;
+    z-index: 3;
 }
 
 .dropdown-content {
@@ -247,7 +248,7 @@ button {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    z-index: 3;
 }
 
 .dropdown-content a {
@@ -255,6 +256,7 @@ button {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    z-index: 3;
 }
 
 .block {

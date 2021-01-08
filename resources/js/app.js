@@ -1,5 +1,8 @@
 require('./bootstrap');
 require('alpinejs');
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
 
 var messageHidden = document.getElementById('messageHidden');
 if (messageHidden) {

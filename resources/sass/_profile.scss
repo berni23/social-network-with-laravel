@@ -2,4 +2,16 @@
 
     width: 150px;
     height: auto;
+    margin-left: 50px;
+    position: relative;
+    bottom: 15px;
+
+}
+
+.profile {
+    position: fixed;
+    z-index: 5;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, 0);
 }

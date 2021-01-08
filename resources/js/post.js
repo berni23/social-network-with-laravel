@@ -13,7 +13,6 @@ let ticking = false;
 let page = 0;
 let scrollActive = true;
 const limit = 4;
-
 nextPage();
 
 document.querySelector('main').addEventListener('click', function (event) {
@@ -61,7 +60,6 @@ function toggleModal(modal) {
     body.classList.toggle('modal-active')
 }
 
-
 async function sendLike(likeable, id) {
     const res = await fetch(`/likes/${likeable}/${id}`, {
         /*headers: {
@@ -71,7 +69,6 @@ async function sendLike(likeable, id) {
     });
     return await res.text(); // view('postPopulate',compact('posts'))
 }
-
 
 async function getPosts(offset, limit) {
     const res = await fetch(`/posts/${group}/${offset}/${limit}`, {
@@ -83,10 +80,8 @@ async function getPosts(offset, limit) {
     return await res.text(); // view('postPopulate',compact('posts'))
 }
 
-
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
-
         console.log(postView);
         if (postView == 0) {
             console.log('eventlistener removed');

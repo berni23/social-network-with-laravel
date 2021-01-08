@@ -10,7 +10,6 @@ use Illuminate\Database\QueryException;
 class Post extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'description',
         'image',
@@ -31,8 +30,6 @@ class Post extends Model
     {
         return $this->morphMany(Like::class, 'likeable');
     }
-
-
     function savePost(string $direction)
     {
         try {

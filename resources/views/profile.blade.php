@@ -3,10 +3,27 @@
 @section('head')
 
     <script src="{{ mix('js/post.js') }}" defer></script>
+        <script defer>
 
-@section('main')
 
-        <div class="bg-gray-100 h-auto px-48">
+
+  window.onload =function(){
+          var main = document.querySelector('main');
+        //    main.style.overflow='scroll';
+          var profileHeight = document.querySelector('.profile').offsetHeight+20;
+          main.style.marginTop=profileHeight + 'px';
+
+  }
+
+        </script>
+
+
+
+
+@endsection
+@section('profile')
+
+        {{-- <div class="profile bg-gray-100 h-auto px-48"> --}}
             <div class="flex md:flex-row-reverse flex-wrap">
                 <div class="w-full md:w-3/4 p-4 text-center">
                     <div class="text-left pl-4 pt-3">
@@ -121,7 +138,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        {{-- </div> --}}
 
 @endsection
 
@@ -133,3 +150,5 @@
      <div class = "hidden" id="group" data-group="user"></div>
 
 @endsection
+
+
