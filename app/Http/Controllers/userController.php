@@ -12,8 +12,29 @@ class userController extends Controller
         $user = User::find(auth()->user()->id);
         $user->numFriends = $user->numFriends();
         $user->numPosts = $user->numPosts();
+        $user->show = true;
+        $user->self = true;
         return view('profile', compact('user'));
     }
+
+    public function showUser($username)
+    {
+
+        $self = User::find(auth()->user()->id);
+        $friendsId = $self->friendsId();
+        $user = User::where('name', $username);
+        $user->numFriends = $user->numFriends();
+        $user->numPosts = $user->numPosts();
+        $user->self = false;
+
+        if (in_array($self->friendsId(), $user->id)) $user->show = true;
+
+        else $user->show = false;
+
+        return view('profile', compact('user'));
+    }
+
+
     public function paginatePosts($group = "all", $offset, $limit)
     {
         // offset starts at 0

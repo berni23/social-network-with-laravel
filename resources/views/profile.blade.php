@@ -1,8 +1,13 @@
 @extends('layouts/app')
 
 @section('head')
+@if($user->show)
+
 
     <script src="{{ mix('js/post.js') }}" defer></script>
+
+@endif
+
         <script defer>
 
   window.onload =function(){
@@ -12,6 +17,7 @@
   }
 
         </script>
+
 
 @endsection
 @section('profile')
@@ -62,13 +68,11 @@
 
             </div>
 
-            <!--status show icon-->
-
+        @if($user->self)
         <a href="user/settings"><i class="gear text-gray-500 fa fa-cog fa-2x float-left hover:text-gray-200 transition duration-500 ease-in-out"></i></a>
+        @endif
 
             <hr class="border-gray-500 mt-12" />
-
-
             <!--post icon and title-->
             <div class="flex flex-row mt-4 justify-center mr-16">
                 <div class="flex text-gray-700 text-center py-2 m-2 pr-5">
