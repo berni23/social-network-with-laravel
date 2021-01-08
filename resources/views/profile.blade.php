@@ -56,14 +56,18 @@
                             <img class="rounded-full profile_photo_url" src="{{ $user->profile_photo_url }}" />
                         </button>
 
-                        {{-- <div><span>settings</span> <i class ="fa fa cog"><i></div> --}}
                     </div>
+
                 </div>
+
             </div>
 
             <!--status show icon-->
 
+        <a href="user/settings"><i class="gear text-gray-500 fa fa-cog fa-2x float-left hover:text-gray-200 transition duration-500 ease-in-out"></i></a>
+
             <hr class="border-gray-500 mt-12" />
+
 
             <!--post icon and title-->
             <div class="flex flex-row mt-4 justify-center mr-16">

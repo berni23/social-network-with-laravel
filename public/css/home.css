@@ -146,6 +146,18 @@ html {
   word-wrap: break-word;
 }
 
+.gear {
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+  transition: color 0.5s ease;
+}
+
+.gear:hover {
+  width: 55px;
+  height: auto;
+}
+
 nav {
   position: -webkit-sticky;
   position: sticky;
