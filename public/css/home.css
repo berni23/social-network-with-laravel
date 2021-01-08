@@ -141,6 +141,11 @@ html {
   transform: translate(-50%, 0);
 }
 
+.description {
+  max-width: 600px !important;
+  word-wrap: break-word;
+}
+
 nav {
   position: -webkit-sticky;
   position: sticky;

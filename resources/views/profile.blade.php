@@ -5,27 +5,18 @@
     <script src="{{ mix('js/post.js') }}" defer></script>
         <script defer>
 
-
-
   window.onload =function(){
           var main = document.querySelector('main');
-        //    main.style.overflow='scroll';
           var profileHeight = document.querySelector('.profile').offsetHeight+20;
           main.style.marginTop=profileHeight + 'px';
-
   }
 
         </script>
 
-
-
-
 @endsection
 @section('profile')
-
-        {{-- <div class="profile bg-gray-100 h-auto px-48"> --}}
             <div class="flex md:flex-row-reverse flex-wrap">
-                <div class="w-full md:w-3/4 p-4 text-center">
+                <div class="text-profile w-full md:w-3/4 p-4 text-center">
                     <div class="text-left pl-4 pt-3">
                         <span class="text-base text-gray-700 text-2xl mr-2">{{ $user->name }}</span>
                     </div>
@@ -50,8 +41,10 @@
                         <span class="text-lg font-bold text-gray-700 mr-2">About me</span>
                     </div>
 
-                    <div class="text-left pl-4 pt-3">
+                    <div class="description text-left pl-4 pt-3">
                         <p class="text-base font-medium text-gray-700 mr-2">{{$user->description}}</p>
+                        <br>
+                        <br>
                         <p class="text-base font-medium text-blue-700 mr-2">#graphicsdesigner #traveller #reader #blogger
                             #digitalmarketer</p>
                     </div>
@@ -62,6 +55,8 @@
                         <button class="flex rounded-full" id="user-menu" aria-label="User menu" aria-haspopup="true">
                             <img class="rounded-full profile_photo_url" src="{{ $user->profile_photo_url }}" />
                         </button>
+
+                        {{-- <div><span>settings</span> <i class ="fa fa cog"><i></div> --}}
                     </div>
                 </div>
             </div>
@@ -138,8 +133,6 @@
                     </div>
                 </div>
             </div>
-        {{-- </div> --}}
-
 @endsection
 
 @section('modals')
