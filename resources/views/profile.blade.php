@@ -55,7 +55,8 @@
         @if($user->self)
         <a href="profile/show"><i class="gear text-gray-500 fa fa-cog fa-2x float-left hover:text-gray-200 transition duration-500 ease-in-out"></i></a>
         @else
-        <form  method = "GET" action = '/user/request/{{$user->id}}'>
+        <form  method = "POST" action = '/user/request/{{$user->id}}'>
+            <input class = 'hidden' value = '{{$user->relStatus}}'>
         <button  type ='submit' id = "friendRequest" class="box--gradient silver text-lg text-gray-700 mr-2"> {{$user->friendshipStatus}} </button>
         </form>
         @endif

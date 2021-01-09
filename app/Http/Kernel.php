@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\checkFriendStatus;
 use App\Http\Middleware\checkUserId;
 use App\Models\Post;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -65,6 +66,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'user.confirm.post' => \App\Http\Middleware\checkUserId::class,
-        'user.confirm.comment' => \App\Http\Middleware\checkComment::class
+        'user.confirm.comment' => \App\Http\Middleware\checkComment::class,
+        'rel.confirm.status' => \App\Http\Middleware\checkFriendStatus::class,
+        'rel.check.blocked' => \App\Http\Middleware\checkBlocked::class
     ];
 }

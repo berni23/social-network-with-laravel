@@ -82,6 +82,14 @@ class User extends Authenticatable
         return  arrayTools::merge($rel1, $rel2);
     }
 
+
+    public function relStatus($id)
+    {
+        $rel = $this->relationship($id);
+        if ($rel) return $rel->status;
+        else return -1;
+    }
+
     public function relationship($id)
     {
 

@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', [userController::class, 'home'])->name('home');
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile', [userController::class, 'show'])->name('profile');
 Route::middleware(['auth:sanctum', 'verified'])->get('/user/{username}', [userController::class, 'showUser']);
-Route::middleware(['auth:sanctum', 'verified'])->get('/user/request/{id}', [userController::class, 'friendshipRequest']);
+Route::middleware(['auth:sanctum', 'verified', 'rel.confirm.status', 'rel.check.blocked'])->post('/user/request/id', [userController::class, 'friendshipRequest']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/{group}/{offset}/{limit}', [userController::class, 'paginatePosts']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postController::class, 'new'])->name('newPost');
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/edit/{id}', [postController::class, 'edit']);

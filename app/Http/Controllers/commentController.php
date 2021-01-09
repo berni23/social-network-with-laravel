@@ -6,8 +6,6 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-use Doctrine\DBAL\Query\QueryException;
-
 class commentController extends Controller
 {
     /**

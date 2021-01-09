@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Relationship;
 use App\Models\User;
 use arrayTools;
@@ -28,6 +29,7 @@ class userController extends Controller
         $user->numFriends = $user->numFriends();
         $user->numPosts = $user->numPosts();
         $user->self = false;
+        $user->relStatus = $self->relStatus($user->id);
         $user->friendshipStatus = $this->friendshipStatus($user->id);
         if (in_array($user->id, $self->friendsId())) $user->show = true;
         else $user->show = false;
@@ -91,7 +93,6 @@ class userController extends Controller
     }
     public function friendshipStatus($id)
     {
-
         $rel =  $this->user()->relationship($id);
         if (!$rel) return 'send friendship request';
         switch ($rel->status) {
@@ -110,21 +111,21 @@ class userController extends Controller
                 break;
         }
     }
-    public function friendshipRequest($id)
+    public function friendshipRequest(Request $request, $id)
     {
-        /*Rel status
+        /*Relationship status
         -------------
          0	Pending
          1	Accepted
          2	Declined
          3	Blocked
+        -------------
 
         */
 
         $user = $this->user();
         $user_id = $user->id;
         $rel = $user->relationship($id);
-
         if (!$rel) {
             $rel = new Relationship();
             $rel->status = 0;
@@ -147,13 +148,14 @@ class userController extends Controller
             $rel->delete();
             return redirect()->back()->with('message', 'request canceled');
         }
-        if ($rel->user_two_id == $user_id && $rel->status == 0)
+        if ($rel->user_two_id == $user_id && $rel->status == 0) {
             return redirect()->back()
                 ->with('modal-accept', true);
-
-        if ($rel->user_one_id == $user_id && $rel->status == 3)
+        }
+        if ($rel->user_one_id == $user_id && $rel->status == 3) {
             $rel->delete();
-        return redirect()->back()
-            ->with('message', 'user blocking stopped');
+            return redirect()->back()
+                ->with('message', 'user blocking stopped');
+        }
     }
 }
