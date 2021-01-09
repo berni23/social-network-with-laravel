@@ -2,41 +2,18 @@
 @section('head')
 
 @if($user->show)
-
     <script src="{{ mix('js/post.js') }}" defer></script>
-
 @endif
         <script defer>
-
-  window.onload =function(){
+          window.onload =function(){
           var main = document.querySelector('main');
           var profileHeight = document.querySelector('.profile').offsetHeight+20;
           main.style.marginTop=profileHeight + 'px';
   }
-
         </script>
-
-@if(!$user->self)
-
-        <script defer>
-                var requestBtn = document.getElementById('friendRequest');
-                var id = requestBtn.getAttribute('data-id');
-                 requestBtn.addEventListener('click',function(){
-
-                    fetch(`user/request/${id}`).then
-
-                 })
-
-        </script>
-
-        @endif
-
 
 @endsection
 @section('profile')
-
-{{-- md:flex-row-reverse --}}
-
             <div class="flex flex-wrap">
                 <div class="w-full md:w-1/4 p-4 text-center">
                     <div class="w-full relative md:w-3/4 text-center mt-8">
@@ -49,9 +26,6 @@
                 <div class="text-profile w-full md:w-3/4 p-4 text-center">
                     <div class="text-left pl-4 pt-3">
                         <span class="text-base text-gray-700 text-2xl mr-2">{{ $user->name }}</span>
-
-                        {{-- <span class="text-base text-gray-700 text-2xl mr-2">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span> --}}
-
                     </div>
                     <div class="text-left pl-4 pt-3">
                         <span class="text-base font-semibold text-gray-700 mr-2">
@@ -64,15 +38,11 @@
                               @if(!$user->numFriends) No friends yet
                               @else  <b>{{$user->numFriends}}</b> friends
                               @endif
-
                         </span>
-
                     </div>
-
                     <div class="text-left pl-4 pt-3">
                         <span class="text-lg font-bold text-gray-700 mr-2">About me</span>
                     </div>
-
                     <div class="description text-left pl-4 pt-3">
                         <p class="text-base font-medium text-gray-700 mr-2">{{$user->description}}</p>
                         <br>
@@ -82,17 +52,15 @@
                     </div>
                 </div>
             </div>
-
         @if($user->self)
-        <a href="user/settings"><i class="gear text-gray-500 fa fa-cog fa-2x float-left hover:text-gray-200 transition duration-500 ease-in-out"></i></a>
-        @else  <button id = "friendRequest" data-id={{$user->id}} class="box--gradient silver text-lg text-gray-700 mr-2"> {{$user->friendshipStatus}} </button>
+        <a href="profile/show"><i class="gear text-gray-500 fa fa-cog fa-2x float-left hover:text-gray-200 transition duration-500 ease-in-out"></i></a>
+        @else
+        <form  method = "GET" action = '/user/request/{{$user->id}}'>
+        <button  type ='submit' id = "friendRequest" class="box--gradient silver text-lg text-gray-700 mr-2"> {{$user->friendshipStatus}} </button>
+        </form>
         @endif
-
             <hr class="border-gray-500 mt-12" />
-            <!--post icon and title-->
-
              @if($user->show)
-
             <div class="flex flex-row mt-4 justify-center mr-16">
                 <div class="flex text-gray-700 text-center py-2 m-2 pr-5">
                     <div class="flex inline-flex">

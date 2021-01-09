@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Relationship;
 use App\Models\User;
 use arrayTools;
 
@@ -9,7 +10,7 @@ class userController extends Controller
 {
     public function show()
     {
-        $user = User::find(auth()->user()->id);
+        $user = $this->user();
         $user->numFriends = $user->numFriends();
         $user->numPosts = $user->numPosts();
         $user->show = true;
@@ -19,13 +20,15 @@ class userController extends Controller
 
     public function showUser($username)
     {
-        $self = User::find(auth()->user()->id);
+        $self = $this->user();
         if ($self->name == $username) return redirect('profile');
         $friendsId = $self->friendsId();
         $user = User::where('name', $username)->get()->first();
+        if (!$user) return redirect()->back()->with('message', 'user not found');
         $user->numFriends = $user->numFriends();
         $user->numPosts = $user->numPosts();
         $user->self = false;
+        $user->friendshipStatus = $this->friendshipStatus($user->id);
         if (in_array($user->id, $self->friendsId())) $user->show = true;
         else $user->show = false;
         return view('profile', compact('user'));
@@ -48,7 +51,6 @@ class userController extends Controller
                 $posts = arrayTools::objectToArray(User::find($group)->posts()->orderBy('created_at', 'DESC')->get());
                 break;
         }
-
         if (count($posts) < ($offset + $limit)) $posts = array_slice($posts, $offset);
         else $posts = array_slice($posts, $offset, $limit);
         if (empty($posts)) return '0';
@@ -66,9 +68,9 @@ class userController extends Controller
 
     public function postsToSee()
     {
-        $userId = auth()->user()->id;
-        $userPosts =  $this->postsById($userId);
-        $friendsId = User::find($userId)->friendsId();
+        $user = $this->user();
+        $userPosts = $user->posts();
+        $friendsId = $user->friendsId();
         $friendsPosts = [];
         foreach ($friendsId as $id) {
             array_push($friendsPosts, $this->postsById($id));
@@ -80,47 +82,78 @@ class userController extends Controller
 
     public function isFriend($id)
     {
-        return in_array($id, User::find(auth()->user()->id)->friendsList());
+        return in_array($id, $this->user()->friendsList());
     }
-
 
     public function user()
     {
-
         return  User::find(auth()->user()->id);
     }
-    public function frienshipRequest($id)
+    public function friendshipStatus($id)
     {
 
-        $rel = $this->user()->relationship($id);
+        $rel =  $this->user()->relationship($id);
+        if (!$rel) return 'send friendship request';
+        switch ($rel->status) {
 
+            case 0:
+                return 'request pending .. ';
+                break;
+            case 1:
+                return 'remove friendship';
+            case 2:
+            default:
+                return 'send friendship request';
+                break;
+            case 3:
+                return 'click to unblock user';
+                break;
+        }
+    }
+    public function friendshipRequest($id)
+    {
+        /*Rel status
+        -------------
+         0	Pending
+         1	Accepted
+         2	Declined
+         3	Blocked
 
-        if ($rel) {
+        */
 
+        $user = $this->user();
+        $user_id = $user->id;
+        $rel = $user->relationship($id);
 
-            switch ($rel->status) {
-
-
-
-                case 0: // request was pending
-
-
-
-
-                    //                     0	Pending
-                    // 1	Accepted
-                    // 2	Declined
-                    // 3	Blocked
-
-                    //  break;
-            }
+        if (!$rel) {
+            $rel = new Relationship();
+            $rel->status = 0;
+            $rel->user_one_id = $user_id;
+            $rel->user_two_id = $id;
+            $rel->save();
+            return redirect()->back()
+                ->with('message', ' friendship requested')
+                ->with('status', 200);
         }
 
-        return 0;
+        if ($rel->status == 1) {
+            $rel->delete();
+            return redirect()->back()
+                ->with('message', ' friendship removed')
+                ->with('status', 200);
+        }
 
+        if ($rel->user_one_id == $user_id && $rel->status == 0) {
+            $rel->delete();
+            return redirect()->back()->with('message', 'request canceled');
+        }
+        if ($rel->user_two_id == $user_id && $rel->status == 0)
+            return redirect()->back()
+                ->with('modal-accept', true);
 
-
-        //  if (isFriend($id))
-
+        if ($rel->user_one_id == $user_id && $rel->status == 3)
+            $rel->delete();
+        return redirect()->back()
+            ->with('message', 'user blocking stopped');
     }
 }
