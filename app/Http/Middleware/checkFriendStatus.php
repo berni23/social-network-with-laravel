@@ -17,7 +17,10 @@ class checkFriendStatus
      */
     public function handle(Request $request, Closure $next)
     {
-        $rel = User::find(auth()->user()->id)->relationship($request->route('id'));
+
+        $friendId = $request->route('id');
+        if ($friendId == auth()->user()->id) redirect()->back();
+        $rel = User::find(auth()->user()->id)->relationship($friendId);
         if ((!$rel && $request->relStatus == -1) || ($rel->status == $request->relStatus)) {
             return $next($request);
         }

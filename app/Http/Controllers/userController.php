@@ -158,4 +158,25 @@ class userController extends Controller
                 ->with('message', 'user blocking stopped');
         }
     }
+
+
+    function blockUser(Request $request, $id)
+    {
+
+        $user = $this->user();
+        $user_id = $user->id;
+        $rel = $user->relationship($id);
+
+        if (!$rel) {
+            $rel = new Relationship();
+            $rel->user_one_id = $user_id;
+            $rel->user_two_id = $id;
+        }
+
+        $rel->status = 3;
+        $rel->save();
+        return redirect()->back()
+            ->with('message', 'user blocked')
+            ->with('status', 200);
+    }
 }

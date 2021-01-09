@@ -20,7 +20,6 @@
                         <button class="flex rounded-full" id="user-menu" aria-label="User menu" aria-haspopup="true">
                             <img class="rounded-full profile_photo_url" src="{{ $user->profile_photo_url }}" />
                         </button>
-
                     </div>
                 </div>
                 <div class="text-profile w-full md:w-3/4 p-4 text-center">
@@ -56,10 +55,18 @@
         <a href="profile/show"><i class="gear text-gray-500 fa fa-cog fa-2x float-left hover:text-gray-200 transition duration-500 ease-in-out"></i></a>
         @else
         <form  method = "POST" action = '/user/request/{{$user->id}}'>
-            <input class = 'hidden' value = '{{$user->relStatus}}'>
+            <input class = 'hidden' name="relStatus" value = '{{$user->relStatus}}'>
         <button  type ='submit' id = "friendRequest" class="box--gradient silver text-lg text-gray-700 mr-2"> {{$user->friendshipStatus}} </button>
         </form>
-        @endif
+        <br>
+        @if($user->relStatus!=3)
+         </form>
+             <form  method = "POST" action = '/user/block/{{$user->id}}'>
+            <input class = 'hidden' value = '{{$user->relStatus}}'>
+        <button  type ='submit' id = "block" class=" text-lg text-gray-700 mr-2"><i class="fa fa-ban"></i>  block user </button>
+        </form>
+         @endif
+         @endif
             <hr class="border-gray-500 mt-12" />
              @if($user->show)
             <div class="flex flex-row mt-4 justify-center mr-16">
