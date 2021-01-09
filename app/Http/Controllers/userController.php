@@ -19,22 +19,17 @@ class userController extends Controller
 
     public function showUser($username)
     {
-
         $self = User::find(auth()->user()->id);
+        if ($self->name == $username) return redirect('profile');
         $friendsId = $self->friendsId();
-        $user = User::where('name', $username);
+        $user = User::where('name', $username)->get()->first();
         $user->numFriends = $user->numFriends();
         $user->numPosts = $user->numPosts();
         $user->self = false;
-
-        if (in_array($self->friendsId(), $user->id)) $user->show = true;
-
+        if (in_array($user->id, $self->friendsId())) $user->show = true;
         else $user->show = false;
-
         return view('profile', compact('user'));
     }
-
-
     public function paginatePosts($group = "all", $offset, $limit)
     {
         // offset starts at 0
@@ -43,7 +38,6 @@ class userController extends Controller
 
         $posts = "";
         switch ($group) {
-
             case 'all':
                 $posts =  $this->postsToSee();
                 break;
@@ -82,5 +76,51 @@ class userController extends Controller
         $postsToSee = arrayTools::merge($userPosts, $friendsPosts);
         usort($postsToSee, array('arrayTools', 'newFirst'));
         return $postsToSee;
+    }
+
+    public function isFriend($id)
+    {
+        return in_array($id, User::find(auth()->user()->id)->friendsList());
+    }
+
+
+    public function user()
+    {
+
+        return  User::find(auth()->user()->id);
+    }
+    public function frienshipRequest($id)
+    {
+
+        $rel = $this->user()->relationship($id);
+
+
+        if ($rel) {
+
+
+            switch ($rel->status) {
+
+
+
+                case 0: // request was pending
+
+
+
+
+                    //                     0	Pending
+                    // 1	Accepted
+                    // 2	Declined
+                    // 3	Blocked
+
+                    //  break;
+            }
+        }
+
+        return 0;
+
+
+
+        //  if (isFriend($id))
+
     }
 }

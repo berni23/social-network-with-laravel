@@ -17,7 +17,6 @@
             <div class="error">
                 {{ $errors->first('image') }}
             </div>
-
         @endif
         <div class="footer">
             <p id="img-error-js" class="error">
@@ -43,7 +42,6 @@
     <script defer>
         document.getElementById("add-image-post").addEventListener('click', () => document.getElementById("uploadFile")
             .click());
-
         function readURL(input) {
             var imgError = document.getElementById('img-error-js');
             imgError.innerHTML = "";

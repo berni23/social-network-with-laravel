@@ -1,13 +1,11 @@
 @extends('layouts/app')
-
 @section('head')
-@if($user->show)
 
+@if($user->show)
 
     <script src="{{ mix('js/post.js') }}" defer></script>
 
 @endif
-
         <script defer>
 
   window.onload =function(){
@@ -18,18 +16,45 @@
 
         </script>
 
+@if(!$user->self)
+
+        <script defer>
+                var requestBtn = document.getElementById('friendRequest');
+                var id = requestBtn.getAttribute('data-id');
+                 requestBtn.addEventListener('click',function(){
+
+                    fetch(`user/request/${id}`).then
+
+                 })
+
+        </script>
+
+        @endif
+
 
 @endsection
 @section('profile')
-            <div class="flex md:flex-row-reverse flex-wrap">
+
+{{-- md:flex-row-reverse --}}
+
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/4 p-4 text-center">
+                    <div class="w-full relative md:w-3/4 text-center mt-8">
+                        <button class="flex rounded-full" id="user-menu" aria-label="User menu" aria-haspopup="true">
+                            <img class="rounded-full profile_photo_url" src="{{ $user->profile_photo_url }}" />
+                        </button>
+
+                    </div>
+                </div>
                 <div class="text-profile w-full md:w-3/4 p-4 text-center">
                     <div class="text-left pl-4 pt-3">
                         <span class="text-base text-gray-700 text-2xl mr-2">{{ $user->name }}</span>
+
+                        {{-- <span class="text-base text-gray-700 text-2xl mr-2">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span> --}}
+
                     </div>
                     <div class="text-left pl-4 pt-3">
-
                         <span class="text-base font-semibold text-gray-700 mr-2">
-
                              @if(!$user->numPosts)  No Posts yet
                              @else  <b>{{$user->numPosts}}</b> posts
                              @endif
@@ -39,6 +64,7 @@
                               @if(!$user->numFriends) No friends yet
                               @else  <b>{{$user->numFriends}}</b> friends
                               @endif
+
                         </span>
 
                     </div>
@@ -55,25 +81,18 @@
                             #digitalmarketer</p>
                     </div>
                 </div>
-
-                <div class="w-full md:w-1/4 p-4 text-center">
-                    <div class="w-full relative md:w-3/4 text-center mt-8">
-                        <button class="flex rounded-full" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                            <img class="rounded-full profile_photo_url" src="{{ $user->profile_photo_url }}" />
-                        </button>
-
-                    </div>
-
-                </div>
-
             </div>
 
         @if($user->self)
         <a href="user/settings"><i class="gear text-gray-500 fa fa-cog fa-2x float-left hover:text-gray-200 transition duration-500 ease-in-out"></i></a>
+        @else  <button id = "friendRequest" data-id={{$user->id}} class="box--gradient silver text-lg text-gray-700 mr-2"> {{$user->friendshipStatus}} </button>
         @endif
 
             <hr class="border-gray-500 mt-12" />
             <!--post icon and title-->
+
+             @if($user->show)
+
             <div class="flex flex-row mt-4 justify-center mr-16">
                 <div class="flex text-gray-700 text-center py-2 m-2 pr-5">
                     <div class="flex inline-flex">
@@ -141,6 +160,8 @@
                     </div>
                 </div>
             </div>
+
+            @endif
 @endsection
 
 @section('modals')

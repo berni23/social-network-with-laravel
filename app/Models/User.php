@@ -68,7 +68,6 @@ class User extends Authenticatable
 
     public function posts()
     {
-
         return $this->hasMany(Post::class, 'user_id');
     }
     public function numPosts()
@@ -82,6 +81,16 @@ class User extends Authenticatable
         $rel2 = $this->hasMany(Relationship::class, 'user_two_id')->get();
         return  arrayTools::merge($rel1, $rel2);
     }
+
+    public function relationship($id)
+    {
+
+        $rel1 = Relationship::where('user_one_id', $id)
+            ->where('user_two_id', $this->$id)->get()->first();
+
+        return $rel1 ? $rel1 : Relationship::where('user_two_id', $id)
+            ->where('user_one_id', $this->id)->get()->first();
+    }
     public function RelationshipsByStatus(int $status)
     {
         $rels = $this->relationships();
@@ -94,7 +103,7 @@ class User extends Authenticatable
 
     public function friendsId()
     {
-        $userId = $this->getKey();
+        $userId = $this->id;
         $accepted = $this->RelationshipsByStatus(1); // relations with an accepted status
         $idList = [];
         foreach ($accepted as $rel) {
