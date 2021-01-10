@@ -150,23 +150,15 @@
                 </div>
 
                 <div class="dropdown" style="float:right;">
-                    <button onclick="toggleNotifications()" class="notification dropbtn">
+                    <button id='bell' class="notification dropbtn">
                         <span> <i class="fa fa-bell"></i></span>
-                        <span class="badge">3</span>
+                        <span id='badge' class="badge hidden"></span>
                     </button>
-                    <div id="notifications-list" class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
+                    <ul id="notifications-list" class="notifications-list dropdown-content">
+
+                        <li> new request!</li>
+                    </ul>
                 </div>
-
-                <script>
-                    function toggleNotifications() {
-                        document.getElementById('notifications-list').classList.toggle('block');
-                    }
-
-                </script>
 
             @endif
 

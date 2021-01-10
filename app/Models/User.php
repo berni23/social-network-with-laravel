@@ -82,12 +82,20 @@ class User extends Authenticatable
         return  arrayTools::merge($rel1, $rel2);
     }
 
-
     public function relStatus($id)
     {
         $rel = $this->relationship($id);
         if ($rel) return $rel->status;
         else return -1;
+    }
+
+
+    public function pendingNotifications()
+    {
+        return $this->hasMany(Relationship::class, 'user_two_id')
+            ->where('status', 0)
+            ->join('users', 'relationships.user_two_id', '=', 'users.id')
+            ->get();
     }
 
     public function relationship($id)

@@ -217,6 +217,28 @@ button {
     color: white;
 }
 
+.notifications-list {
+
+    // padding: 10px;
+    list-style: none;
+
+
+    li {
+
+        cursor: pointer;
+        padding: 5px 0 5px 10px;
+    }
+
+    li:hover {
+
+
+        background-color: #dbdbdb;
+
+    }
+}
+
+
+
 /* comments */
 .input-comment {
     padding: 10px;

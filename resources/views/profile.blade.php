@@ -165,10 +165,6 @@
         @endphp
 
         @include('components.modalAccept')
-        <script defer>
-            toggleModal(document.getElementById('modal-accept'));
-
-        </script>
     @endif
 
 

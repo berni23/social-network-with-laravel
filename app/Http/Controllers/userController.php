@@ -160,7 +160,6 @@ class userController extends Controller
 
     function blockUser(Request $request, $id)
     {
-
         $user = $this->user();
         $user_id = $user->id;
         $rel = $user->relationship($id);
@@ -178,15 +177,11 @@ class userController extends Controller
             ->with('status', 200);
     }
 
-
     function respondRequest(Request $request, $id)
     {
         $user = User::find($id);
-
         $rel = $this->user()->relationship($id);
-
         if (isset($request->decline)) {
-
             $rel->status = 2;
             $rel->save();
             return  redirect('user/' . $user->name)
@@ -196,9 +191,13 @@ class userController extends Controller
 
             $rel->status = 1;
             $rel->save();
-
             return  redirect('user/' . $user->name)->with('message', 'request accepted')
                 ->with('status', 200);
         }
+    }
+
+    function getNotifications()
+    {
+        return json_encode($this->user()->pendingNotifications());
     }
 }

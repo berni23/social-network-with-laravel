@@ -20,3 +20,7 @@ function toggleModal(modal) {
     modal.classList.toggle('pointer-events-none')
     body.classList.toggle('modal-active')
 }
+
+
+var modalAccept = document.getElementById('modal-accept');
+if (modalAccept) toggleModal(modalAccept);

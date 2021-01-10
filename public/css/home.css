@@ -459,6 +459,19 @@ button {
   color: white;
 }
 
+.notifications-list {
+  list-style: none;
+}
+
+.notifications-list li {
+  cursor: pointer;
+  padding: 5px 0 5px 10px;
+}
+
+.notifications-list li:hover {
+  background-color: #dbdbdb;
+}
+
 /* comments */
 
 .input-comment {
