@@ -32968,141 +32968,146 @@ __webpack_require__(/*! ./modals */ "./resources/js/modals.js");
 
 
 window.$ = window.jQuery = jquery__WEBPACK_IMPORTED_MODULE_1___default.a;
-var messageHidden = document.getElementById('messageHidden');
 
-if (messageHidden) {
-  var status = messageHidden.getAttribute('data-status');
-  var msg = messageHidden.textContent;
-  message(msg, status);
-}
-/**
- * @param {string} msg message to be displayed
- * @param {string} tag (optional), tag to be added to the message.possible tags: success, error
- * @description  displays a user-friendly message during 1.5 seconds
- */
+window.onload = function () {
+  var messageHidden = document.getElementById('messageHidden');
+
+  if (messageHidden) {
+    var status = messageHidden.getAttribute('data-status');
+    var msg = messageHidden.textContent;
+    message(msg, status);
+  }
+  /**
+   * @param {string} msg message to be displayed
+   * @param {string} tag (optional), tag to be added to the message.possible tags: success, error
+   * @description  displays a user-friendly message during 1.5 seconds
+   */
 
 
-function message(msg) {
-  var tag = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  if (tag == 200) tag = 'success';else if (tag == 400) tag = 'failure';
-  var infoWindow = document.querySelector(".info-window");
-  if (tag) infoWindow.classList.add(tag);
-  infoWindow.textContent = msg;
-  infoWindow.classList.add("show-info");
-  infoWindow.classList.remove("hidden");
-  setTimeout(function () {
-    infoWindow.classList.remove("show-info");
+  function message(msg) {
+    var tag = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    if (tag == 200) tag = 'success';else if (tag == 400) tag = 'failure';
+    var infoWindow = document.querySelector(".info-window");
+    if (tag) infoWindow.classList.add(tag);
+    infoWindow.textContent = msg;
+    infoWindow.classList.add("show-info");
+    infoWindow.classList.remove("hidden");
     setTimeout(function () {
-      infoWindow.classList.add("hidden");
-      if (tag) infoWindow.classList.remove(tag);
-    }, 1000);
-  }, 1500);
-}
+      infoWindow.classList.remove("show-info");
+      setTimeout(function () {
+        infoWindow.classList.add("hidden");
+        if (tag) infoWindow.classList.remove(tag);
+      }, 1000);
+    }, 1500);
+  }
 
-function toggleNotifications() {
-  document.getElementById('notifications-list').classList.toggle('block');
-}
+  function toggleNotifications() {
+    document.getElementById('notifications-list').classList.toggle('block');
+  }
 
-var bell = document.getElementById('bell');
+  var bell = document.getElementById('bell');
 
-if (bell) {
-  var notificationsList = document.getElementById('notifications-list');
-  var modalRequest = document.getElementById('modalRequest');
-  bell.addEventListener('click', toggleNotifications);
-  notificationsList.addEventListener('click', function (event) {
-    var list = event.target.classList;
+  if (bell) {
+    var notificationsList = document.getElementById('notifications-list');
+    var modalRequest = document.getElementById('modalRequest');
+    bell.addEventListener('click', toggleNotifications);
+    notificationsList.addEventListener('click', function (event) {
+      var list = event.target.classList;
 
-    if (list.contains('notification')) {
-      var name = event.target.getAttribute('data-name');
-      var id = event.target.getAttribute('data-id');
-      modalRequest.querySelector('#modal-headline').innerHTML = "<b>".concat(name, "</b> sent you a friendship request :) .<br><br> Click to accept or decline it");
-      modalRequest.querySelector('#form-request').action = "/user/respond/".concat(id);
-      modalRequest.querySelector('[name=relStatus').value = event.target.getAttribute('data-status');
-    }
-  });
-  populateNotifications();
-}
-
-var userActions = document.getElementById('user-actions');
-
-if (userActions) {
-  userActions.childNodes.forEach(function (child) {
-    child.addEventListener('mouseenter', function (event) {
-      var dataTooltip = this.getAttribute('data-tooltip');
-      console.log(dataTooltip, event.target.id);
-      if (dataTooltip) document.getElementById(dataTooltip).classList.remove('invisible');
-    });
-    child.addEventListener('mouseleave', function (event) {
-      var dataTooltip = event.target.getAttribute('data-tooltip');
-      if (dataTooltip) document.getElementById(dataTooltip).classList.add('invisible');
-    });
-  });
-}
-
-function populateNotifications() {
-  getNotifications().then(function (data) {
-    console.log(data);
-    data = JSON.parse(data);
-    if (!data) return;
-    var num = data.length;
-    if (num == 0) return;
-    var badge = document.getElementById('badge');
-    badge.textContent = num;
-    badge.classList.add('badge');
-    badge.classList.remove('hidden');
-    /* for now, the only notifications are friendship requests,
-       but can be easily refactored in order to allow for  custom user messages*/
-
-    data.forEach(function (pending) {
-      console.log(pending);
-      var notification = document.createElement('li');
-      notification.classList.add('notification');
-      notification.classList.add('modal-open');
-      notification.innerHTML = 'New request! &nbsp; 🎉';
-      notification.setAttribute('data-name', pending['name']);
-      notification.setAttribute('data-id', pending['id']);
-      notification.setAttribute('data-status', pending['status']);
-      notificationsList.append(notification);
-    });
-  });
-}
-
-function getNotifications() {
-  return _getNotifications.apply(this, arguments);
-}
-
-function _getNotifications() {
-  _getNotifications = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-    var res;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return fetch('/user/notifications/all', {
-              headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-              },
-              method: 'GET'
-            });
-
-          case 2:
-            res = _context.sent;
-            _context.next = 5;
-            return res.text();
-
-          case 5:
-            return _context.abrupt("return", _context.sent);
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
+      if (list.contains('notification')) {
+        var name = event.target.getAttribute('data-name');
+        var id = event.target.getAttribute('data-id');
+        console.log(modalRequest);
+        modalRequest.querySelector('#modal-headline').innerHTML = "<b>".concat(name, "</b> &nbsp sent you a friendship request \uD83E\uDD17 ");
+        modalRequest.querySelector('#modal-content').innerHTML = 'Become friends by pressing accept, or decline his / her request ';
+        modalRequest.querySelector('#form-request').action = "/user/respond/".concat(id);
+        modalRequest.querySelector('[name=relStatus').value = event.target.getAttribute('data-status');
       }
-    }, _callee);
-  }));
-  return _getNotifications.apply(this, arguments);
-}
+    });
+    populateNotifications();
+  }
+
+  var userActions = document.getElementById('user-actions');
+
+  if (userActions) {
+    userActions.childNodes.forEach(function (child) {
+      child.addEventListener('mouseenter', function (event) {
+        var dataTooltip = this.getAttribute('data-tooltip');
+        console.log(dataTooltip, event.target.id);
+        if (dataTooltip) document.getElementById(dataTooltip).classList.remove('invisible');
+      });
+      child.addEventListener('mouseleave', function (event) {
+        var dataTooltip = event.target.getAttribute('data-tooltip');
+        if (dataTooltip) document.getElementById(dataTooltip).classList.add('invisible');
+      });
+    });
+  }
+
+  function populateNotifications() {
+    getNotifications().then(function (data) {
+      console.log(data);
+      data = JSON.parse(data);
+      if (!data) return;
+      var num = data.length;
+      if (num == 0) return;
+      var badge = document.getElementById('badge');
+      badge.textContent = num;
+      badge.classList.add('badge');
+      badge.classList.remove('hidden');
+      /* for now, the only notifications are friendship requests,
+         but can be easily refactored in order to allow for  custom user messages*/
+
+      data.forEach(function (pending) {
+        var notification = document.createElement('li');
+        notification.classList.add('notification');
+        notification.classList.add('modal-open');
+        notification.innerHTML = 'New request! &nbsp; 🎉';
+        notification.setAttribute('data-name', pending['name']);
+        notification.setAttribute('data-id', pending['id']);
+        notification.setAttribute('data-status', pending['status']);
+        notification.setAttribute('data-modal', 'modalRequest');
+        notificationsList.append(notification);
+      });
+    });
+  }
+
+  function getNotifications() {
+    return _getNotifications.apply(this, arguments);
+  }
+
+  function _getNotifications() {
+    _getNotifications = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return fetch('/user/notifications/all', {
+                headers: {
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                method: 'GET'
+              });
+
+            case 2:
+              res = _context.sent;
+              _context.next = 5;
+              return res.text();
+
+            case 5:
+              return _context.abrupt("return", _context.sent);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _getNotifications.apply(this, arguments);
+  }
+};
 
 /***/ }),
 

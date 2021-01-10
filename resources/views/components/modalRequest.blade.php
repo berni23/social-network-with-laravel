@@ -5,8 +5,12 @@
        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
            <br>
-           <h3 class="flex justify-center text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+           <h3 class="flex  mt-10 justify-center text-lg leading-6 font-medium text-gray-900" id="modal-headline">
            </h3>
+
+           <br>
+           <h3 id="modal-content" class=" px-9 flex justify-center text-lg leading-6 font-medium text-gray-900"></h3>
+
            <br><br>
            <form id="form-request" method="POST" class="modal-content py-4 text-left px-6">
                @csrf

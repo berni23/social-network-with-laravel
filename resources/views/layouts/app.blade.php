@@ -43,8 +43,9 @@
             @show()
         </main>
     </div>
+
+    @include('components.modalRequest')
     @section('modals')
-        @include('components.modalRequest')
     @show()
     @stack('modals')
     @livewireScripts
