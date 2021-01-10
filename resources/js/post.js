@@ -62,9 +62,6 @@ function toggleModal(modal) {
 
 async function sendLike(likeable, id) {
     const res = await fetch(`/likes/${likeable}/${id}`, {
-        /*headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },*/
         method: 'GET'
     });
     return await res.text(); // view('postPopulate',compact('posts'))
@@ -82,7 +79,6 @@ async function getPosts(offset, limit) {
 
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
-        console.log(postView);
         if (postView == 0) {
             console.log('eventlistener removed');
             document.removeEventListener('scroll', scrollBottom);

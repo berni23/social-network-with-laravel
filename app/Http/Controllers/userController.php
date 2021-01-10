@@ -93,22 +93,21 @@ class userController extends Controller
     }
     public function friendshipStatus($id)
     {
-        $rel =  $this->user()->relationship($id);
-        if (!$rel) return 'send friendship request';
-        switch ($rel->status) {
+        $status =  $this->user()->relStatus($id);
+
+        // echo $status;
+        switch ($status) {
 
             case 0:
                 return 'request pending .. ';
-                break;
             case 1:
                 return 'remove friendship';
-            case 2:
-            default:
-                return 'send friendship request';
-                break;
             case 3:
                 return 'click to unblock user';
-                break;
+            case -1:
+            case  2:
+            default:
+                return 'send friendship request';
         }
     }
     public function friendshipRequest(Request $request, $id)
@@ -159,7 +158,6 @@ class userController extends Controller
         }
     }
 
-
     function blockUser(Request $request, $id)
     {
 
@@ -178,5 +176,31 @@ class userController extends Controller
         return redirect()->back()
             ->with('message', 'user blocked')
             ->with('status', 200);
+    }
+
+
+    function respondRequest(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        $rel = $this->user()->relationship($id);
+
+        if (isset($request->decline)) {
+
+            $rel->status = 2;
+            $rel->save();
+
+
+            return  redirect('user/' . $user->name)
+                ->with('message', 'request declined')
+                ->with('status', 200);
+        } else {
+
+            $rel->status = 1;
+            $rel->save();
+
+            return  redirect('user/' . $user->name)->with('message', 'request accepted')
+                ->with('status', 200);
+        }
     }
 }

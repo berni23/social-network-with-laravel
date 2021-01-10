@@ -94,7 +94,7 @@ class User extends Authenticatable
     {
 
         $rel1 = Relationship::where('user_one_id', $id)
-            ->where('user_two_id', $this->$id)->get()->first();
+            ->where('user_two_id', $this->id)->get()->first();
 
         return $rel1 ? $rel1 : Relationship::where('user_two_id', $id)
             ->where('user_one_id', $this->id)->get()->first();
