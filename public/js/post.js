@@ -874,11 +874,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var postId = document.getElementById('post-id');
-var body = document.querySelector('body');
 var main = document.querySelector('main');
-var modalComment = document.getElementById('modal-comment');
-var modalDelete = document.getElementById('modal-delete');
+var modalComment = document.getElementById('modalComment');
+var modalDelete = document.getElementById('modalDelete');
 var formDelete = document.getElementById('form-delete');
 var groupElem = document.getElementById('group');
 var group = 'all';
@@ -889,19 +887,11 @@ var page = 0;
 var scrollActive = true;
 var limit = 4;
 nextPage();
-document.querySelector('main').addEventListener('click', function (event) {
+main.addEventListener('click', function (event) {
   var list = event.target.classList;
-
-  if (list.contains('modal-open-comment')) {
-    event.preventDefault();
-    toggleModal(modalComment);
-    postId.value = event.target.closest('.post').getAttribute('data-post');
-  } else if (list.contains('post-edit-menu')) {
-    event.target.querySelector('.dropdown-content').classList.toggle('block');
-  } else if (list.contains('modal-open-deletePost')) {
-    toggleModal(modalDelete);
+  if (list.contains('openComment')) postId.value = event.target.closest('.post').getAttribute('data-post');else if (list.contains('post-edit-menu')) event.target.querySelector('.dropdown-content').classList.toggle('block');else if (list.contains('deletePost')) {
     event.target.closest('.post-edit-menu').click();
-    postId = event.target.closest('.post').getAttribute('data-post');
+    var postId = event.target.closest('.post').getAttribute('data-post');
     formDelete.action = "posts/delete/".concat(postId);
   } else if (event.target.closest('.likeComment')) {
     var like = event.target.closest('.likeComment');
@@ -920,21 +910,7 @@ document.querySelector('main').addEventListener('click', function (event) {
     });
   }
 });
-document.getElementById('delete-close').addEventListener('click', function (event) {
-  event.preventDefault();
-  toggleModal(modalDelete);
-});
-document.getElementById('comment-close').addEventListener('click', function (event) {
-  event.preventDefault();
-  toggleModal(modalComment);
-});
 document.addEventListener('scroll', scrollBottom);
-
-function toggleModal(modal) {
-  modal.classList.toggle('opacity-0');
-  modal.classList.toggle('pointer-events-none');
-  body.classList.toggle('modal-active');
-}
 
 function sendLike(_x, _x2) {
   return _sendLike.apply(this, arguments);
@@ -949,9 +925,6 @@ function _sendLike() {
           case 0:
             _context.next = 2;
             return fetch("/likes/".concat(likeable, "/").concat(id), {
-              /*headers: {
-                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-              },*/
               method: 'GET'
             });
 
@@ -1012,8 +985,6 @@ function _getPosts() {
 
 function nextPage() {
   getPosts(limit * page, limit).then(function (postView) {
-    console.log(postView);
-
     if (postView == 0) {
       console.log('eventlistener removed');
       document.removeEventListener('scroll', scrollBottom);

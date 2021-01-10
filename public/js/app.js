@@ -32185,6 +32185,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+__webpack_require__(/*! ./modals */ "./resources/js/modals.js");
+
 
 window.$ = window.jQuery = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
 var messageHidden = document.getElementById('messageHidden');
@@ -32249,6 +32251,33 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/modals.js":
+/*!********************************!*\
+  !*** ./resources/js/modals.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var body = document.querySelector('body');
+body.addEventListener('click', function (event) {
+  var list = event.target.classList;
+
+  if (list.contains('modal-open') || list.contains('modal-close')) {
+    event.preventDefault();
+    var modalId = event.target.getAttribute('data-modal');
+    var modal = document.getElementById(modalId);
+    toggleModal(modal);
+  }
+});
+
+function toggleModal(modal) {
+  modal.classList.toggle('opacity-0');
+  modal.classList.toggle('pointer-events-none');
+  body.classList.toggle('modal-active');
+}
 
 /***/ }),
 

@@ -15,7 +15,7 @@
                     <input type="submit" id="delete-confirm"
                         class="modal-close px-4 bg-red-400 p-3 focus:outline-none rounded-lg text-white-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"
                         value="delete">
-                    <button id="delete-close"
+                    <button id="delete-close" data-modal='modalDelete'
                         class="modal-close px-4 bg-transparent p-3 focus:outline-none  rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Cancel</button>
                 </div>
             </form>

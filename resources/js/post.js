@@ -1,4 +1,3 @@
-var postId = document.getElementById('post-id');
 var main = document.querySelector('main');
 var modalComment = document.getElementById('modalComment');
 var modalDelete = document.getElementById('modalDelete');
@@ -20,7 +19,7 @@ main.addEventListener('click', function (event) {
     else if (list.contains('post-edit-menu')) event.target.querySelector('.dropdown-content').classList.toggle('block');
     else if (list.contains('deletePost')) {
         event.target.closest('.post-edit-menu').click();
-        postId = event.target.closest('.post').getAttribute('data-post');
+        var postId = event.target.closest('.post').getAttribute('data-post');
         formDelete.action = `posts/delete/${postId}`;
     } else if (event.target.closest('.likeComment')) {
         var like = event.target.closest('.likeComment')

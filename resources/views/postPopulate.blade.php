@@ -10,7 +10,7 @@
                         {{ App\Models\User::find($post->user_id)->name }}
                     </span>
                 </div>
-                @if (auth()->user()->id == App\Models\User::find($post->user_id)->id)
+                @if (auth()->user()->id == $post->user_id)
                     <i class="dropdown fa fa-ellipsis-v post-edit-menu">
                         <div class="dropdown-content">
                             <a href="posts/edit/{{ $post->id }}">Edit</a>
