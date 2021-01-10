@@ -189,8 +189,6 @@ class userController extends Controller
 
             $rel->status = 2;
             $rel->save();
-
-
             return  redirect('user/' . $user->name)
                 ->with('message', 'request declined')
                 ->with('status', 200);

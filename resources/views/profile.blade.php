@@ -166,21 +166,7 @@
 
         @include('components.modalAccept')
         <script defer>
-            var body = document.querySelector('body')
-            var modalAccept = document.getElementById('modal-accept')
-
-            function toggleModal(modal) {
-                modal.classList.toggle('opacity-0')
-                modal.classList.toggle('pointer-events-none')
-                body.classList.toggle('modal-active')
-            }
-
-            document.getElementById('accept-close').addEventListener('click', function(event) {
-                event.preventDefault()
-                toggleModal(modalAccept)
-            })
-
-            toggleModal(modalAccept);
+            toggleModal(document.getElementById('modal-accept'));
 
         </script>
     @endif

@@ -1,5 +1,6 @@
 require('./bootstrap');
 require('alpinejs');
+require('./modals');
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 

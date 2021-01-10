@@ -1,8 +1,7 @@
 var postId = document.getElementById('post-id');
-var body = document.querySelector('body');
 var main = document.querySelector('main');
-var modalComment = document.getElementById('modal-comment');
-var modalDelete = document.getElementById('modal-delete');
+var modalComment = document.getElementById('modalComment');
+var modalDelete = document.getElementById('modalDelete');
 var formDelete = document.getElementById('form-delete');
 var groupElem = document.getElementById('group');
 var group = 'all';
@@ -15,16 +14,11 @@ let scrollActive = true;
 const limit = 4;
 nextPage();
 
-document.querySelector('main').addEventListener('click', function (event) {
+main.addEventListener('click', function (event) {
     var list = event.target.classList;
-    if (list.contains('modal-open-comment')) {
-        event.preventDefault();
-        toggleModal(modalComment);
-        postId.value = event.target.closest('.post').getAttribute('data-post');
-    } else if (list.contains('post-edit-menu')) {
-        event.target.querySelector('.dropdown-content').classList.toggle('block');
-    } else if (list.contains('modal-open-deletePost')) {
-        toggleModal(modalDelete);
+    if (list.contains('openComment')) postId.value = event.target.closest('.post').getAttribute('data-post');
+    else if (list.contains('post-edit-menu')) event.target.querySelector('.dropdown-content').classList.toggle('block');
+    else if (list.contains('deletePost')) {
         event.target.closest('.post-edit-menu').click();
         postId = event.target.closest('.post').getAttribute('data-post');
         formDelete.action = `posts/delete/${postId}`;
@@ -42,23 +36,7 @@ document.querySelector('main').addEventListener('click', function (event) {
     }
 });
 
-document.getElementById('delete-close').addEventListener('click', function (event) {
-    event.preventDefault();
-    toggleModal(modalDelete);
-})
-
-document.getElementById('comment-close').addEventListener('click', function (event) {
-    event.preventDefault();
-    toggleModal(modalComment);
-})
-
 document.addEventListener('scroll', scrollBottom);
-
-function toggleModal(modal) {
-    modal.classList.toggle('opacity-0')
-    modal.classList.toggle('pointer-events-none')
-    body.classList.toggle('modal-active')
-}
 
 async function sendLike(likeable, id) {
     const res = await fetch(`/likes/${likeable}/${id}`, {
