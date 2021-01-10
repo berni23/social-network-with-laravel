@@ -94,10 +94,7 @@ class userController extends Controller
     public function friendshipStatus($id)
     {
         $status =  $this->user()->relStatus($id);
-
-        // echo $status;
         switch ($status) {
-
             case 0:
                 return 'request pending .. ';
             case 1:
@@ -179,19 +176,18 @@ class userController extends Controller
 
     function respondRequest(Request $request, $id)
     {
-        $user = User::find($id);
         $rel = $this->user()->relationship($id);
         if (isset($request->decline)) {
             $rel->status = 2;
             $rel->save();
-            return  redirect('user/' . $user->name)
+            return  redirect()->back()
                 ->with('message', 'request declined')
                 ->with('status', 200);
         } else {
 
             $rel->status = 1;
             $rel->save();
-            return  redirect('user/' . $user->name)->with('message', 'request accepted')
+            return  redirect()->back()->with('message', 'request accepted')
                 ->with('status', 200);
         }
     }

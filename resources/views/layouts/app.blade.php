@@ -34,16 +34,17 @@
         @livewire('navigation-dropdown')
         <!-- Page Content -->
 
-          <div class="flex md:flex my-auto content-center profile bg-gray-100 h-auto px-48 block">
+        <div class="flex md:flex my-auto content-center profile bg-gray-100 h-auto px-48 block">
             @section('profile')
             @show()
-          </div>
+        </div>
         <main class="main">
             @section('main')
             @show()
         </main>
     </div>
     @section('modals')
+        @include('components.modalRequest')
     @show()
     @stack('modals')
     @livewireScripts

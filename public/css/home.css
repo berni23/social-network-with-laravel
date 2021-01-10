@@ -461,15 +461,26 @@ button {
 
 .notifications-list {
   list-style: none;
+  margin: 0;
 }
 
 .notifications-list li {
   cursor: pointer;
-  padding: 5px 0 5px 10px;
 }
 
 .notifications-list li:hover {
   background-color: #dbdbdb;
+}
+
+.friends-wrapper {
+  margin: 17px 0 0 10px;
+}
+
+.tooltip-wrapper {
+  position: absolute;
+  top: 80px;
+  right: 400px;
+  display: flex;
 }
 
 /* comments */

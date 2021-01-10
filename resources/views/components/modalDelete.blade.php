@@ -10,7 +10,6 @@
             <br><br>
             <form id="form-delete" method="POST" class="modal-content py-4 text-left px-6">
                 @csrf
-
                 <div class="flex justify-center pt-2justify">
                     <input type="submit" id="delete-confirm"
                         class=" px-4 bg-red-400 p-3 focus:outline-none rounded-lg text-white-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"

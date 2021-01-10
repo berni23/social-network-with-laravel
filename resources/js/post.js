@@ -5,14 +5,12 @@ var formDelete = document.getElementById('form-delete');
 var groupElem = document.getElementById('group');
 var group = 'all';
 if (groupElem) group = groupElem.getAttribute('data-group');
-
 let last_known_scroll_position = 0;
 let ticking = false;
 let page = 0;
 let scrollActive = true;
 const limit = 4;
 nextPage();
-
 main.addEventListener('click', function (event) {
     var list = event.target.classList;
     if (list.contains('openComment')) postId.value = event.target.closest('.post').getAttribute('data-post');

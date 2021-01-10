@@ -140,113 +140,142 @@
                     </svg>
                 </button>
             </div>
-
             @if ($_SERVER['REQUEST_URI'] != '/newPost')
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('newPost') }}" :active="request()->routeIs('newPost')">
+                <div id="user-actions" class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link class="has-tooltip" data-tooltip="tooltip-post" href="{{ route('newPost') }}"
+                        :active="request()->routeIs('newPost')">
                         <img class="w-8" src=@php if($_SERVER['REQUEST_URI']=='/user/profile' )echo"
                             ../images/new_post_icon.png"; else echo "/images/new_post_icon.png" ;@endphp>
                     </x-jet-nav-link>
+                    <div class="dropdown has-tooltip" style="float:right;" data-tooltip="tooltip-notifications">
+                        <button id='bell' class="notification dropbtn">
+                            <span> <i class="fa fa-bell"></i></span>
+                            <span id='badge' class="badge hidden"></span>
+                        </button>
+                        <ul id="notifications-list" class="notifications-list dropdown-content">
+
+                        </ul>
+                    </div>
+                    <div class="has-tooltip friends-wrapper" data-tooltip='tooltip-friends'>
+                        <button> <i class="fa fa-lg fa-users friends"></i></button>
+                    </div>
+
                 </div>
+                <div class="tooltip-wrapper">
+                    <div id="tooltip-post"
+                        class="invisible bg-black text-white text-xs rounded py-1 px-4 right-0 bottom-full">
+                        New post
+                        <svg class=" tooltip-svg absolute text-black h-2 w-full left-0 top-full" x="0px" y="0px"
+                            viewBox="0 0 255 255" xml:space="preserve">
+                        </svg>
+                    </div>
+                    <div id="tooltip-notifications"
+                        class="invisible bg-black text-white text-xs rounded py-1 px-4 right-0 bottom-full">
+                        Notifications
+                        <svg class=" tooltip-svg absolute text-black h-2 w-full left-0 top-full" x="0px" y="0px"
+                            viewBox="0 0 255 255" xml:space="preserve">
+                            <polygon class="fill-current absolute left-0" points="0,0 127.5,127.5 255,0" />
+                        </svg>
 
-                <div class="dropdown" style="float:right;">
-                    <button id='bell' class="notification dropbtn">
-                        <span> <i class="fa fa-bell"></i></span>
-                        <span id='badge' class="badge hidden"></span>
-                    </button>
-                    <ul id="notifications-list" class="notifications-list dropdown-content">
+                    </div>
+                    <div id="tooltip-friends"
+                        class="invisible bg-black text-white text-xs rounded py-1 px-4 right-0 bottom-full">
+                        Friends
+                        <svg class=" tooltip-svg absolute text-black h-2 w-full left-0 top-full" x="0px" y="0px"
+                            viewBox="0 0 255 255" xml:space="preserve">
+                        </svg>
 
-                        <li> new request!</li>
-                    </ul>
+                    </div>
                 </div>
 
             @endif
 
-        </div>
-    </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                {{ __('Home') }}
-            </x-jet-responsive-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                {{ __('Profile') }}
-            </x-jet-responsive-nav-link>
+
         </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                <div class="flex-shrink-0">
-                    <img class="h-10 w-10 rounded-full" src="{{ Auth::user()->profile_photo_url }}"
-                        alt="{{ Auth::user()->name }}" />
-                </div>
-
-                <div class="ml-3">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
+        <!-- Responsive Navigation Menu -->
+        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                    {{ __('Home') }}
+                </x-jet-responsive-nav-link>
             </div>
-
-            <div class="mt-3 space-y-1">
-                <!-- Account Management -->
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}"
-                    :active="request()->routeIs('profile.show')">
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
+            </div>
 
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}"
-                        :active="request()->routeIs('api-tokens.index')">
-                        {{ __('API Tokens') }}
+            <!-- Responsive Settings Options -->
+            <div class="pt-4 pb-1 border-t border-gray-200">
+                <div class="flex items-center px-4">
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full" src="{{ Auth::user()->profile_photo_url }}"
+                            alt="{{ Auth::user()->name }}" />
+                    </div>
+
+                    <div class="ml-3">
+                        <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    </div>
+                </div>
+
+                <div class="mt-3 space-y-1">
+                    <!-- Account Management -->
+                    <x-jet-responsive-nav-link href="{{ route('profile.show') }}"
+                        :active="request()->routeIs('profile.show')">
+                        {{ __('Profile') }}
                     </x-jet-responsive-nav-link>
-                @endif
 
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                        <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}"
+                            :active="request()->routeIs('api-tokens.index')">
+                            {{ __('API Tokens') }}
+                        </x-jet-responsive-nav-link>
+                    @endif
 
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                        {{ __('Logout') }}
-                    </x-jet-responsive-nav-link>
-                </form>
+                            {{ __('Logout') }}
+                        </x-jet-responsive-nav-link>
+                    </form>
 
-                <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
+                    <!-- Team Management -->
+                    @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                        <div class="border-t border-gray-200"></div>
 
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
-                    </div>
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Manage Team') }}
+                        </div>
 
-                    <!-- Team Settings -->
-                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
-                        :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
-                    </x-jet-responsive-nav-link>
+                        <!-- Team Settings -->
+                        <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
+                            :active="request()->routeIs('teams.show')">
+                            {{ __('Team Settings') }}
+                        </x-jet-responsive-nav-link>
 
-                    <x-jet-responsive-nav-link href="{{ route('teams.create') }}"
-                        :active="request()->routeIs('teams.create')">
-                        {{ __('Create New Team') }}
-                    </x-jet-responsive-nav-link>
+                        <x-jet-responsive-nav-link href="{{ route('teams.create') }}"
+                            :active="request()->routeIs('teams.create')">
+                            {{ __('Create New Team') }}
+                        </x-jet-responsive-nav-link>
 
-                    <div class="border-t border-gray-200"></div>
+                        <div class="border-t border-gray-200"></div>
 
-                    <!-- Team Switcher -->
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Switch Teams') }}
-                    </div>
+                        <!-- Team Switcher -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Switch Teams') }}
+                        </div>
 
-                    @foreach (Auth::user()->allTeams() as $team)
-                        <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
-                    @endforeach
-                @endif
+                        @foreach (Auth::user()->allTeams() as $team)
+                            <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
 </nav>
