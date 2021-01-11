@@ -1,3 +1,20 @@
+@if (isset($noPosts))
+
+
+    <h2 class="noPosts-message">{{ $noPosts }}</h2>
+
+    <div class="mx-auto my-auto content-center">
+
+        <br>
+        <img class="w-100 noPosts" src='/images/no_results.svg'>
+
+        <br>
+        <br>
+
+    </div>
+
+@else
+
     @foreach ($posts as $post)
         <div class="post" data-post={{ $post->id }}>
             <div class="header">
@@ -88,3 +105,4 @@
             </div>
         </div>
     @endforeach
+@endif

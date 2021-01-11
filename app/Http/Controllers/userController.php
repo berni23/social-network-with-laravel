@@ -50,11 +50,11 @@ class userController extends Controller
     public function paginatePosts(Request $request)
 
     {
-        $posts = "";
+        $posts = [];
         if (isset($request->content)) {
             $posts = $this->postsByContent($request->content);
 
-            // if (empty($posts)) return  view('home0)->with('message', 'no posts containing \'' . $request->content . '\'');
+            if (empty($posts)) return  view('postPopulate')->with('noPosts', 'no posts containing \'' . $request->content . '\'');
         } else {
             switch ($request->group) {
                 case 'all':
