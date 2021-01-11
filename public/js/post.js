@@ -879,8 +879,9 @@ var modalComment = document.getElementById('modalComment');
 var modalDelete = document.getElementById('modalDelete');
 var formDelete = document.getElementById('form-delete');
 var groupElem = document.getElementById('group');
-var group = 'all';
-if (groupElem) group = groupElem.getAttribute('data-group');
+var postGroup = 'all';
+if (groupElem) postGroup = groupElem.getAttribute('data-group');
+var content = groupElem.getAttribute('data-content');
 var last_known_scroll_position = 0;
 var ticking = false;
 var page = 0;
@@ -925,6 +926,9 @@ function _sendLike() {
           case 0:
             _context.next = 2;
             return fetch("/likes/".concat(likeable, "/").concat(id), {
+              headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+              },
               method: 'GET'
             });
 
@@ -946,34 +950,52 @@ function _sendLike() {
   return _sendLike.apply(this, arguments);
 }
 
+function createFormData(data) {
+  var formData = new FormData();
+  Object.keys(data).forEach(function (key) {
+    formData.append(key, data[key]);
+  });
+  return formData;
+}
+
 function getPosts(_x3, _x4) {
   return _getPosts.apply(this, arguments);
 }
 
 function _getPosts() {
-  _getPosts = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(offset, limit) {
-    var res;
+  _getPosts = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_offset, _limit) {
+    var data, res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return fetch("/posts/".concat(group, "/").concat(offset, "/").concat(limit), {
+            data = {
+              group: postGroup,
+              offset: _offset,
+              limit: _limit
+            };
+            if (content) data['content'] = content;
+            console.log(data); //var formData = new FormData();
+            //formData.append('data', JSON.stringify(data));
+
+            _context2.next = 5;
+            return fetch('/posts/page', {
               headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               },
-              method: 'GET'
+              method: 'POST',
+              body: createFormData(data)
             });
 
-          case 2:
+          case 5:
             res = _context2.sent;
-            _context2.next = 5;
+            _context2.next = 8;
             return res.text();
 
-          case 5:
+          case 8:
             return _context2.abrupt("return", _context2.sent);
 
-          case 6:
+          case 9:
           case "end":
             return _context2.stop();
         }
@@ -985,6 +1007,8 @@ function _getPosts() {
 
 function nextPage() {
   getPosts(limit * page, limit).then(function (postView) {
+    console.log(postView);
+
     if (postView == 0) {
       console.log('eventlistener removed');
       document.removeEventListener('scroll', scrollBottom);

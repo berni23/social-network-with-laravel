@@ -33,7 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/user/friends/all', [userC
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/user/search/all', [userController::class, 'search'])->name('search.all');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/posts/{group}/{offset}/{limit}', [userController::class, 'paginatePosts']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/posts/page', [userController::class, 'paginatePosts']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postController::class, 'new'])->name('newPost');
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/edit/{id}', [postController::class, 'edit']);
 Route::middleware(['auth:sanctum', 'verified'])->post('/posts/create', [postController::class, 'store']);

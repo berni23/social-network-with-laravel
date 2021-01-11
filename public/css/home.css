@@ -487,14 +487,13 @@ button {
   position: relative;
   height: 30px !important;
   top: 90%;
-  right: 10%;
+  right: 23%;
   display: flex;
 }
 
 .search-wrapper {
   margin-top: 5px;
-  margin-left: 100px;
-  margin: 5px auto;
+  margin-left: 500px;
 }
 
 #user-actions {

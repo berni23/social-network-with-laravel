@@ -45,31 +45,32 @@ class userController extends Controller
             $friend = User::find($friendsId[$i]);
             $friends[$i] = $friend;
         }
-
-
         return view('friendsList', compact('friends'));
     }
-    public function paginatePosts($group = "all", $offset, $limit)
-    {
-        // offset starts at 0
-        // limit start at 1
-        // if the end is reached, the slice returns the elements until the last one
+    public function paginatePosts(Request $request)
 
+    {
         $posts = "";
-        switch ($group) {
-            case 'all':
-                $posts =  $this->postsToSee();
-                break;
-            case 'user';
-                $posts = arrayTools::objectToArray(User::find(auth()->user()->id)->posts()->orderBy('created_at', 'DESC')->get());
-                break;
-            default:
-                $posts = arrayTools::objectToArray(User::find($group)->posts()->orderBy('created_at', 'DESC')->get());
-                break;
+        if (isset($request->content)) {
+            $posts = $this->postsByContent($request->content);
+
+            // if (empty($posts)) return  view('home0)->with('message', 'no posts containing \'' . $request->content . '\'');
+        } else {
+            switch ($request->group) {
+                case 'all':
+                    $posts =  $this->postsToSee();
+                    break;
+                case 'user';
+                    $posts = arrayTools::objectToArray(User::find(auth()->user()->id)->posts()->orderBy('created_at', 'DESC')->get());
+                    break;
+                default:
+                    $posts = arrayTools::objectToArray(User::find($request->group)->posts()->orderBy('created_at', 'DESC')->get());
+                    break;
+            }
         }
-        if (count($posts) < ($offset + $limit)) $posts = array_slice($posts, $offset);
-        else $posts = array_slice($posts, $offset, $limit);
-        if (empty($posts)) return '0';
+        if (count($posts) < ($request->offset + $request->limit)) $posts = array_slice($posts, $request->offset);
+        else $posts = array_slice($posts, $request->offset, $request->limit);
+
         return view('postPopulate', compact('posts'));
     }
 
@@ -85,7 +86,7 @@ class userController extends Controller
     public function postsToSee()
     {
         $user = $this->user();
-        $userPosts = $user->posts();
+        $userPosts = $this->postsById(auth()->user()->id);
         $friendsId = $user->friendsId();
         $friendsPosts = [];
         foreach ($friendsId as $id) {
@@ -147,7 +148,6 @@ class userController extends Controller
                 ->with('status', 200);
         }
 
-
         if ($rel->status == 2) {
             $rel->status = 0;
             $rel->user_one_id = $user_id;
@@ -164,8 +164,6 @@ class userController extends Controller
                 ->with('message', ' friendship removed')
                 ->with('status', 200);
         }
-
-
 
         if ($rel->user_one_id == $user_id && $rel->status == 0) {
             $rel->delete();
@@ -228,20 +226,25 @@ class userController extends Controller
         // 1 - distinguir entre buscar users o (posts/comment)
 
         if (str_starts_with($request->search, '@')) {
-
             $name = substr($request->search, 1);
             $user = User::where('name', $name)->get()->first();
-
             if ($user) return redirect('/user/' . $user->name);
-
             else return redirect()->back()->with('message', 'user not found');
         }
 
-        // logic users
+        return redirect('/home')->with('content', $request->search);
+    }
 
 
-        // logic posts
-
-
+    function postsByContent($content)
+    {
+        $posts = $this->postsToSee();
+        $matchingPosts = [];
+        foreach ($posts as $post) {
+            if (str_contains($post->description, $content)) {
+                $matchingPosts[] = $post;
+            }
+        }
+        return $matchingPosts;
     }
 }

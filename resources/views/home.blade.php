@@ -10,6 +10,9 @@
     @include('components.modalComment')
     <!-- Modal Confirm delete -->
     @include('components.modalDelete')
-    <div class="hidden" id="group" data-group="user"></div>
+
+    <div class="hidden" id="group" data-group='all' @if (Session::has('content'))
+        data-content = {{ Session::get('content') }}@endif >
+    </div>
 
 @endsection()

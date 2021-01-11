@@ -120,7 +120,8 @@ class User extends Authenticatable
 
     public function friendsId()
     {
-        $userId = $this->getKey();
+        //  $userId = $this->getKey();
+        $userId = $this->id;
         $accepted = $this->RelationshipsByStatus(1); // relations with an accepted status
         $idList = [];
         foreach ($accepted as $rel) {

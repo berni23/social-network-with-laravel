@@ -3,13 +3,16 @@ var modalComment = document.getElementById('modalComment');
 var modalDelete = document.getElementById('modalDelete');
 var formDelete = document.getElementById('form-delete');
 var groupElem = document.getElementById('group');
-var group = 'all';
-if (groupElem) group = groupElem.getAttribute('data-group');
+var postGroup = 'all';
+if (groupElem) postGroup = groupElem.getAttribute('data-group');
+var content = groupElem.getAttribute('data-content');
 let last_known_scroll_position = 0;
 let ticking = false;
 let page = 0;
 let scrollActive = true;
 const limit = 4;
+
+
 nextPage();
 main.addEventListener('click', function (event) {
     var list = event.target.classList;
@@ -36,14 +39,8 @@ main.addEventListener('click', function (event) {
 document.addEventListener('scroll', scrollBottom);
 
 async function sendLike(likeable, id) {
-    const res = await fetch(`/likes/${likeable}/${id}`, {
-        method: 'GET'
-    });
-    return await res.text(); // view('postPopulate',compact('posts'))
-}
 
-async function getPosts(offset, limit) {
-    const res = await fetch(`/posts/${group}/${offset}/${limit}`, {
+    const res = await fetch(`/likes/${likeable}/${id}`, {
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
@@ -52,8 +49,50 @@ async function getPosts(offset, limit) {
     return await res.text(); // view('postPopulate',compact('posts'))
 }
 
+function createFormData(data) {
+
+    var formData = new FormData();
+    Object.keys(data).forEach(function (key) {
+        formData.append(key, data[key]);
+    })
+    return formData;
+}
+
+
+async function getPosts(_offset, _limit) {
+
+
+    var data = {
+        group: postGroup,
+        offset: _offset,
+        limit: _limit,
+    }
+
+    if (content) data['content'] = content;
+
+
+    console.log(data);
+
+
+    //var formData = new FormData();
+
+    //formData.append('data', JSON.stringify(data));
+
+    const res = await fetch('/posts/page', {
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        method: 'POST',
+        body: createFormData(data)
+
+    });
+    return await res.text(); // view('postPopulate',compact('posts'))
+}
+
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
+
+        console.log(postView);
         if (postView == 0) {
             console.log('eventlistener removed');
             document.removeEventListener('scroll', scrollBottom);
