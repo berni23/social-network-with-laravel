@@ -1,19 +1,6 @@
-// body>div {
-//     background: #aaa;
-//     display: flex;
-//     flex-wrap: wrap;
-// }
-
 .friends-wrapper>div {
     flex-grow: 1;
     width: 33%;
     height: 100px;
+    margin: 10px;
 }
-
-// body>div>div:nth-child(even) {
-//     background: #23a;
-// }
-
-// body>div>div:nth-child(odd) {
-//     background: #49b;
-// }

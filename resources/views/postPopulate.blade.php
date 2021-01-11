@@ -21,7 +21,7 @@
             </div>
             @if (isset($post->image))
                 <img class="image-post" src=" {{ asset('/storage/' . $post->image) }}">
-            @endif
+            @endif$post->image
             <div class="footer">
                 <div class="post-description">
                     <p>

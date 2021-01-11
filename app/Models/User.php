@@ -94,9 +94,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Relationship::class, 'user_two_id')
             ->where('status', 0)
-            ->join('users', 'relationships.user_two_id', '=', 'users.id')
+            ->join('users', 'relationships.user_one_id', '=', 'users.id')
             ->get();
     }
+
 
     public function relationship($id)
     {
@@ -119,7 +120,7 @@ class User extends Authenticatable
 
     public function friendsId()
     {
-        $userId = $this->id;
+        $userId = $this->getKey();
         $accepted = $this->RelationshipsByStatus(1); // relations with an accepted status
         $idList = [];
         foreach ($accepted as $rel) {

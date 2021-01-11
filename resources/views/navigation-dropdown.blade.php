@@ -1,6 +1,8 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 sm:px-6 lg:px-8">
+
+        {{-- mx-auto --}}
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -24,7 +26,7 @@
             </div>
 
             @if ($_SERVER['REQUEST_URI'] != '/newPost')
-                <div class="pt-2 relative mx-auto text-gray-600">
+                <div class="search-wrapper pt-2 relative mx-auto text-gray-600">
                     <input
                         class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
                         type="search" name="search" placeholder="Search">
@@ -195,7 +197,7 @@
         </div>
 
         <!-- Responsive Navigation Menu -->
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden ">
             <div class="pt-2 pb-3 space-y-1">
                 <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                     {{ __('Home') }}

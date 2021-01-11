@@ -249,6 +249,7 @@ html {
   flex-grow: 1;
   width: 33%;
   height: 100px;
+  margin: 10px;
 }
 
 nav {
@@ -483,9 +484,21 @@ button {
 }
 
 .tooltip-wrapper {
-  position: absolute;
-  top: 80px;
-  right: 400px;
+  position: relative;
+  height: 30px !important;
+  top: 90%;
+  right: 10%;
+  display: flex;
+}
+
+.search-wrapper {
+  margin-top: 5px;
+  margin-left: 100px;
+  margin: 5px auto;
+}
+
+#user-actions {
+  float: right !important;
   display: flex;
 }
 

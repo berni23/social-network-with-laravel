@@ -3,9 +3,7 @@ require('alpinejs');
 require('./modals');
 import $ from 'jquery';
 window.$ = window.jQuery = $;
-
 window.onload = function () {
-
 
     var messageHidden = document.getElementById('messageHidden');
     if (messageHidden) {
@@ -57,6 +55,7 @@ window.onload = function () {
                 modalRequest.querySelector('#modal-headline').innerHTML = `<b>${name}</b> &nbsp sent you a friendship request 🤗 `
                 modalRequest.querySelector('#modal-content').innerHTML = 'Become friends by pressing accept, or decline his / her request '
                 modalRequest.querySelector('#form-request').action = `/user/respond/${id}`;
+                console.log(modalRequest.querySelector('#form-request').action);
                 modalRequest.querySelector('[name=relStatus').value = event.target.getAttribute('data-status');
             }
         })
@@ -104,7 +103,7 @@ window.onload = function () {
                     notification.classList.add('modal-open');
                     notification.innerHTML = 'New request! &nbsp; 🎉';
                     notification.setAttribute('data-name', pending['name']);
-                    notification.setAttribute('data-id', pending['id'])
+                    notification.setAttribute('data-id', pending['user_one_id'])
                     notification.setAttribute('data-status', pending['status'])
                     notification.setAttribute('data-modal', 'modalRequest');
                     notificationsList.append(notification);

@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/home', [userController::c
 Route::middleware(['auth:sanctum', 'verified'])->get('/profile', [userController::class, 'show'])->name('profile');
 Route::middleware(['auth:sanctum', 'verified'])->get('/user/{username}', [userController::class, 'showUser']);
 Route::middleware(['auth:sanctum', 'verified', 'rel.confirm.status', 'rel.check.blocked'])->post('/user/request/{id}', [userController::class, 'friendshipRequest']);
-Route::middleware(['auth:sanctum', 'verified', 'rel.confirm.status', 'rel.check.blocked'])->post('/user/respond/{id}', [userController::class, 'respondRequest']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/user/respond/{id}', [userController::class, 'respondRequest']);
 Route::middleware(['auth:sanctum', 'verified', 'rel.confirm.status'])->post('/user/block/{id}', [userController::class, 'blockUser']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/user/notifications/all', [userController::class, 'getNotifications']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/user/friends/all', [userController::class, 'showFriends']);

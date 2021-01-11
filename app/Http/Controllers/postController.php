@@ -105,10 +105,13 @@ class postController extends Controller
         $post = Post::find($id);
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
+
+
         if ($request->hasFile('image')) {
+
             $path  =  $request->file('image')->store('public/post-photos');
             $post->image  = str_replace('public/', '', $path);
-        }  // else $post->image = null;
+        }
         return $post->savePost('/home');
     }
 

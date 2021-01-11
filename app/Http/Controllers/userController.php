@@ -37,11 +37,21 @@ class userController extends Controller
     }
 
 
-
     public function showFriends()
     {
+        $friendsId = $this->user()->friendsId();
+        $friends = [];
 
-        return view('friendsList');
+
+        for ($i = 0; $i < count($friendsId); $i++) {
+
+            $friend = User::find($friendsId[$i]);
+
+            $friends[$i] = $friend;
+        }
+
+
+        return view('friendsList', compact('friends'));
     }
     public function paginatePosts($group = "all", $offset, $limit)
     {

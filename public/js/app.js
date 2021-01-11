@@ -33021,6 +33021,7 @@ window.onload = function () {
         modalRequest.querySelector('#modal-headline').innerHTML = "<b>".concat(name, "</b> &nbsp sent you a friendship request \uD83E\uDD17 ");
         modalRequest.querySelector('#modal-content').innerHTML = 'Become friends by pressing accept, or decline his / her request ';
         modalRequest.querySelector('#form-request').action = "/user/respond/".concat(id);
+        console.log(modalRequest.querySelector('#form-request').action);
         modalRequest.querySelector('[name=relStatus').value = event.target.getAttribute('data-status');
       }
     });
@@ -33063,7 +33064,7 @@ window.onload = function () {
         notification.classList.add('modal-open');
         notification.innerHTML = 'New request! &nbsp; 🎉';
         notification.setAttribute('data-name', pending['name']);
-        notification.setAttribute('data-id', pending['id']);
+        notification.setAttribute('data-id', pending['user_one_id']);
         notification.setAttribute('data-status', pending['status']);
         notification.setAttribute('data-modal', 'modalRequest');
         notificationsList.append(notification);

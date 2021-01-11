@@ -219,13 +219,10 @@ button {
 }
 
 .notifications-list {
-
-    // padding: 10px;
     list-style: none;
     margin: 0;
 
     li {
-
         cursor: pointer;
     }
 
@@ -237,17 +234,32 @@ button {
 .friends-wrapper {
 
     margin: 17px 0 0 10px;
-
 }
 
 .tooltip-wrapper {
 
-    position: absolute;
-    top: 80px;
-    right: 400px;
+    position: relative;
+    height: 30px !important;
+    top: 90%;
+    right: 10%;
     display: flex;
 
 }
+
+
+.search-wrapper {
+    margin-top: 5px;
+    margin-left: 100px;
+    margin: 5px auto;
+}
+
+#user-actions {
+    float: right !important;
+    display: flex;
+}
+
+@media (min-width: 768px) {}
+
 
 
 
