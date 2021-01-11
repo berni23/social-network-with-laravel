@@ -22,7 +22,7 @@ class userController extends Controller
     public function showUser($username)
     {
         $self = $this->user();
-        if ($self->name == $username) return redirect('profile');
+        if ($self->name == $username) return redirect('/profile');
         $friendsId = $self->friendsId();
         $user = User::where('name', $username)->get()->first();
         if (!$user) return redirect()->back()->with('message', 'user not found');
@@ -41,12 +41,8 @@ class userController extends Controller
     {
         $friendsId = $this->user()->friendsId();
         $friends = [];
-
-
         for ($i = 0; $i < count($friendsId); $i++) {
-
             $friend = User::find($friendsId[$i]);
-
             $friends[$i] = $friend;
         }
 
@@ -151,12 +147,25 @@ class userController extends Controller
                 ->with('status', 200);
         }
 
+
+        if ($rel->status == 2) {
+            $rel->status = 0;
+            $rel->user_one_id = $user_id;
+            $rel->user_two_id = $id;
+            $rel->save();
+            return redirect()->back()
+                ->with('message', ' friendship requested')
+                ->with('status', 200);
+        }
+
         if ($rel->status == 1) {
             $rel->delete();
             return redirect()->back()
                 ->with('message', ' friendship removed')
                 ->with('status', 200);
         }
+
+
 
         if ($rel->user_one_id == $user_id && $rel->status == 0) {
             $rel->delete();
@@ -179,12 +188,10 @@ class userController extends Controller
         $user_id = $user->id;
         $rel = $user->relationship($id);
 
-        if (!$rel) {
-            $rel = new Relationship();
-            $rel->user_one_id = $user_id;
-            $rel->user_two_id = $id;
-        }
+        if (!$rel)  $rel = new Relationship();
 
+        $rel->user_one_id = $user_id;
+        $rel->user_two_id = $id;
         $rel->status = 3;
         $rel->save();
         return redirect()->back()

@@ -15,6 +15,8 @@
 
 @endsection
 @section('profile')
+
+    {{ $user->relStatus }}
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/4 p-4 text-center">
             <div class="w-full relative md:w-3/4 text-center mt-8">
@@ -67,7 +69,7 @@
             </form>
             <form method="POST" action='/user/block/{{ $user->id }}'>
                 @csrf
-                <input class='hidden' value='{{ $user->relStatus }}'>
+                <input class='hidden' name="relStatus" value='{{ $user->relStatus }}'>
                 <button type='submit' id="block" class=" text-lg text-gray-700 mr-2"><i class="fa fa-ban"></i> block user
                 </button>
             </form>
@@ -155,15 +157,11 @@
 
     @endif
     @if (Session::has('modal-accept'))
-
         @php
-
         $respond_id = $user->id;
         $username = $user->name;
         $relStatus = $user->relStatus;
-
         @endphp
-
         @include('components.modalAccept')
     @endif
 

@@ -12,6 +12,4 @@
     @include('components.modalDelete')
     <div class="hidden" id="group" data-group="user"></div>
 
-
-
 @endsection()
