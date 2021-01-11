@@ -5,13 +5,13 @@
         <div class="friends-wrapper flex flex-wrap -mx-1 lg:-mx-4">
 
 
-            @php $array=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-            @endphp
-            @foreach ($array as $friend)
-                {{-- @php
+            {{-- @php $array=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+            @endphp --}}
+            @foreach ($friends as $friend)
+                @php
                 $name= $friend->name;
-                $photo = $friend->profile_photo_path;
-                @endphp --}}
+                $photo = $friend->profile_photo_url;
+                @endphp
                 @include('components.friendCard')
 
             @endforeach

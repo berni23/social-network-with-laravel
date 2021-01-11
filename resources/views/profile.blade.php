@@ -15,8 +15,6 @@
 
 @endsection
 @section('profile')
-
-    {{ $user->relStatus }}
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/4 p-4 text-center">
             <div class="w-full relative md:w-3/4 text-center mt-8">
