@@ -27,6 +27,7 @@ Route::middleware(['auth:sanctum', 'verified', 'rel.confirm.status', 'rel.check.
 Route::middleware(['auth:sanctum', 'verified', 'rel.confirm.status', 'rel.check.blocked'])->post('/user/respond/{id}', [userController::class, 'respondRequest']);
 Route::middleware(['auth:sanctum', 'verified', 'rel.confirm.status'])->post('/user/block/{id}', [userController::class, 'blockUser']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/user/notifications/all', [userController::class, 'getNotifications']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/user/friends/all', [userController::class, 'showFriends']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/{group}/{offset}/{limit}', [userController::class, 'paginatePosts']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postController::class, 'new'])->name('newPost');

@@ -157,7 +157,7 @@
                         </ul>
                     </div>
                     <div class="has-tooltip friends-wrapper" data-tooltip='tooltip-friends'>
-                        <button> <i class="fa fa-lg fa-users friends"></i></button>
+                        <a href="/user/friends/all"> <i class="fa fa-lg fa-users friends"></i></a>
                     </div>
 
                 </div>

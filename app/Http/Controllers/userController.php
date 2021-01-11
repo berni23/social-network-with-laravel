@@ -35,6 +35,14 @@ class userController extends Controller
         else $user->show = false;
         return view('profile', compact('user'));
     }
+
+
+
+    public function showFriends()
+    {
+
+        return view('friendsList');
+    }
     public function paginatePosts($group = "all", $offset, $limit)
     {
         // offset starts at 0

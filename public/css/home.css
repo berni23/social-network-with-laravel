@@ -245,6 +245,12 @@ html {
           animation-delay: 2s;
 }
 
+.friends-wrapper > div {
+  flex-grow: 1;
+  width: 33%;
+  height: 100px;
+}
+
 nav {
   position: -webkit-sticky;
   position: sticky;

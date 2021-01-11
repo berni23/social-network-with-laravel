@@ -1,4 +1,4 @@
-<article class="overflow-hidden rounded-lg shadow-lg">
+<div class="overflow-hidden rounded-lg shadow-lg">
 
     <div class="flex items-center justify-between leading-none p-2 md:p-4">
         <a class="flex items-center no-underline hover:underline text-black" href="#">
@@ -9,4 +9,4 @@
         </a>
 
     </div>
-</article>
+</div>
