@@ -6,7 +6,7 @@
     <div class="mx-auto my-auto content-center">
 
         <br>
-        <img class="w-100 noPosts" src='/images/no_results.svg'>
+        <img class="w-50 noPosts" src='/images/no_results.svg'>
 
         <br>
         <br>
