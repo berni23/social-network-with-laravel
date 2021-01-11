@@ -221,4 +221,27 @@ class userController extends Controller
     {
         return json_encode($this->user()->pendingNotifications());
     }
+
+    function search(Request $request)
+    {
+
+        // 1 - distinguir entre buscar users o (posts/comment)
+
+        if (str_starts_with($request->search, '@')) {
+
+            $name = substr($request->search, 1);
+            $user = User::where('name', $name)->get()->first();
+
+            if ($user) return redirect('/user/' . $user->name);
+
+            else return redirect()->back()->with('message', 'user not found');
+        }
+
+        // logic users
+
+
+        // logic posts
+
+
+    }
 }
