@@ -49,7 +49,6 @@ class userController extends Controller
         return view('friendsList', compact('friends'));
     }
 
-
     public function paginatePosts(Request $request)
 
     {

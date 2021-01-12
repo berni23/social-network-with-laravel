@@ -18097,18 +18097,16 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
-    update = _require.update;
 
 var main = document.querySelector('main');
-var modalComment = document.getElementById('modalComment');
-var modalDelete = document.getElementById('modalDelete');
 var formDelete = document.getElementById('form-delete');
 var groupElem = document.getElementById('group');
 var postGroup = 'all';
@@ -18234,30 +18232,74 @@ function _getPosts() {
   return _getPosts.apply(this, arguments);
 }
 
-setInterval(updateLikes, 5000);
+setInterval(updateLikesAndComments, 5000);
 
-function getLikes() {
-  return _getLikes.apply(this, arguments);
+function getCommentsView(_x5) {
+  return _getCommentsView.apply(this, arguments);
 }
 
-function _getLikes() {
-  _getLikes = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-    var posts, postsIds, i, formData, res;
+function _getCommentsView() {
+  _getCommentsView = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(postId) {
+    var res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return fetch("/posts/comments/".concat(postId), {
+              headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+              },
+              method: 'GET'
+            });
+
+          case 2:
+            res = _context3.sent;
+            _context3.next = 5;
+            return res.text();
+
+          case 5:
+            return _context3.abrupt("return", _context3.sent);
+
+          case 6:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _getCommentsView.apply(this, arguments);
+}
+
+function getLikesAndComments() {
+  return _getLikesAndComments.apply(this, arguments);
+}
+
+function _getLikesAndComments() {
+  _getLikesAndComments = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+    var posts, postsIds, i, postId, formData, res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             posts = document.getElementsByClassName("post");
             postsIds = [];
 
             for (i = 0; i < posts.length; i++) {
-              postsIds.push(posts[i].dataset.post);
+              postId = posts[i].dataset.post;
+              postsIds.push(postId);
+              getCommentsView(postId).then(function (commentsView) {
+                var likedBy = document.querySelector("div[data-post = '".concat(postId, "'] .liked-by"));
+                var commentsContainer = document.querySelector("div[data-post = '".concat(postId, "'] .comments"));
+                console.log(commentsContainer);
+                commentsContainer.remove();
+                likedBy.insertAdjacentHTML('afterend', commentsView);
+              });
             }
 
-            console.log(postsIds);
             formData = new FormData();
             formData.append('posts', postsIds);
-            _context3.next = 8;
+            _context4.next = 7;
             return fetch('posts/update/likes', {
               headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -18266,38 +18308,36 @@ function _getLikes() {
               body: formData
             });
 
-          case 8:
-            res = _context3.sent;
-            _context3.next = 11;
+          case 7:
+            res = _context4.sent;
+            _context4.next = 10;
             return res.text();
 
-          case 11:
-            return _context3.abrupt("return", _context3.sent);
+          case 10:
+            return _context4.abrupt("return", _context4.sent);
 
-          case 12:
+          case 11:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3);
+    }, _callee4);
   }));
-  return _getLikes.apply(this, arguments);
+  return _getLikesAndComments.apply(this, arguments);
 }
 
-function updateLikes() {
-  getLikes().then(function (likes) {
-    var likes = JSON.parse(likes);
-    Object.keys(likes).forEach(function (postId) {
-      console.log(postId);
+function updateLikesAndComments() {
+  getLikesAndComments().then(function (data) {
+    data = JSON.parse(data);
+    Object.keys(data).forEach(function (postId) {
       var likedBy = document.querySelector("div[data-post = '".concat(postId, "'] .liked-by"));
-      likedBy.innerHTML = "<span><b>".concat(likes[postId], "</b> likes</span> </span>");
+      likedBy.innerHTML = "<span><b>".concat(data[postId], "</b> likes</span></span>");
     });
   });
 }
 
 function nextPage() {
   getPosts(limit * page, limit).then(function (postView) {
-    // console.log(postView);
     if (postView == 0) {
       console.log('eventlistener removed');
       document.removeEventListener('scroll', scrollBottom);
@@ -18314,7 +18354,7 @@ function scrollBottom() {
 
   if (!ticking && scrollActive) {
     window.requestAnimationFrame(function () {
-      ticking = false; // console.log(last_known_scroll_position, docHeight - 50);
+      ticking = false;
 
       if (last_known_scroll_position > docHeight - 50) {
         nextPage();

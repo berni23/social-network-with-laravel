@@ -107,7 +107,6 @@ class postController extends Controller
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
         if ($request->hasFile('image')) {
-
             $path  =  $request->file('image')->store('public/post-photos');
             $post->image  = str_replace('public/', '', $path);
         }
@@ -140,22 +139,22 @@ class postController extends Controller
 
     public function updateLikes(Request $request)
     {
-
-
         $posts = explode(',', $request->posts);
-
-        // return gettype($posts);
         $likes = array();
         $user = User::find(auth()->user()->id);
         foreach ($posts as $postId) {
             $post = Post::find($postId);
             if (!$post) continue;
             if ($post->user->id == $user->id || $user->isFriend($post->user->id)) {
-
                 $likes[$postId] = $post->likes;
             }
         }
-
         return json_encode($likes);
+    }
+
+    public function getCommentsView($postId)
+    {
+
+        return view('components.comments')->with('post', Post::find($postId));
     }
 }

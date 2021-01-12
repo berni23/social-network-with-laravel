@@ -1,6 +1,4 @@
 @if (isset($noPosts))
-
-
     <h2 class="noPosts-message">{{ $noPosts }}</h2>
     <div class="mx-auto my-auto content-center">
         <br>
@@ -9,11 +7,8 @@
         <br>
     </div>
 @else
-
     @foreach ($posts as $post)
-
         @php $heightLike = '24'@endphp
-
         <div class="post" data-post='{{ $post->id }}'>
             <div class="header">
                 <div class="wrapper">
@@ -79,30 +74,8 @@
                     <span><b>{{ $post->likes }}</b> likes</span>
                     </span>
                 </div>
-                <div class="comments">
 
-                    @php $heightLike = '16'@endphp
-                    @foreach (App\Models\Post::find($post->id)->comments as $comment)
-                        <div class="comment" data-comment=' {{ $comment->id }}'>
-                            <p class="comment-content">
-                                <b>{{ App\Models\Comment::find($comment->id)->user->name }}</b>
-                                <span> @php echo html_entity_decode(arrayTools::addMentions($comment->content)); @endphp
-                                </span>
-                            </p>
-                            <div class="likeComment">
-                                @php
-                                $query = App\Models\Like::queryLike($comment->id,'App\\Models\\Comment');
-                                $heightLike = '16';
-                                @endphp
-                                @if (isset($query) && $query->like)
-
-                                    @include('components/unlike')
-                                @else @include('components/like')
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+                @include('components.comments')
                 <span class="posted">
                     {{ App\Http\Controllers\postController::timeElapsed($post->created_at) }}
                 </span>

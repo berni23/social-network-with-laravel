@@ -1,10 +1,8 @@
-const {
+import {
     update
-} = require("lodash");
+} from "lodash";
 
 var main = document.querySelector('main');
-var modalComment = document.getElementById('modalComment');
-var modalDelete = document.getElementById('modalDelete');
 var formDelete = document.getElementById('form-delete');
 var groupElem = document.getElementById('group');
 var postGroup = 'all';
@@ -15,8 +13,6 @@ let ticking = false;
 let page = 0;
 let scrollActive = true;
 const limit = 4;
-
-
 
 nextPage();
 main.addEventListener('click', function (event) {
@@ -64,14 +60,11 @@ function createFormData(data) {
 }
 
 async function getPosts(_offset, _limit) {
-
-
     var data = {
         group: postGroup,
         offset: _offset,
         limit: _limit,
     }
-
     if (content) data['content'] = content;
     const res = await fetch('/posts/page', {
         headers: {
@@ -83,62 +76,59 @@ async function getPosts(_offset, _limit) {
     });
     return await res.text(); // view('postPopulate',compact('posts'))
 }
+setInterval(updateLikesAndComments, 5000);
 
-
-setInterval(updateLikes, 5000);
-
-async function getLikes() {
-
+async function getCommentsView(postId) {
+    const res = await fetch(`/posts/comments/${postId}`, {
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        method: 'GET'
+    });
+    return await res.text(); // view('postPopulate',compact('posts'))
+}
+async function getLikesAndComments() {
     var posts = document.getElementsByClassName("post");
-
     var postsIds = [];
-
     for (var i = 0; i < posts.length; i++) {
+        var postId = posts[i].dataset.post;
+        postsIds.push(postId);
+        getCommentsView(postId).then(function (commentsView) {
+            var likedBy = document.querySelector(`div[data-post = '${postId}'] .liked-by`);
+            var commentsContainer = document.querySelector(`div[data-post = '${postId}'] .comments`);
+            console.log(commentsContainer);
+            commentsContainer.remove();
+            likedBy.insertAdjacentHTML('afterend', commentsView);
 
-        postsIds.push(posts[i].dataset.post);
-
+        })
     }
 
-    console.log(postsIds);
-
     var formData = new FormData;
-
     formData.append('posts', postsIds);
-
     const res = await fetch('posts/update/likes', {
-
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
         method: 'POST',
         body: formData
-
     });
 
     return await res.text();
 }
 
-
-function updateLikes() {
-
-    getLikes().then(function (likes) {
-
-        var likes = JSON.parse(likes);
-
-        Object.keys(likes).forEach(function (postId) {
-
-            console.log(postId);
+function updateLikesAndComments() {
+    getLikesAndComments().then(function (data) {
+        data = JSON.parse(data);
+        Object.keys(data).forEach(function (postId) {
             var likedBy = document.querySelector(`div[data-post = '${postId}'] .liked-by`);
-            likedBy.innerHTML = `<span><b>${likes[postId]}</b> likes</span> </span>`;
-        })
+            likedBy.innerHTML = `<span><b>${data[postId]}</b> likes</span></span>`;
+
+        });
     })
-
-
 }
 
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
-        // console.log(postView);
         if (postView == 0) {
             console.log('eventlistener removed');
             document.removeEventListener('scroll', scrollBottom);
@@ -155,7 +145,6 @@ function scrollBottom() {
     if (!ticking && scrollActive) {
         window.requestAnimationFrame(function () {
             ticking = false;
-            // console.log(last_known_scroll_position, docHeight - 50);
             if (last_known_scroll_position > docHeight - 50) {
                 nextPage();
                 scrollActive = false;

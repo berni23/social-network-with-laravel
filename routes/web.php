@@ -38,6 +38,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/posts/new', [postControll
 Route::middleware(['auth:sanctum', 'verified'])->get('/posts/edit/{id}', [postController::class, 'edit']);
 Route::middleware(['auth:sanctum', 'verified'])->post('/posts/create', [postController::class, 'store']);
 Route::middleware(['auth:sanctum', 'verified'])->post('/posts/update/likes', [postController::class, 'updateLikes']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/posts/comments/{postId}', [postController::class, 'getCommentsView']);
+
 
 Route::middleware(['auth:sanctum', 'verified', 'user.confirm.post'])->post('/posts/update/{id}', [postController::class, 'update']);
 Route::middleware(['auth:sanctum', 'verified', 'user.confirm.post'])->post('/posts/delete/{id}', [postController::class, 'destroy']);
