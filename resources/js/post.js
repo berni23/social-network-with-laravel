@@ -1,3 +1,7 @@
+const {
+    update
+} = require("lodash");
+
 var main = document.querySelector('main');
 var modalComment = document.getElementById('modalComment');
 var modalDelete = document.getElementById('modalDelete');
@@ -11,6 +15,7 @@ let ticking = false;
 let page = 0;
 let scrollActive = true;
 const limit = 4;
+
 
 
 nextPage();
@@ -28,7 +33,7 @@ main.addEventListener('click', function (event) {
         like.children[1].classList.toggle('hidden');
         sendLike('comment', like.closest('.comment').getAttribute('data-comment')).then((data) => console.log(data));
     } else if (event.target.closest('.likePost')) {
-        var like = event.target.closest('.likePost')
+        var like = event.target.closest('.likePost');
         like.children[0].classList.toggle('hidden');
         like.children[1].classList.toggle('hidden');
         console.log(like.closest('.post').getAttribute('data-post'));
@@ -58,7 +63,6 @@ function createFormData(data) {
     return formData;
 }
 
-
 async function getPosts(_offset, _limit) {
 
 
@@ -69,15 +73,6 @@ async function getPosts(_offset, _limit) {
     }
 
     if (content) data['content'] = content;
-
-
-    console.log(data);
-
-
-    //var formData = new FormData();
-
-    //formData.append('data', JSON.stringify(data));
-
     const res = await fetch('/posts/page', {
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -89,10 +84,61 @@ async function getPosts(_offset, _limit) {
     return await res.text(); // view('postPopulate',compact('posts'))
 }
 
+
+setInterval(updateLikes, 5000);
+
+async function getLikes() {
+
+    var posts = document.getElementsByClassName("post");
+
+    var postsIds = [];
+
+    for (var i = 0; i < posts.length; i++) {
+
+        postsIds.push(posts[i].dataset.post);
+
+    }
+
+    console.log(postsIds);
+
+    var formData = new FormData;
+
+    formData.append('posts', postsIds);
+
+    const res = await fetch('posts/update/likes', {
+
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        method: 'POST',
+        body: formData
+
+    });
+
+    return await res.text();
+}
+
+
+function updateLikes() {
+
+    getLikes().then(function (likes) {
+
+        var likes = JSON.parse(likes);
+
+        Object.keys(likes).forEach(function (postId) {
+
+            console.log(postId);
+            var likedBy = document.querySelector(`div[data-post = '${postId}'] .liked-by`);
+            likedBy.innerHTML = `<span><b>${likes[postId]}</b> likes</span> </span>`;
+        })
+    })
+
+
+}
+
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
-
-        console.log(postView);
+        // console.log(postView);
         if (postView == 0) {
             console.log('eventlistener removed');
             document.removeEventListener('scroll', scrollBottom);

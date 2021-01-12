@@ -7,6 +7,7 @@ use App\Models\Relationship;
 use App\Models\User;
 use arrayTools;
 
+
 class userController extends Controller
 {
     public function show()

@@ -14,7 +14,7 @@
 
         @php $heightLike = '24'@endphp
 
-        <div class="post" data-post={{ $post->id }}>
+        <div class="post" data-post='{{ $post->id }}'>
             <div class="header">
                 <div class="wrapper">
                     @if (isset(App\Models\User::find($post->user_id)->profile_photo_path))

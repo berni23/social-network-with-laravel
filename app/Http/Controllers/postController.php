@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
@@ -105,8 +106,6 @@ class postController extends Controller
         $post = Post::find($id);
         $post->description = $request->description;
         $post->user_id = auth()->user()->id;
-
-
         if ($request->hasFile('image')) {
 
             $path  =  $request->file('image')->store('public/post-photos');
@@ -137,5 +136,26 @@ class postController extends Controller
         return redirect('/home')
             ->with('message', 'post deleted')
             ->with('status', 200);
+    }
+
+    public function updateLikes(Request $request)
+    {
+
+
+        $posts = explode(',', $request->posts);
+
+        // return gettype($posts);
+        $likes = array();
+        $user = User::find(auth()->user()->id);
+        foreach ($posts as $postId) {
+            $post = Post::find($postId);
+            if (!$post) continue;
+            if ($post->user->id == $user->id || $user->isFriend($post->user->id)) {
+
+                $likes[$postId] = $post->likes;
+            }
+        }
+
+        return json_encode($likes);
     }
 }

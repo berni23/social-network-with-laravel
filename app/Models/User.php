@@ -135,4 +135,10 @@ class User extends Authenticatable
     {
         return count($this->friendsId());
     }
+
+
+    public function isFriend($id)
+    {
+        return in_array($id, $this->friendsList());
+    }
 }
