@@ -371,6 +371,10 @@ body {
   margin: 0 !important;
 }
 
+.main .post .footer .post-options .likeComment svg {
+  height: 16px !important;
+}
+
 .main .post .comment {
   display: flex;
   margin-top: 10px;

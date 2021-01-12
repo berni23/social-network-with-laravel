@@ -87,8 +87,10 @@
                             <div class="likeComment">
                                 @php
                                 $query = App\Models\Like::queryLike($comment->id,'App\\Models\\Comment');
+                                $heightLike = '16';
                                 @endphp
                                 @if (isset($query) && $query->like)
+
                                     @include('components/unlike')
                                 @else @include('components/like')
                                 @endif

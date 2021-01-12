@@ -114,6 +114,12 @@ body {
                 .like {
                     margin: 0 !important;
                 }
+
+                .likeComment svg {
+
+
+                    height: 16px !important
+                }
             }
         }
 
@@ -246,7 +252,6 @@ button {
 
 }
 
-
 .search-wrapper {
     margin-top: 5px;
     margin-left: 500px;
@@ -314,13 +319,7 @@ button {
 
 
 .noPosts-message {
-
-
     margin-top: 40px;
     margin-right: 20px;
     font-size: 5rem;
 }
-
-//     width: 90%;
-//     height: auto;
-// }
