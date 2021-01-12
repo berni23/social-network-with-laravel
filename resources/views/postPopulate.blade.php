@@ -81,11 +81,7 @@
                         <div class="comment" data-comment=' {{ $comment->id }}'>
                             <p class="comment-content">
                                 <b>{{ App\Models\Comment::find($comment->id)->user->name }}</b>
-                                <span>
-
-                                    @php
-                                    echo html_entity_decode(arrayTools::addMentions($comment->content));
-                                    @endphp
+                                <span> @php echo html_entity_decode(arrayTools::addMentions($comment->content)); @endphp
                                 </span>
                             </p>
                             <div class="likeComment">
