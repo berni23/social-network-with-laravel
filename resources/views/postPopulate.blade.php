@@ -42,7 +42,8 @@
             <div class="footer">
                 <div class="post-description">
                     <p>
-                        {{ $post->description }}
+                        @php echo html_entity_decode($post->description);
+                        @endphp
                     </p>
                 </div>
                 <div class="post-options">

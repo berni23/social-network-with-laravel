@@ -19,6 +19,8 @@ class userController extends Controller
         return view('profile', compact('user'));
     }
 
+
+
     public function showUser($username)
     {
         $self = $this->user();
@@ -47,6 +49,18 @@ class userController extends Controller
         }
         return view('friendsList', compact('friends'));
     }
+
+    function addMentions(string $text)
+    {
+        preg_match_all('/@(?<username>\S+)/', $text, $matches);
+        $usernames = $matches['username'];
+        foreach ($usernames as $username) {
+            $userPageLink = '<a class = "text-blue-500" href="/user/' . $username . '">@' . $username . '</a>';
+            $text = preg_replace('/@' . $username . '/', $userPageLink, $text);
+        }
+        return $text;
+    }
+
     public function paginatePosts(Request $request)
 
     {
@@ -71,6 +85,10 @@ class userController extends Controller
         if (count($posts) < ($request->offset + $request->limit)) $posts = array_slice($posts, $request->offset);
         else $posts = array_slice($posts, $request->offset, $request->limit);
 
+        foreach ($posts as $post) {
+
+            $post->description = $this->addMentions($post->description);
+        }
         return view('postPopulate', compact('posts'));
     }
 
