@@ -4,14 +4,7 @@
     @if ($user->show)
         <script src="{{ mix('js/post.js') }}" defer></script>
     @endif
-    <script defer>
-        window.onload = function() {
-            var main = document.querySelector('main');
-            var profileHeight = document.querySelector('.profile').offsetHeight + 20;
-            main.style.marginTop = profileHeight + 'px';
-        }
 
-    </script>
 
 @endsection
 @section('profile')
@@ -53,7 +46,7 @@
         </div>
     </div>
     @if ($user->self)
-        <a href="profile/show"><i
+        <a href="user/profile"><i
                 class="gear text-gray-500 fa fa-cog fa-2x float-left hover:text-gray-200 transition duration-500 ease-in-out"></i></a>
     @else
         <form method="POST" action='/user/request/{{ $user->id }}'>
@@ -163,5 +156,12 @@
         @include('components.modalAccept')
     @endif
 
+
+    <script defer>
+        var main = document.querySelector('main');
+        var profileHeight = document.querySelector('.profile').offsetHeight + 20;
+        main.style.marginTop = profileHeight + 'px';
+
+    </script>
 
 @endsection

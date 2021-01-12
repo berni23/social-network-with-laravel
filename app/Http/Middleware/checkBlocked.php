@@ -19,7 +19,10 @@ class checkBlocked
     public function handle(Request $request, Closure $next)
     {
         $name = $request->route('username');
-        $friendId =  User::where('name', $name)->get()->first()->id;
+        $friend =  User::where('name', $name)->get()->first();
+        if (!$friend) return redirect('/home')->with('message', 'user not found');
+
+        $friendId = $friend->id;
         $rel = User::find(auth()->user()->id)->relationship($friendId);
         if ($rel && $friendId == $rel->user_one_id && $rel->status == 3) {
             return redirect('/home')->with('message', 'user not found');

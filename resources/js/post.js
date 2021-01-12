@@ -27,13 +27,12 @@ main.addEventListener('click', function (event) {
         var like = event.target.closest('.likeComment')
         like.children[0].classList.toggle('hidden');
         like.children[1].classList.toggle('hidden');
-        sendLike('comment', like.closest('.comment').getAttribute('data-comment')).then((data) => console.log(data));
+        sendLike('comment', like.closest('.comment').getAttribute('data-comment'));
     } else if (event.target.closest('.likePost')) {
         var like = event.target.closest('.likePost');
         like.children[0].classList.toggle('hidden');
         like.children[1].classList.toggle('hidden');
-        console.log(like.closest('.post').getAttribute('data-post'));
-        sendLike('post', like.closest('.post').getAttribute('data-post')).then((data) => console.log(data));
+        sendLike('post', like.closest('.post').getAttribute('data-post'));
     }
 });
 
@@ -96,7 +95,6 @@ async function getLikesAndComments() {
         getCommentsView(postId).then(function (commentsView) {
             var likedBy = document.querySelector(`div[data-post = '${postId}'] .liked-by`);
             var commentsContainer = document.querySelector(`div[data-post = '${postId}'] .comments`);
-            console.log(commentsContainer);
             commentsContainer.remove();
             likedBy.insertAdjacentHTML('afterend', commentsView);
 
@@ -130,7 +128,6 @@ function updateLikesAndComments() {
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
         if (postView == 0) {
-            console.log('eventlistener removed');
             document.removeEventListener('scroll', scrollBottom);
         } else {
             main.insertAdjacentHTML('beforeend', postView);
