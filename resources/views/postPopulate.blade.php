@@ -2,17 +2,12 @@
 
 
     <h2 class="noPosts-message">{{ $noPosts }}</h2>
-
     <div class="mx-auto my-auto content-center">
-
         <br>
         <img class="w-50 noPosts" src='/images/no_results.svg'>
-
         <br>
         <br>
-
     </div>
-
 @else
 
     @foreach ($posts as $post)
@@ -86,7 +81,12 @@
                         <div class="comment" data-comment=' {{ $comment->id }}'>
                             <p class="comment-content">
                                 <b>{{ App\Models\Comment::find($comment->id)->user->name }}</b>
-                                <span>{{ $comment->content }}</span>
+                                <span>
+
+                                    @php
+                                    echo html_entity_decode(arrayTools::addMentions($comment->content));
+                                    @endphp
+                                </span>
                             </p>
                             <div class="likeComment">
                                 @php

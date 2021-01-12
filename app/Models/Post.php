@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Like;
+use arrayTools;
 use Illuminate\Database\QueryException;
 
 class Post extends Model
@@ -23,7 +24,10 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+
+        $comments =  $this->hasMany(Comment::class);
+
+        return $comments;
     }
 
     public function likes()

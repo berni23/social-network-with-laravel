@@ -16,7 +16,7 @@ const limit = 4;
 nextPage();
 main.addEventListener('click', function (event) {
     var list = event.target.classList;
-    if (list.contains('openComment')) postId.value = event.target.closest('.post').getAttribute('data-post');
+    if (list.contains('openComment')) document.querySelector('#post-id').value = event.target.closest('.post').getAttribute('data-post');
     else if (list.contains('post-edit-menu')) event.target.querySelector('.dropdown-content').classList.toggle('block');
     else if (list.contains('deletePost')) {
         event.target.closest('.post-edit-menu').click();
