@@ -362,17 +362,26 @@ body {
   margin-right: 10px;
 }
 
-.main .post .footer .post-options .likePost,
-.main .post .footer .post-options .likeComment {
-  margin: 0 !important;
-}
-
 .main .post .footer .post-options .like {
   margin: 0 !important;
 }
 
-.main .post .footer .post-options .likeComment svg {
+.main .post .footer .post-options .likeComment {
+  margin: 0 !important;
+}
+
+.main .post .footer .post-options .likeComment .likeSvg {
   height: 16px !important;
+  width: 16px !important;
+}
+
+.main .post .footer .post-options .likePost {
+  margin: 0 !important;
+}
+
+.main .post .footer .post-options .likePost .likeSvg {
+  height: 24px !important;
+  width: 24px !important;
 }
 
 .main .post .comment {

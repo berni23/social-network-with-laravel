@@ -105,20 +105,30 @@ body {
 
                 }
 
-                .likePost,
-                .likeComment {
-
-                    margin: 0 !important;
-                }
-
                 .like {
                     margin: 0 !important;
                 }
 
-                .likeComment svg {
+                .likeComment {
 
 
-                    height: 16px !important
+                    margin: 0 !important;
+
+                    .likeSvg {
+                        height: 16px !important;
+                        width: 16px !important;
+                    }
+                }
+
+
+                .likePost {
+
+                    margin: 0 !important;
+
+                    .likeSvg {
+                        height: 24px !important;
+                        width: 24px !important;
+                    }
                 }
             }
         }

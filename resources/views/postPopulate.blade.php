@@ -11,6 +11,9 @@
 @else
 
     @foreach ($posts as $post)
+
+        @php $heightLike = '24'@endphp
+
         <div class="post" data-post={{ $post->id }}>
             <div class="header">
                 <div class="wrapper">
@@ -77,6 +80,8 @@
                     </span>
                 </div>
                 <div class="comments">
+
+                    @php $heightLike = '16'@endphp
                     @foreach (App\Models\Post::find($post->id)->comments as $comment)
                         <div class="comment" data-comment=' {{ $comment->id }}'>
                             <p class="comment-content">
