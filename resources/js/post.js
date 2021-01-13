@@ -127,6 +127,8 @@ function updateLikesAndComments() {
 
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
+
+        console.log(postView);
         if (postView == 0) {
             document.removeEventListener('scroll', scrollBottom);
         } else {

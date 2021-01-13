@@ -156,7 +156,6 @@
         @include('components.modalAccept')
     @endif
 
-
     <script defer>
         var main = document.querySelector('main');
         var profileHeight = document.querySelector('.profile').offsetHeight + 20;

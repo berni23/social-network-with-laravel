@@ -93,13 +93,14 @@ class userController extends Controller
         $user = $this->user();
         $userPosts = $this->postsById(auth()->user()->id);
         $friendsId = $user->friendsId();
-        $friendsPosts = [];
-        foreach ($friendsId as $id) {
-            array_push($friendsPosts, $this->postsById($id));
+
+        for ($i = 0; $i < count($friendsId); $i++) {
+
+            $userPosts = arrayTools::merge($userPosts, $this->postsById($friendsId[$i]));
         }
-        $postsToSee = arrayTools::merge($userPosts, $friendsPosts);
-        usort($postsToSee, array('arrayTools', 'newFirst'));
-        return $postsToSee;
+
+        usort($userPosts, array('arrayTools', 'newFirst'));
+        return $userPosts;
     }
 
     public function isFriend($id)
