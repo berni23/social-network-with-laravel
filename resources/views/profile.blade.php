@@ -40,8 +40,9 @@
                 <p class="text-base font-medium text-gray-700 mr-2">{{ $user->description }}</p>
                 <br>
                 <br>
-                <p class="text-base font-medium text-blue-700 mr-2">#graphicsdesigner #traveller #reader #blogger
-                    #digitalmarketer</p>
+                {{-- <p class="text-base font-medium text-blue-700 mr-2">#graphicsdesigner
+                    #traveller #reader #blogger
+                    #digitalmarketer</p> --}}
             </div>
         </div>
     </div>

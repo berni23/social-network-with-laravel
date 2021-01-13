@@ -91,13 +91,14 @@ class userController extends Controller
     public function postsToSee()
     {
         $user = $this->user();
-        $userPosts = $this->postsById(auth()->user()->id);
+        $userPosts = arrayTools::objectToArray($this->postsById(auth()->user()->id));
         $friendsId = $user->friendsId();
 
         for ($i = 0; $i < count($friendsId); $i++) {
 
             $userPosts = arrayTools::merge($userPosts, $this->postsById($friendsId[$i]));
         }
+
 
         usort($userPosts, array('arrayTools', 'newFirst'));
         return $userPosts;

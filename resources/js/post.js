@@ -116,6 +116,8 @@ async function getLikesAndComments() {
 
 function updateLikesAndComments() {
     getLikesAndComments().then(function (data) {
+
+        console.log(data);
         data = JSON.parse(data);
         Object.keys(data).forEach(function (postId) {
             var likedBy = document.querySelector(`div[data-post = '${postId}'] .liked-by`);
@@ -128,7 +130,6 @@ function updateLikesAndComments() {
 function nextPage() {
     getPosts(limit * page, limit).then(function (postView) {
 
-        console.log(postView);
         if (postView == 0) {
             document.removeEventListener('scroll', scrollBottom);
         } else {
