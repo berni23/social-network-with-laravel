@@ -139,6 +139,6 @@ class User extends Authenticatable
 
     public function isFriend($id)
     {
-        return in_array($id, $this->friendsList());
+        return in_array($id, $this->friendsId());
     }
 }

@@ -106,7 +106,7 @@ class userController extends Controller
 
     public function isFriend($id)
     {
-        return in_array($id, $this->user()->friendsList());
+        return in_array($id, $this->user()->friendsId());
     }
 
     public function user()
