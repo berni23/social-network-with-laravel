@@ -3,7 +3,6 @@ var body = document.querySelector('body');
 body.addEventListener('click',
 
     function (event) {
-
         var list = event.target.classList;
         if (list.contains('modal-open') || list.contains('modal-close')) {
             event.preventDefault();

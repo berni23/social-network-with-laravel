@@ -37,7 +37,6 @@ class userController extends Controller
         return view('profile', compact('user'));
     }
 
-
     public function showFriends()
     {
         $friendsId = $this->user()->friendsId();
