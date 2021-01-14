@@ -10,6 +10,9 @@ use arrayTools;
 
 class userController extends Controller
 {
+
+    // show the user profile
+
     public function show()
     {
         $user = $this->user();
@@ -20,6 +23,8 @@ class userController extends Controller
         return view('profile', compact('user'));
     }
 
+    // show a user profile in general
+
     public function showUser($username)
     {
         $self = $this->user();
@@ -27,16 +32,35 @@ class userController extends Controller
         $friendsId = $self->friendsId();
         $user = User::where('name', $username)->get()->first();
         if (!$user) return redirect()->back()->with('message', 'user not found');
+
+        // populate data to be  displayed in the profile view
+
+        // number of friends
         $user->numFriends = $user->numFriends();
+        // number of posts
         $user->numPosts = $user->numPosts();
+        // user profile not the logged one
         $user->self = false;
+        // which status the user holds with this one
         $user->relStatus = $self->relStatus($user->id);
+
+        // an action will be available for the user depending on the friendship status
+
+        // block user
+        // remove friendship
+        // request friendship
+        // decline request
+
         $user->friendshipStatus = $this->friendshipStatus($user->id);
+
+        // user is able to see their posts if it is a friend
         if (in_array($user->id, $self->friendsId())) $user->show = true;
         else $user->show = false;
         return view('profile', compact('user'));
     }
 
+
+    // show a list of user friends
     public function showFriends()
     {
         $friendsId = $this->user()->friendsId();
@@ -48,29 +72,43 @@ class userController extends Controller
         return view('friendsList', compact('friends'));
     }
 
+    // post pagination depending on the offset and limit defined in  post.js
+
     public function paginatePosts(Request $request)
 
     {
         $posts = [];
+
+        // retrieve the posts based on the content variable, which matches the content with post description
         if (isset($request->content)) {
             $posts = $this->postsByContent($request->content);
 
             if (empty($posts)) return  view('postPopulate')->with('noPosts', 'no posts containing \'' . $request->content . '\'');
         } else {
             switch ($request->group) {
+                    // retrieve all the posts the user is able to see ( homepage)
                 case 'all':
                     $posts =  $this->postsToSee();
                     break;
+
+                    // retrieve only a single user posts (profile page)
                 case 'user';
                     $posts = arrayTools::objectToArray(User::find(auth()->user()->id)->posts()->orderBy('created_at', 'DESC')->get());
                     break;
                 default:
+
+                    // retrieve posts given a user id
                     $posts = arrayTools::objectToArray(User::find($request->group)->posts()->orderBy('created_at', 'DESC')->get());
                     break;
             }
         }
+
+        // split the posts based on limit and offset
         if (count($posts) < ($request->offset + $request->limit)) $posts = array_slice($posts, $request->offset);
         else $posts = array_slice($posts, $request->offset, $request->limit);
+
+
+        // add user mentions ( @name -> <a href = user/name>@name</a>)
 
         foreach ($posts as $post) {
             $post->description = arrayTools::addMentions($post->description);
@@ -86,6 +124,8 @@ class userController extends Controller
     {
         return  User::find($id)->posts;
     }
+
+    // retrieve posts the user is able to see ( own posts + friend posts)
 
     public function postsToSee()
     {
@@ -103,15 +143,21 @@ class userController extends Controller
         return $userPosts;
     }
 
+    // check if user is friend or not
+
     public function isFriend($id)
     {
         return in_array($id, $this->user()->friendsId());
     }
 
+    // retrieve logged user
+
     public function user()
     {
         return  User::find(auth()->user()->id);
     }
+
+    // message depending on relationship status with a user
     public function friendshipStatus($id)
     {
         $status =  $this->user()->relStatus($id);
@@ -128,6 +174,9 @@ class userController extends Controller
                 return 'send friendship request';
         }
     }
+
+    // handle friendship request
+
     public function friendshipRequest(Request $request, $id)
     {
         /*Relationship status
@@ -186,6 +235,9 @@ class userController extends Controller
         }
     }
 
+
+    // block a user
+
     function blockUser(Request $request, $id)
     {
         $user = $this->user();
@@ -202,6 +254,9 @@ class userController extends Controller
             ->with('message', 'user blocked')
             ->with('status', 200);
     }
+
+
+    // respond a friendship request ( accept or decline)
 
     function respondRequest(Request $request, $id)
     {
@@ -221,15 +276,19 @@ class userController extends Controller
         }
     }
 
+
+    // retrieve notifications with status 0 ( pending)
+
     function getNotifications()
     {
         return json_encode($this->user()->pendingNotifications());
     }
 
+
+    // handle user search
+
     function search(Request $request)
     {
-
-        // 1 - distinguir entre buscar users o (posts/comment)
 
         if (str_starts_with($request->search, '@')) {
             $name = substr($request->search, 1);
@@ -242,6 +301,7 @@ class userController extends Controller
     }
 
 
+    // retrieve posts if the content is found in post description
     function postsByContent($content)
     {
         $posts = $this->postsToSee();

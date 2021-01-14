@@ -11,6 +11,9 @@ use arrayTools;
 class likeController extends Controller
 {
 
+
+    // toggle the like the user has pressed
+
     function toggleLike($likeable, $id)
     {
         $model = "";
@@ -27,23 +30,22 @@ class likeController extends Controller
         // store the relation between user and liked comment, in order to paint it in red or not
 
         $queryLike = Like::queryLike($model->id, $likeable_type);
-         if (isset($queryLike)) {
-            if($queryLike->like) {
-            $model->likes -= 1;
-            $like=false;
-            }
-            else {
-                $like=true;
+        if (isset($queryLike)) {
+            if ($queryLike->like) {
+                $model->likes -= 1;
+                $like = false;
+            } else {
+                $like = true;
                 $model->likes += 1;
             }
             DB::table('likes')
-            ->where('likeable_id',$id)
-            ->where('likeable_type',$likeable_type)
-            ->where('user_id',auth()->user()->id)
-            ->update(['like'=>$like]);
-             $model->save();
-             return '1';
-         }
+                ->where('likeable_id', $id)
+                ->where('likeable_type', $likeable_type)
+                ->where('user_id', auth()->user()->id)
+                ->update(['like' => $like]);
+            $model->save();
+            return '1';
+        }
         $likeRel = new Like;
         $likeRel->likeable_id = $model->id;
         $likeRel->likeable_type = $likeable_type;

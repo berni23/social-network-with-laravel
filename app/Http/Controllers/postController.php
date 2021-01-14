@@ -12,13 +12,6 @@ use Illuminate\Database\QueryException;
 
 class postController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -30,11 +23,11 @@ class postController extends Controller
         return view('newPost');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    /* calculate time elapsed since post creation.
+       display such difference in seconds, minutes, hours or days depending
+       on the order of magnitude */
+
 
     static function timeElapsed($timestamp)
     {
@@ -72,13 +65,6 @@ class postController extends Controller
         ]);
     }
 
-    /**
-     * Display the  resources.
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
-    }
     /**
      * Show the form for editing the specified resource.
      * @param  int  $id
@@ -137,6 +123,9 @@ class postController extends Controller
             ->with('status', 200);
     }
 
+    /* recieve an string with post ids and send back the number
+     of likes for each one
+     */
     public function updateLikes(Request $request)
     {
         $posts = explode(',', $request->posts);
