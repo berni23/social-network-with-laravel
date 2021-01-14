@@ -362,6 +362,16 @@ The styling has been done to  great extend in the same php document using the ta
 
 
 
+### TESTING
+
+
+
+A  Dusk test has been applied to check that the login functionality works as expected.  It can be found under `tests/LoginTest.php`
+
+
+
+
+
 
 
 
