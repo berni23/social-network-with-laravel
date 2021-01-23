@@ -3,10 +3,12 @@
 ![](public/images/icon2.png)
 
 
+<br>
 
-#                                      Social network with laravel
 
+#   Social network with laravel
 
+<br>
 
 <br>
 
@@ -60,7 +62,7 @@ The database has been optimized in order to contain the minimum  number of table
 The users table stores the users that registered the application . The posts and comments table store posts and comments respectively and the likes table stores the like a user has made to a comment or post.  The reader may wonder why is it that there is no relation between likes table and posts/comments. The reason is that in that case we defined  a polymorphic relationship between likes and comments/posts. Doing it so, the likes table has a `likeable_id`, which may reference to posts or comments, depending on the model  path defined in `likeable_type`.  Such relationships  can be defined within the laravel framework, but are generally not understood by the databases themselves. 
 
 
-
+<br>
 
 
 
@@ -125,6 +127,7 @@ Most of the routes are defined at  `routes/web.php `  The endpoints defined here
 
 **<u>To user controller</u>**
 
+<br>
 
 
 GET: 
@@ -132,24 +135,31 @@ GET:
 <br>
 
 `/user/{username}`  -> show an user profile
+<br>
 
 `/user/notifications/all `-> get user notifications
+<br>
 
 `/user/friends/all` -> get user friends
 
-
+<br>
 
 POST: 
 
 
 
-<br>`/user/request/{id}`-> send a request to another user
+<br>
+`/user/request/{id}`-> send a request to another user
+<br>
 
 `/user/respond/{id}` ->  send a response request to a user
+<br>
 
 `/user/block/{id}` -> block a user
+<br>
 
 `/user/search/all` -> search post content or user by adding '@' at first
+<br>
 
  `/posts/page` -> obtain a subset of the posts  depending on the variables 'offset, limit,content and group'
 
@@ -157,6 +167,7 @@ POST:
 
 **<u>To post controller</u>**
 
+<br>
 
 
 GET:  
@@ -165,22 +176,27 @@ GET:
 
 `/posts/new`      	 ->  get view for creating a post
 
+<br>
 `/posts/edit/{id}`	 ->  get view for editing a post
+<br>
 
 `/posts/comments/{postId}` -> obtain a view with the comments of the post
 
-
+<br>
 
 POST
 
 <br>
 
 `/posts/create` -> create a post
+<br>
 
 `/posts/update/likes` ->update post likes
+<br>
 
 `/posts/update/{id}` -> edit a post
 
+<br>
 `/posts/delete/{id}` -> delete a post
 
 <br>
@@ -191,9 +207,10 @@ POST
 
 POST
 
+<br>
 `/comments/create`-> create a comment
 
-
+<br>
 
 **<u>To like controller</u>**
 
@@ -201,9 +218,10 @@ POST
 
 GET
 
+<br>
 `likes/{likeable}/{id}` -> toggle like of the user within a post or comment
 
-
+<br>
 
 **<u>To user profile controller</u>**
 
@@ -213,6 +231,7 @@ GET
 
 GET
 
+<br>
 `/user/profile` -> get user settings view
 
 <br>
@@ -241,9 +260,7 @@ In order to ensure that users get the right content displayed, only can edit or 
 
 <br>
 
-* checkBlocked.php -> This middleware is applied whenever one user looks for another one or tries to send a request on him. If the user did block him, 
-
-  it will appear as if it did not exist at all.
+* checkBlocked.php -> This middleware is applied whenever one user looks for another one or tries to send a request on him. If the user did block him,  it will appear as if it did not exist at all.
 
   
 
@@ -288,6 +305,7 @@ The  views have been structured as modular as possible, all coming from a common
 ### TOOLS
 
 
+<br>
 
 Besides the predefined folders made by laravel, we have created  `tools` inside the app folder. Here  we define a class  with static methods named `arrayTools` . Those functions have to do with looping through arrays , but their functionality can be extracted from any controller and thus, be used throughout the code. An example is a function sorting objects by the property `created_at` which  is useful at different stages of our code. Another one is the function that adds mentions given a text, finding the names starting with `@` and substituting those with  a link redirecting to the user profile. This function is both needed for posts and comments, so does not belong to any of those two controllers , but accessible by both.
 
@@ -347,7 +365,7 @@ Functionality to retrieve paginated posts, update likes and comments and add lik
 
 The styling has been done to  great extend in the same php document using the tailwind library. Nonetheless,  some styles have been applied using  sass style-sheets.  The files are the followings.
 
-
+<br>
 
 * _animations.scss  . File for storing  animations applied  when rendering the webpages.
 * _components.scss. Separated components like mixings, functions and utils.
@@ -360,10 +378,10 @@ The styling has been done to  great extend in the same php document using the ta
 
 
 
-
+<br>
 
 ### TESTING
-
+<br>
 
 
 A  Dusk test has been applied to check that the login functionality works as expected.  It can be found under `tests/LoginTest.php`
@@ -374,7 +392,7 @@ A  Dusk test has been applied to check that the login functionality works as exp
 
 
 
-
+<br>
 
 
 
